@@ -1,0 +1,85 @@
+package com.urrecliner.dicbible;
+
+import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.nowScrollView;
+import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.textSizeBibleBody;
+import static com.urrecliner.dicbible.Vars.textSizeBibleRefer;
+import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
+import static com.urrecliner.dicbible.Vars.textSizeKeyWord;
+import static com.urrecliner.dicbible.Vars.topTab;
+
+import android.content.Context;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class ZoomControl {
+
+    ZoomListener zoomListener;
+
+    public void set(Context context) {
+
+        zoomListener = new ZoomListener(context) {
+            int zoomCnt = 1000, yRatio;
+            boolean shouldSave = true;
+            @Override
+            public void onZoomOut() {
+                zoomCnt++;
+                if (zoomCnt%3 == 0 && textSizeBibleBody < 100) {
+                    if (shouldSave)
+                        yRatio = saveYPositionRatio();
+                    shouldSave = false;
+                    textSizeBibleBody++;
+                    textSizeBibleRefer++;
+                    textSizeKeyWord++;
+                    textSizeHymnBody++;
+                    if (topTab < TAB_MODE_HYMN)
+                        makeBible.showBibleBody();
+                    else if (topTab == TAB_MODE_HYMN)
+                        makeHymn.showHymnBody();
+                    nowScrollView.post(() -> new Timer().schedule(new TimerTask() {
+                        public void run() {
+                            nowScrollView.scrollTo(0, nowScrollView.getChildAt(0).getHeight() * yRatio / 1000);
+                            shouldSave = true;
+                        }
+                    }, 300));
+                }
+            }
+
+            @Override
+            public void onZoomIn() {
+                zoomCnt--;
+                if (zoomCnt%3 == 0 && textSizeBibleBody > 40) {
+                    if (shouldSave)
+                        yRatio = saveYPositionRatio();
+                    shouldSave = false;
+                    textSizeBibleBody--;
+                    textSizeBibleRefer--;
+                    textSizeKeyWord--;
+                    textSizeHymnBody--;
+                    if (topTab < TAB_MODE_HYMN)
+                        makeBible.showBibleBody();
+                    else if (topTab == TAB_MODE_HYMN)
+                        makeHymn.showHymnBody();
+                    nowScrollView.post(() -> new Timer().schedule(new TimerTask() {
+                        public void run() {
+                            nowScrollView.scrollTo(0, nowScrollView.getChildAt(0).getHeight() * yRatio / 1000);
+                            shouldSave = true;
+                        }
+                    }, 300));
+                }
+            }
+            int saveYPositionRatio() {
+                int totalHeight = nowScrollView.getChildAt(0).getHeight();
+                return (totalHeight != 0) ? (nowScrollView.getScrollY() * 1000 / totalHeight):0;
+            }
+        };
+
+        fBody.setOnTouchListener(zoomListener);
+
+    }
+
+}

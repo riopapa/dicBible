@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="screenBodyColor">#EDEFEF</color>
+    <color name="hymnImageBack">#E3EFE8</color>
+
+    <color name="MenuBackColor">#C5CAE9</color>
+    <color name="MenuForeColor">#081A57</color>
+
+    <color name="bibleColorFore">#000000</color>
+    <color name="hymnColorFore">#000000</color>
+    <color name="verseColorFore">#0000A0</color>
+    <color name="paraColorFore">#4B0082</color>
+    <color name="referColorFore">#4169E1</color>
+    <color name="numberColorFore">#191970</color>
+    <color name="cevColorFore">#A4395498</color>
+    <color name="agpColorFore">#A4A740DA</color>
+    <color name="dictColorFore">#0000FF</color>
+    <color name="hymnColorTitle">#44388C</color>
+    <color name="setSolid">#34282C</color>
+    <color name="setStroke">#8E35EF</color>
+    <color name="setText">#8E35EF</color>
+    <color name="appInfo">#C2DFFF</color>
+    <color name="quitBack">#FBBBB9</color>
+    <color name="quitFore">#113388</color>
+    <color name="markDark">#7A5C9F5F</color>
+    <color name="markLight">#50FFB300</color>
+
+</resources>
