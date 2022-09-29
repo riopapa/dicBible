@@ -17,6 +17,7 @@ import static com.urrecliner.dicbible.Vars.hymnColorTitle;
 import static com.urrecliner.dicbible.Vars.hymnName;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
+import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.normalMenuColor;
@@ -24,6 +25,7 @@ import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
+import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.textColorBack;
 import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
@@ -35,14 +37,17 @@ import static com.urrecliner.dicbible.Vars.vLeftAction;
 import static com.urrecliner.dicbible.Vars.vNewBible;
 import static com.urrecliner.dicbible.Vars.vOldBible;
 import static com.urrecliner.dicbible.Vars.vRightAction;
+import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -325,6 +330,7 @@ class MakeHymn {
 
     void buildMenu() {
 
+        vSearch.setVisibility(View.GONE);
         vAgpBible.setBackgroundColor(normalMenuColor);
         vOldBible.setBackgroundColor(normalMenuColor);
         vNewBible.setBackgroundColor(normalMenuColor);
@@ -353,6 +359,31 @@ class MakeHymn {
         vCenterAction.setSingleLine(true);
         vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         vCenterAction.setSelected(true);
+    }
+
+    void confirmSpeak() {
+        View dialogView = mActivity.getLayoutInflater().inflate(R.layout.speak_or_not, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
+        builder.setView(dialogView);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        TextView textView = dialogView.findViewById(R.id.promptMessage);
+        String s = "찬송가 반주를 그만 두려면\n["+hymnTitles[nowHymn]+"] 를 누르세요";
+        textView.setText(s);
+        Button ok_btn = dialogView.findViewById(R.id.ok_btn);
+        ok_btn.setText((isReadingNow)? "반주 그만": "반주 시작");
+        ok_btn.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            speaking.say();
+        });
+
+        Button bookMark = dialogView.findViewById(R.id.cancle_btn);
+        bookMark.setText((isReadingNow)? "계속 반주":"반주 안 함");
+        bookMark.setOnClickListener(v -> {
+            alertDialog.dismiss();
+        });
     }
 
     void goHymnLeft() {

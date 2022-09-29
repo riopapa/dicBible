@@ -36,6 +36,7 @@
             android:layout_weight="3"
             android:layout_height="match_parent"
             android:text="agp"
+            android:textSize="@dimen/menu_font_size_small"
             />
 
         <TextView
@@ -45,6 +46,7 @@
             android:layout_weight="5"
             android:layout_height="match_parent"
             android:text="@string/oldBible"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -54,6 +56,7 @@
             android:layout_weight="5"
             android:layout_height="match_parent"
             android:text="@string/newBible"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -63,6 +66,7 @@
             android:layout_weight="6"
             android:layout_height="match_parent"
             android:text="@string/hymn"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -72,6 +76,7 @@
             android:layout_weight="3"
             android:layout_height="match_parent"
             android:text="cev"
+            android:textSize="@dimen/menu_font_size_small"
             />
 
         <ImageView
@@ -111,6 +116,7 @@
             android:layout_weight="7"
             android:layout_height="match_parent"
             android:text="@string/prevBible"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -120,6 +126,7 @@
             android:layout_weight="12"
             android:layout_height="match_parent"
             android:text="@string/nowBible"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -129,6 +136,7 @@
             android:layout_weight="7"
             android:layout_height="match_parent"
             android:text="@string/nextBible"
+            android:textSize="@dimen/menu_font_size"
             />
 
         <TextView
@@ -138,6 +146,7 @@
             android:layout_weight="2"
             android:layout_height="match_parent"
             android:text="◁"
+            android:textSize="@dimen/menu_font_size"
             />
 
     </LinearLayout>

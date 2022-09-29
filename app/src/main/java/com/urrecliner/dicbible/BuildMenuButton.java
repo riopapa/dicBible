@@ -35,6 +35,7 @@ import static com.urrecliner.dicbible.Vars.vRightAction;
 import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.vSetting;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 public class BuildMenuButton {
@@ -47,6 +48,7 @@ public class BuildMenuButton {
         vHymn = mActivity.findViewById(R.id.hymn);
         vCevBible = mActivity.findViewById(R.id.cevBible);
         vSearch = mActivity.findViewById(R.id.search);
+
         vLeftAction = mActivity.findViewById(R.id.leftAction);
         vCenterAction = mActivity.findViewById(R.id.centerAction);
         vRightAction = mActivity.findViewById(R.id.rightAction);
@@ -56,8 +58,8 @@ public class BuildMenuButton {
 
     public static void assignListener() {
 
-        if (isReadingNow)
-            text2Speech.stopRead();
+//        if (isReadingNow)
+//            text2Speech.stopRead();
         vOldBible.setOnClickListener(v -> {
             topTab = TAB_MODE_OLD;
             nowVerse = getNowTopVerse();
@@ -100,9 +102,9 @@ public class BuildMenuButton {
         vSearch.setOnClickListener(v -> {
             if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0) {
                 history.push();
-//                Intent i = new Intent(MainActivity.this, SearchActivity.class);
-//                startActivity(i);
-//                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+                Intent i = new Intent(mActivity, SearchActivity.class);
+                mActivity.startActivity(i);
+                mActivity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
             }
         });
 
@@ -132,14 +134,10 @@ public class BuildMenuButton {
         vCenterAction.setOnClickListener(v -> {
             if (vCenterAction.getText().toString().equals(blank))
                 return;
-            if (isReadingNow) {
-
-            }
             if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0)
-                    makeBible.confirmSpeak();
-
-//    x            if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0)
-//      x              bookMarkThis();
+                makeBible.confirmSpeak();
+            else if (topTab == TAB_MODE_HYMN)
+                makeHymn.confirmSpeak();
         });
 
         vRightAction.setOnClickListener(v -> {

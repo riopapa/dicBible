@@ -18,6 +18,7 @@ import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.highLiteMenuColor;
 import static com.urrecliner.dicbible.Vars.history;
+import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.logFile;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
@@ -51,6 +52,7 @@ import static com.urrecliner.dicbible.Vars.vLeftAction;
 import static com.urrecliner.dicbible.Vars.vNewBible;
 import static com.urrecliner.dicbible.Vars.vOldBible;
 import static com.urrecliner.dicbible.Vars.vRightAction;
+import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.verseColorFore;
 import static com.urrecliner.dicbible.Vars.xPixels;
 import static com.urrecliner.dicbible.Vars.zoomControl;
@@ -684,6 +686,12 @@ class MakeBible {
     public void buildMenu() {
 
         String s;
+
+        if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && (nowBible> 1 && nowChapter > 0))
+            vSearch.setVisibility(View.VISIBLE);
+        else
+            vSearch.setVisibility(View.GONE);
+
         if (topTab == TAB_MODE_DIC) {
             vLeftAction.setText(blank);
             vRightAction.setText(blank);
@@ -786,7 +794,6 @@ class MakeBible {
         showBibleBody();
     }
 
-
     void confirmSpeak() {
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.speak_or_not, null);
 
@@ -796,17 +803,17 @@ class MakeBible {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         TextView textView = dialogView.findViewById(R.id.promptMessage);
-        String s = "성경 읽기 중지하려면\n["+fullBibleNames[nowBible]+nowChapter+"] 를 누르세요";
+        String s = "성경 읽는 중에 중지하려면\n["+fullBibleNames[nowBible]+nowChapter+"] 를 누르세요";
         textView.setText(s);
         Button ok_btn = dialogView.findViewById(R.id.ok_btn);
-        ok_btn.setText("성경 읽기");
+        ok_btn.setText((isReadingNow)? "그만 읽기": "읽기 시작");
         ok_btn.setOnClickListener(v -> {
             alertDialog.dismiss();
             speaking.say();
         });
 
         Button bookMark = dialogView.findViewById(R.id.cancle_btn);
-        bookMark.setText("즐겨 찾기에 추가");
+        bookMark.setText((isReadingNow)? "계속 읽기":"읽기 안 함");
         bookMark.setOnClickListener(v -> {
             alertDialog.dismiss();
         });

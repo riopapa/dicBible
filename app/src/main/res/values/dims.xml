@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="menu_font_size">18sp</dimen>
+    <dimen name="menu_font_size_small">14sp</dimen>
+</resources>
