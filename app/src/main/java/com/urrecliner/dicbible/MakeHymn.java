@@ -8,6 +8,7 @@ import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.darkMode;
+import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.highLiteMenuColor;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.hymnColorFore;
@@ -22,13 +23,10 @@ import static com.urrecliner.dicbible.Vars.normalMenuColor;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
-import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
 import static com.urrecliner.dicbible.Vars.textColorBack;
-import static com.urrecliner.dicbible.Vars.textSizeBibleTitle;
 import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
-import static com.urrecliner.dicbible.Vars.textSizeHymnTitle;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
 import static com.urrecliner.dicbible.Vars.vCevBible;
@@ -43,9 +41,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
+import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,9 +55,6 @@ import java.io.File;
 
 class MakeHymn {
 
-    private final String new2Line = "\n\n";
-
-    private TextView tVTitle;
     private String hymnTitle = "";
     final static int BTN_CLEAR = 100, BTN_GO = 200;
     private final int [] ids = {7,8,9,4,5,6,1,2,3,0,BTN_CLEAR,-1,BTN_GO,-1,-1};
@@ -68,6 +62,7 @@ class MakeHymn {
     private final String newLine = "\n";
     private ScrollView scrollView;
     private TextView textView;
+    private LinearLayout linearLayout;
 
     void showNumberKey() {
 
@@ -76,33 +71,21 @@ class MakeHymn {
 
         Button b;
 
-        LinearLayout linearlayout = new LinearLayout(mContext);
-        linearlayout.setOrientation(LinearLayout.VERTICAL);
-        linearlayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        scrollView.addView(linearlayout);
-
-        textView.setTextSize(textSizeHymnTitle);
-        textView.setTextColor(hymnColorFore);
-        textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        linearlayout.addView(textView);
-
-        tVTitle = new TextView(mContext);
         if (nowHymn > 0)
             hymnTitle = nowHymn + " : " + hymnTitles[nowHymn];
         else
             hymnTitle = "";
-        tVTitle.setText(hymnTitle);
-        tVTitle.setTextSize(textSizeHymnKeypad);
-        tVTitle.setTextColor(hymnColorTitle);
-        tVTitle.setGravity(Gravity.CENTER);
-        tVTitle.setWidth(2000);
-        linearlayout.addView(tVTitle);
+        textView.setText(hymnTitle);
+        textView.setTextSize(textSizeHymnKeypad);
+        textView.setTextColor(hymnColorTitle);
+        textView.setGravity(Gravity.CENTER);
+        linearLayout.addView(textView);
 
         for(int row = 0; row<5;row++) {
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-            linearlayout.addView(rowLayout);
+            linearLayout.addView(rowLayout);
             for(int col = 0; col < 3; col++) {
                 int id = ids[row*3+col];
                 if (id == -1)
@@ -133,7 +116,7 @@ class MakeHymn {
                 b.setWidth(buttonWidth);
                 b.setHeight(buttonHeight);
                 b.setText(buttonText);
-                b.setTextColor(bibleColorFore);
+                b.setTextColor(hymnColorFore);
                 columnLayout.addView(b);
                 b.setId(id);
                 if (id < 10) {
@@ -142,7 +125,7 @@ class MakeHymn {
                     if (nowHymn *10 + nbr <= 645) {
                         nowHymn = nowHymn * 10 + nbr;
                         hymnTitle = nowHymn + " " + hymnTitles[nowHymn];
-                        tVTitle.setText(hymnTitle);
+                        textView.setText(hymnTitle);
                     }
                     });
                 }
@@ -150,7 +133,7 @@ class MakeHymn {
                     if (id==100) b.setOnClickListener(v -> {
                         nowHymn = 0;
                         hymnTitle = "";
-                        tVTitle.setText(hymnTitle);
+                        textView.setText(hymnTitle);
                     });
                 else {    // code is go
                     b.setOnClickListener(v -> showHymnBody());
@@ -158,18 +141,12 @@ class MakeHymn {
                 rowLayout.addView(columnLayout);
             }
         }
-        TextView tVSort = new TextView(mContext);
-        tVSort.setTextSize(textSizeHymnKeypad);
-        tVSort.setTextColor(hymnColorFore);
-        tVSort.setGravity(Gravity.CENTER);
-        tVSort.setWidth(2000);
-        linearlayout.addView(tVSort);
 
         for(int row = 0; row<8;row++) {   // 4
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-            linearlayout.addView(rowLayout);
+            linearLayout.addView(rowLayout);
             for(int col = 0; col < 2; col++) {
                 String text = hymnTitles[sortedNumbers[(row+row+col)*41]].substring(0,8)+" ~";     // 81
                 LinearLayout columnLayout = new LinearLayout(mContext);
@@ -180,7 +157,7 @@ class MakeHymn {
                 b.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
-                b.setTextColor((darkMode)? mActivity.getColor(R.color.screenBodyColor) : mActivity.getColor(R.color.bibleColorFore));
+                b.setTextColor((darkMode)? mActivity.getColor(R.color.screenBodyColor) : mActivity.getColor(R.color.hymnColorFore));
                 columnLayout.addView(b);
                 b.setId((row+row+col)*41);    // 81
                 b.setOnClickListener(v -> {
@@ -191,11 +168,6 @@ class MakeHymn {
             }
         }
 
-//        TextView tTail = new TextView(mContext);
-//        tTail.setTextSize(textSizeHymnKeypad);
-//        tTail.setWidth(2000);
-//        tTail.setText(new2Line);
-//        linearlayout.addView(tTail);
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
         nowHymn = 0;
@@ -212,10 +184,6 @@ class MakeHymn {
 //            Toast.makeText(mContext, "찬송가 " + nowHymn + " 가사 파일 없음",Toast.LENGTH_LONG).show();
             return;
         }
-        LinearLayout linearlayout = new LinearLayout(mContext);
-        linearlayout.setOrientation(LinearLayout.VERTICAL);
-        linearlayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        scrollView.addView(linearlayout);
 
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
@@ -226,22 +194,22 @@ class MakeHymn {
         tVBody.setWidth(xPixels);
         tVBody.setTextColor(hymnColorFore);
         tVBody.setBackgroundColor(normalMenuColor | 0x777777);
-        linearlayout.addView(tVBody);
+        linearLayout.addView(tVBody);
 
         switch (hymnShowWhat) {
             case SHEET_THEN_LYRIC:
-                showHymnImage(linearlayout);
-                showHymnText(hymnTexts, linearlayout);
+                showHymnImage(linearLayout);
+                showHymnText(hymnTexts, linearLayout);
                 break;
             case LYRIC_THEN_SHEET:
-                showHymnText(hymnTexts, linearlayout);
-                showHymnImage(linearlayout);
+                showHymnText(hymnTexts, linearLayout);
+                showHymnImage(linearLayout);
                 break;
             case SHEET_ONLY:
-                showHymnImage(linearlayout);
+                showHymnImage(linearLayout);
                 break;
             case LYRIC_ONLY:
-                showHymnText(hymnTexts, linearlayout);
+                showHymnText(hymnTexts, linearLayout);
                 break;
         }
         history.push();
@@ -258,16 +226,14 @@ class MakeHymn {
 
         StringBuilder bodyText = new StringBuilder();
         for (String hymnText : hymnTexts) {
-            String workLine = "\n"+hymnText;
+            String workLine = hymnText+"\n";
             bodyText.append(workLine);
         }
-        bodyText.append("\n");
-//        if (hymnShowWhat == SHEET_THEN_LYRIC || hymnShowWhat == LYRIC_ONLY)
-//                    bodyText.append("\n\n\n");
+
         SpannableString sfBody = new SpannableString(bodyText);
         textView.setText(sfBody);
+        textView.setLineSpacing(1.2f, 1.2f);
         linearlayout.addView(textView);
-//        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void showHymnImage(LinearLayout linearlayout) {
@@ -284,63 +250,49 @@ class MakeHymn {
 //            pA = new PhotoViewAttacher(imV);
 //            pA.update();
         }
-        TextView tVBody = new TextView(mContext);
-        tVBody.setTextSize(textSizeHymnBody);
-        tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
-        tVBody.setWidth(xPixels);
-        tVBody.setTextColor(hymnColorFore);
-        linearlayout.addView(tVBody);
-
-        StringBuilder bodyText = new StringBuilder();
-        if (hymnShowWhat == SHEET_ONLY || hymnShowWhat == LYRIC_THEN_SHEET)
-            bodyText.append(new2Line);
-        SpannableString sfBody = new SpannableString(bodyText);
-        tVBody.setText(sfBody);
-        tVBody.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void showSortedHymnList(int start) {
 
         buildMenu();
-        fBody.removeAllViews();
-        fBody.setBackgroundColor(Vars.textColorBack);
+        initScrollView();
 
         nowHymn = -1 - start;
 
-        TextView titleTV; TextView numberTV;
+        textView.setText(newLine);
         String text;
-        LinearLayout linearlayout = new LinearLayout(mContext);
-        linearlayout.setOrientation(LinearLayout.VERTICAL);
-        linearlayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        scrollView.addView(linearlayout);
-        TextView tV = new TextView(mContext);
-        tV.setText("");
-        tV.setTextSize(textSizeHymnBody);
-        tV.setWidth(xPixels);
-        linearlayout.addView(tV);
 
-        for(int row = 0; row<41;row++) {  // 81
+        linearLayout.addView(textView);
+
+        for(int row = 0; row < 41;row++) {  // 81
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-            linearlayout.addView(rowLayout);
+            linearLayout.addView(rowLayout);
 
             LinearLayout columnLayout = new LinearLayout(mContext);
             columnLayout.setOrientation(LinearLayout.HORIZONTAL);
-            titleTV = new TextView(mContext);
-            titleTV.setText(hymnTitles[sortedNumbers[start]]);
-            titleTV.setTextColor(bibleColorFore);
-            titleTV.setTextSize(textSizeHymnBody);
-            columnLayout.addView(titleTV);
-            numberTV = new TextView(mContext);
+            textView = new TextView(mContext);
+            textView.setText(hymnTitles[sortedNumbers[start]]);
+            textView.setId(sortedNumbers[start]);
+            textView.setTextColor(bibleColorFore);
+            textView.setTextSize(textSizeHymnBody);
+            textView.setLineSpacing(1.2f, 1.2f);
+            columnLayout.addView(textView);
+            textView.setOnClickListener(v -> {
+                nowHymn = v.getId();
+                showHymnBody();
+            });
+            textView = new TextView(mContext);
             text = "  " + sortedNumbers[start] + " ";
-            numberTV.setText(text);
-            numberTV.setId(sortedNumbers[start]);
-            numberTV.setTextColor(paraColorFore);
-            numberTV.setTextSize(textSizeHymnBody);
-            numberTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-            columnLayout.addView(numberTV);
-            numberTV.setOnClickListener(v -> {
+            textView.setText(text);
+            textView.setId(sortedNumbers[start]);
+            textView.setTextColor(paraColorFore);
+            textView.setTextSize(textSizeHymnBody);
+            textView.setLineSpacing(1.2f, 1.2f);
+            textView.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+            columnLayout.addView(textView);
+            textView.setOnClickListener(v -> {
                 nowHymn = v.getId();
                 showHymnBody();
             });
@@ -349,13 +301,15 @@ class MakeHymn {
             if (start > 644)
                 break;
         }
-        TextView tVb = new TextView(mContext);
-        tVb.setText(new2Line);
-        tVb.setTextSize(textSizeBibleTitle);
-        tVb.setWidth(xPixels);
-//        tVb.setGravity(Gravity.CENTER);
-        linearlayout.addView(tVb);
-        fBody.addView(linearlayout);
+        LinearLayout rowLayout = new LinearLayout(mContext);
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+        rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
+        linearLayout.addView(rowLayout);
+        textView = new TextView(mContext);
+        textView.setText(newLine);
+        rowLayout.addView(textView);
+
+        fBody.addView(scrollView);
         history.push();
     }
 
@@ -363,24 +317,22 @@ class MakeHymn {
         scrollView = new ScrollView(mContext);
         scrollView.setBackgroundColor(textColorBack);
         textView = new TextView(mContext);
-    }
-
-    private void addBlankLine(LinearLayout linearlayout) {
-        textView.setText(newLine);
-        textView.setTextSize(10);
-        textView.setWidth(xPixels);
-        textView.setTextColor(0);
-        textView.setGravity(Gravity.CENTER);
-        linearlayout.addView(textView);
+        linearLayout = new LinearLayout(mContext);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
+        scrollView.addView(linearLayout);
     }
 
     void buildMenu() {
 
-        String s;
+        vAgpBible.setBackgroundColor(normalMenuColor);
         vOldBible.setBackgroundColor(normalMenuColor);
         vNewBible.setBackgroundColor(normalMenuColor);
         vHymn.setBackgroundColor(highLiteMenuColor);
-        vAgpBible.setVisibility(View.GONE);
+
+        vAgpBible.setText(blank);
+        vAgpBible.setBackgroundColor(normalMenuColor);
+        vCevBible.setText(blank);
         vCevBible.setBackgroundColor(normalMenuColor);
 
         if (nowHymn == 0) {     // show Hymn List
@@ -397,6 +349,10 @@ class MakeHymn {
             vCenterAction.setText(hymnTitles[nowHymn]);
             vRightAction.setText((nowHymn < 645) ? "" + (nowHymn + 1):blank);
         }
+
+        vCenterAction.setSingleLine(true);
+        vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        vCenterAction.setSelected(true);
     }
 
     void goHymnLeft() {

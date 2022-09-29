@@ -27,8 +27,7 @@
             android:layout_marginStart="0sp"
             android:contentDescription="@string/setting"
             android:src="@drawable/ic_settings"
-            app:layout_constraintHorizontal_weight="3"
-/>
+            />
 
         <TextView
             android:id="@+id/agpBible"
@@ -81,7 +80,6 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            app:layout_constraintHorizontal_weight="2"
             android:src="@drawable/ic_search"
             />
 
@@ -106,30 +104,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fBody">
 
-        <ImageView
-            android:id="@+id/speak"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="match_parent"
-            style="@style/MenuStyle"
-            app:layout_constraintHorizontal_weight="2"
-            android:src="@drawable/ic_speak_on"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/leftAction"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
         <TextView
             android:id="@+id/leftAction"
             style="@style/MenuStyle"
             android:layout_width="0dp"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:layout_height="match_parent"
             android:text="@string/prevBible"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/speak"
-            app:layout_constraintRight_toLeftOf="@+id/currBible"/>
+            />
 
         <TextView
             android:id="@+id/centerAction"
@@ -138,22 +120,25 @@
             android:layout_weight="12"
             android:layout_height="match_parent"
             android:text="@string/nowBible"
-            app:layout_constraintHorizontal_weight="6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/leftAction"
-            app:layout_constraintRight_toLeftOf="@id/rightAction" />
+            />
 
         <TextView
             android:id="@+id/rightAction"
             style="@style/MenuStyle"
             android:layout_width="0dp"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:layout_height="match_parent"
             android:text="@string/nextBible"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/currBible"
- />
+            />
+
+        <TextView
+            android:id="@+id/backAction"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="◁"
+            />
 
     </LinearLayout>
 

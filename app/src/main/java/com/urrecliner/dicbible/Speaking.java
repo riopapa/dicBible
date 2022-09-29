@@ -12,7 +12,6 @@ import static com.urrecliner.dicbible.Vars.readNowColor;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
-import static com.urrecliner.dicbible.Vars.vSpeak;
 
 import android.widget.Toast;
 
@@ -24,17 +23,14 @@ public class Speaking {
     void say() {
         if (isReadingNow) {
             isReadingNow = false;
-            vSpeak.setImageResource(R.mipmap.speak_on);
             history.push();
             text2Speech.stopRead();
         } else if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
-            vSpeak.setImageResource(R.mipmap.speak_off);
             isReadingNow = true;
 //            bookMarkNow = false;
             Toast.makeText(mContext,"성경읽기를 시작합니다",Toast.LENGTH_SHORT).show();
             text2Speech.readVerse();
         } else if (topTab == TAB_MODE_HYMN) {
-            vSpeak.setImageResource(R.mipmap.speak_off);
             isReadingNow = true;
             Toast.makeText(mContext,"찬송 부르기를 시작합니다",Toast.LENGTH_SHORT).show();
             text2Speech.playHymn();

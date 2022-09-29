@@ -1,5 +1,6 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
@@ -7,9 +8,11 @@ import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
+import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.maxVerse;
@@ -21,6 +24,7 @@ import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
+import static com.urrecliner.dicbible.Vars.vBackAction;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
 import static com.urrecliner.dicbible.Vars.vCevBible;
 import static com.urrecliner.dicbible.Vars.vHymn;
@@ -30,7 +34,8 @@ import static com.urrecliner.dicbible.Vars.vOldBible;
 import static com.urrecliner.dicbible.Vars.vRightAction;
 import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.vSetting;
-import static com.urrecliner.dicbible.Vars.vSpeak;
+
+import android.widget.Toast;
 
 public class BuildMenuButton {
 
@@ -42,10 +47,10 @@ public class BuildMenuButton {
         vHymn = mActivity.findViewById(R.id.hymn);
         vCevBible = mActivity.findViewById(R.id.cevBible);
         vSearch = mActivity.findViewById(R.id.search);
-        vSpeak = mActivity.findViewById(R.id.speak);
         vLeftAction = mActivity.findViewById(R.id.leftAction);
         vCenterAction = mActivity.findViewById(R.id.centerAction);
         vRightAction = mActivity.findViewById(R.id.rightAction);
+        vBackAction = mActivity.findViewById(R.id.backAction);
         fBody = mActivity.findViewById(R.id.fBody);
     }
 
@@ -57,12 +62,14 @@ public class BuildMenuButton {
             topTab = TAB_MODE_OLD;
             nowVerse = getNowTopVerse();
             nowBible = 0;
+            nowChapter = 0;
             makeBible.showBibleList();
         });
         vNewBible.setOnClickListener(v -> {
             topTab = TAB_MODE_NEW;
             nowVerse = getNowTopVerse();
             nowBible = 0;
+            nowChapter = 0;
             makeBible.showBibleList();
         });
         vHymn.setOnClickListener(v -> {
@@ -89,6 +96,7 @@ public class BuildMenuButton {
             nowVerse = getNowTopVerse();
             makeBible.showBibleBody();
         });
+
         vSearch.setOnClickListener(v -> {
             if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0) {
                 history.push();
@@ -98,9 +106,9 @@ public class BuildMenuButton {
             }
         });
 
-        vSpeak.setOnClickListener(v -> {
-            new Speaking().say();
-        });
+//        vSpeak.setOnClickListener(v -> {
+//            new Speaking().say();
+//        });
         vSetting.setOnClickListener(v -> {
             if (isReadingNow)
                 text2Speech.stopRead();
@@ -110,35 +118,50 @@ public class BuildMenuButton {
 //                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         });
 
-            vLeftAction.setOnClickListener(v -> {
-                if (isReadingNow) {
-                    if (isReadingNow)
-                    text2Speech.stopRead();
-                }
-                if (vLeftAction.getText().toString().equals(blank))
-                    return;
-                if (topTab < TAB_MODE_HYMN)
-                    makeBible.goBibleLeft();
-                else if (topTab == TAB_MODE_HYMN)
-                    makeHymn.goHymnLeft();
-            });
-            vCenterAction.setOnClickListener(v -> {
-                if (vCenterAction.getText().toString().equals(blank))
-                    return;
+        vLeftAction.setOnClickListener(v -> {
+            if (isReadingNow)
+                text2Speech.stopRead();
+            if (vLeftAction.getText().toString().equals(blank))
+                return;
+            if (topTab < TAB_MODE_HYMN)
+                makeBible.goBibleLeft();
+            else if (topTab == TAB_MODE_HYMN)
+                makeHymn.goHymnLeft();
+        });
+
+        vCenterAction.setOnClickListener(v -> {
+            if (vCenterAction.getText().toString().equals(blank))
+                return;
+            if (isReadingNow) {
+
+            }
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0)
+                    makeBible.confirmSpeak();
+
 //    x            if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0)
 //      x              bookMarkThis();
-            });
-            vRightAction.setOnClickListener(v -> {
-                if (isReadingNow)
-                    text2Speech.stopRead();
-                if (vRightAction.getText().toString().equals(blank))
-                    return;
-                if (topTab < TAB_MODE_HYMN)
-                    makeBible.goBibleRight();
-                else if (topTab == TAB_MODE_HYMN)
-                    makeHymn.goHymnRight();
-            });
-        }
+        });
+
+        vRightAction.setOnClickListener(v -> {
+            if (isReadingNow)
+                text2Speech.stopRead();
+            if (vRightAction.getText().toString().equals(blank))
+                return;
+            if (topTab < TAB_MODE_HYMN)
+                makeBible.goBibleRight();
+            else if (topTab == TAB_MODE_HYMN)
+                makeHymn.goHymnRight();
+        });
+
+        vBackAction.setOnClickListener(v -> {
+            if (isReadingNow)
+                text2Speech.stopRead();
+            if (goBacks.size() > 1) {
+                goBackward();
+            }
+        });
+
+    }
 
     private static int getNowTopVerse() {
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD)
@@ -146,6 +169,26 @@ public class BuildMenuButton {
         else
             return 0;
     }
-
-
-    }
+    static void goBackward() {
+            history.pop();
+            history.pop();
+            if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+                if (nowBible == 0)
+                    makeBible.showBibleList();
+                else if (nowChapter == 0)
+                    makeBible.showChapterList();
+                else
+                    makeBible.showBibleBody();
+            } else if (topTab == TAB_MODE_HYMN) {
+                if (nowHymn > 0)
+                    makeHymn.showHymnBody();
+                else {
+                    makeHymn.showNumberKey();
+                }
+            } else if (topTab == TAB_MODE_DIC) {
+                makeBible.showDicWord();
+            } else {
+                Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
+            }
+        }
+}

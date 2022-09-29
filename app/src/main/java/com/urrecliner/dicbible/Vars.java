@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.urrecliner.dicbible.model.BookMark;
@@ -37,12 +36,13 @@ public class Vars {
     static MakeBible makeBible = null;
     @SuppressLint("StaticFieldLeak")
     static MakeHymn makeHymn = null;
+    @SuppressLint("StaticFieldLeak")
+    static Speaking speaking = null;
     static History history = null;
     static Utils utils = null;
     static FileRead fileRead = null;
-    static ConstraintLayout constraintBody;
 
-    static ZoomListener zoomListener;
+    static ZoomControl zoomControl;
     static float windowYUpper, windowXCenter;
     @SuppressLint("StaticFieldLeak")
     static ScrollView nowScrollView;
@@ -77,9 +77,9 @@ public class Vars {
 
     static String nowDic;
 
-    static ImageView vSetting, vSearch, vSpeak;
+    static ImageView vSetting, vSearch;
     static TextView vAgpBible, vOldBible, vNewBible, vHymn, vCevBible;
-    static TextView vLeftAction, vCenterAction, vRightAction;
+    static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
 
     static int textSizeBibleNumber = 20;
     static int textSizeHymnTitle = 20;

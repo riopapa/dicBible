@@ -1,33 +1,34 @@
 package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowScrollView;
-import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.textSizeBibleBody;
 import static com.urrecliner.dicbible.Vars.textSizeBibleRefer;
 import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
 import static com.urrecliner.dicbible.Vars.textSizeKeyWord;
 import static com.urrecliner.dicbible.Vars.topTab;
 
-import android.content.Context;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ZoomControl {
 
-    ZoomListener zoomListener;
 
-    public void set(Context context) {
+    public void set() {
 
-        zoomListener = new ZoomListener(context) {
+        ZoomListener zoomListener = new ZoomListener(mActivity) {
             int zoomCnt = 1000, yRatio;
             boolean shouldSave = true;
             @Override
             public void onZoomOut() {
                 zoomCnt++;
+                Log.w("onZoomOut", "zoomCnt="+zoomCnt);
                 if (zoomCnt%3 == 0 && textSizeBibleBody < 100) {
                     if (shouldSave)
                         yRatio = saveYPositionRatio();

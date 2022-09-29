@@ -14,9 +14,11 @@ import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.sharedPref;
+import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
+import static com.urrecliner.dicbible.Vars.zoomControl;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -74,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
         BuildMenuButton.assignListener();
         utils.setKeepScreen();
         ScreenColor.setVars();
-        new ZoomControl().set(mContext);
+        zoomControl = new ZoomControl(); zoomControl.set();
+
+        speaking = new Speaking();
         text2Speech = new Text2Speech();
         text2Speech.setReady(getApplicationContext());
 
@@ -82,17 +86,18 @@ public class MainActivity extends AppCompatActivity {
         makeHymn = new MakeHymn();
 
         if (topTab < TAB_MODE_HYMN) {
+            makeBible.buildMenu();
             if (nowBible > 0)
                 makeBible.showBibleBody();
             else
                 makeBible.showBibleList();
         } else {
+            makeHymn.buildMenu();
             if (nowHymn > 0)
                 makeHymn.showHymnBody();
             else
                 makeHymn.showNumberKey();
         }
-
 
     }
 
