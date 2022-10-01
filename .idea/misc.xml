@@ -11,7 +11,15 @@
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_speak_on.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/settings.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/speak_or_not.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_selector.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_selector_on.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_thumb.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_track_off.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_track_on.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/value_increase.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_search.xml" value="0.14266304347826086" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/confirm_delete.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_activity.xml" value="0.176" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_item.xml" value="0.14266304347826086" />

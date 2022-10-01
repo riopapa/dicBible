@@ -6,6 +6,11 @@
 
     <color name="MenuBackColor">#C5CAE9</color>
     <color name="MenuForeColor">#081A57</color>
+    <color name="SetBackColor">#4F63DD</color>
+    <color name="SetForeColor">#081A57</color>
+
+    <color name="switchOn">#3333FF</color>
+    <color name="switchOff">#FFFF33</color>
 
     <color name="bibleColorFore">#000000</color>
     <color name="hymnColorFore">#000000</color>

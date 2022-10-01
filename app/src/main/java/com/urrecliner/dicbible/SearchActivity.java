@@ -42,7 +42,7 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_activity);
+        setContentView(R.layout.activity_search);
 
         searchActivity = this;
 //        utils.log(logID, "searchNext "+searchNext);
