@@ -18,9 +18,9 @@
     <string name="minus">"⊖"</string>  // ⊖          // \u27A4 비행기
     <string name="plus">"⊕"</string>    // ⊕ \u2A01
     <string name="number">12</string>
-    <string name="bibleName_size">이름</string>
-    <string name="scripture_size">본문</string>
-    <string name="keyword_size">키워드</string>
+    <string name="bibleName_size">성경이름</string>
+    <string name="script_size">본문</string>
+    <string name="dic_size">사전</string>
     <string name="crossing_size">관주</string>
     <string name="depth_size">검색장수</string>
     <string name="verse_space_size">절간격</string>

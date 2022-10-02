@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.maxVerse;
-import static com.urrecliner.dicbible.Vars.normalMenuColor;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
@@ -188,6 +188,6 @@ class Text2Speech {
         }
         mTTS.stop();
         isReadingNow = false;
-        vCenterAction.setBackgroundColor(normalMenuColor);
+        vCenterAction.setBackgroundColor(menuColorFore);
     }
 }

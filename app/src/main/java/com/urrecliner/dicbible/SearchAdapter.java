@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.searchActivity;
 import static com.urrecliner.dicbible.Vars.searchText;
 import static com.urrecliner.dicbible.Vars.searcheds;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
-import static com.urrecliner.dicbible.Vars.textSizeBibleBody;
+import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.text.SpannableString;
@@ -46,7 +46,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
 
             tvVerse = (TextView) itemView.findViewById(R.id.result_Verse);
             tvText = (TextView) itemView.findViewById(R.id.result_Text);
-            tvText.setTextSize(textSizeBibleBody*2/7);
+            tvText.setTextSize(textSizeScript *2/7);
 
             View view = itemView.findViewById(R.id.search_item);
             view.setOnClickListener(view1 -> jump2Searched(getAdapterPosition()));

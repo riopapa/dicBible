@@ -6,10 +6,10 @@ import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowScrollView;
-import static com.urrecliner.dicbible.Vars.textSizeBibleBody;
-import static com.urrecliner.dicbible.Vars.textSizeBibleRefer;
-import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
-import static com.urrecliner.dicbible.Vars.textSizeKeyWord;
+import static com.urrecliner.dicbible.Vars.textSizeScript;
+import static com.urrecliner.dicbible.Vars.textSizeRefer;
+import static com.urrecliner.dicbible.Vars.textSizeHymn;
+import static com.urrecliner.dicbible.Vars.textSizeDic;
 import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.util.Log;
@@ -29,14 +29,14 @@ public class ZoomControl {
             public void onZoomOut() {
                 zoomCnt++;
                 Log.w("onZoomOut", "zoomCnt="+zoomCnt);
-                if (zoomCnt%3 == 0 && textSizeBibleBody < 100) {
+                if (zoomCnt%3 == 0 && textSizeScript < 100) {
                     if (shouldSave)
                         yRatio = saveYPositionRatio();
                     shouldSave = false;
-                    textSizeBibleBody++;
-                    textSizeBibleRefer++;
-                    textSizeKeyWord++;
-                    textSizeHymnBody++;
+                    textSizeScript++;
+                    textSizeRefer++;
+                    textSizeDic++;
+                    textSizeHymn++;
                     if (topTab < TAB_MODE_HYMN)
                         makeBible.showBibleBody();
                     else if (topTab == TAB_MODE_HYMN)
@@ -53,14 +53,14 @@ public class ZoomControl {
             @Override
             public void onZoomIn() {
                 zoomCnt--;
-                if (zoomCnt%3 == 0 && textSizeBibleBody > 40) {
+                if (zoomCnt%3 == 0 && textSizeScript > 40) {
                     if (shouldSave)
                         yRatio = saveYPositionRatio();
                     shouldSave = false;
-                    textSizeBibleBody--;
-                    textSizeBibleRefer--;
-                    textSizeKeyWord--;
-                    textSizeHymnBody--;
+                    textSizeScript--;
+                    textSizeRefer--;
+                    textSizeDic--;
+                    textSizeHymn--;
                     if (topTab < TAB_MODE_HYMN)
                         makeBible.showBibleBody();
                     else if (topTab == TAB_MODE_HYMN)

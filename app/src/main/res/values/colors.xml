@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="screenBodyColor">#EDEFEF</color>
-    <color name="hymnImageBack">#E3EFE8</color>
-
-    <color name="MenuBackColor">#C5CAE9</color>
-    <color name="MenuForeColor">#081A57</color>
-    <color name="SetBackColor">#4F63DD</color>
-    <color name="SetForeColor">#081A57</color>
 
     <color name="switchOn">#3333FF</color>
-    <color name="switchOff">#FFFF33</color>
+    <color name="switchOff">#888888</color>
+
+<!--  Day Color  darkMode Off -->
+    <color name="screenColorBack">#CBE4E4</color>
+    <color name="hymnImageBack">#E3EFE8</color>
+
+    <color name="menuColorBack">#C5CAE9</color>
+    <color name="menuColorFore">#081A57</color>
 
     <color name="bibleColorFore">#000000</color>
     <color name="hymnColorFore">#000000</color>
-    <color name="verseColorFore">#0000A0</color>
-    <color name="paraColorFore">#4B0082</color>
-    <color name="referColorFore">#4169E1</color>
+    <color name="scriptColorFore">#222222</color>
+    <color name="paraColorFore">#330753</color>
+    <color name="referColorFore">#112B78</color>
     <color name="numberColorFore">#191970</color>
-    <color name="cevColorFore">#A4395498</color>
-    <color name="agpColorFore">#A4A740DA</color>
-    <color name="dictColorFore">#0000FF</color>
+    <color name="cevColorFore">#C4143DA5</color>
+    <color name="agpColorFore">#C48B19C3</color>
+    <color name="dictColorFore">#2424BC</color>
     <color name="hymnColorTitle">#44388C</color>
+    <color name="markColorBack">#7A75DC7A</color>
+
+    <!--  Night Color  darkMode On -->
+
+    <color name="screenColorBackN">#222222</color>
+    <color name="hymnImageBackN">#EEEEEE</color>
+
+    <color name="menuColorBackN">#081A57</color>
+    <color name="menuColorForeN">#5D617C</color>
+
+    <color name="bibleColorForeN">#EFDEDE</color>
+    <color name="hymnColorForeN">#ECE6E6</color>
+    <color name="scriptColorForeN">#EEEEEE</color>
+    <color name="paraColorForeN">#B38CCF</color>
+    <color name="referColorForeN">#6F85C6</color>
+    <color name="numberColorForeN">#7E7EAC</color>
+    <color name="agpColorForeN">#8FD3B1</color>
+    <color name="cevColorForeN">#B3B394</color>
+    <color name="dictColorForeN">#DDDD22</color>
+    <color name="hymnColorTitleN">#8A7DD8</color>
+    <color name="markColorBackN">#7A1D3C1E</color>
+
+
+
+
+
     <color name="setSolid">#34282C</color>
     <color name="setStroke">#8E35EF</color>
     <color name="setText">#8E35EF</color>
     <color name="appInfo">#C2DFFF</color>
     <color name="quitBack">#FBBBB9</color>
     <color name="quitFore">#113388</color>
-    <color name="markDark">#7A5C9F5F</color>
     <color name="markLight">#50FFB300</color>
 
 </resources>

@@ -12,6 +12,7 @@ import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
+import static com.urrecliner.dicbible.Vars.handlePrefs;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.sharedPref;
 import static com.urrecliner.dicbible.Vars.speaking;
@@ -62,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref = getApplicationContext().getSharedPreferences("bible", MODE_PRIVATE);
         sharedEdit = sharedPref.edit();
-        SharedPref.get();
+        HandlePrefs.get();
 
         setFullScreen();
+        utils = new Utils();
+        utils.setXPixels(mContext);
         goBacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
         history = new History();
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(mActivity, packageFolder);
-        utils = new Utils();
-        utils.setXPixels(mContext);
         BuildMenuButton.setViewVars();
         BuildMenuButton.assignListener();
         utils.setKeepScreen();
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         makeBible = new MakeBible();
         makeHymn = new MakeHymn();
+        handlePrefs = new HandlePrefs();
 
         if (topTab < TAB_MODE_HYMN) {
             makeBible.buildMenu();

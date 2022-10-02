@@ -26,8 +26,8 @@ public class Vars {
     static Context mContext = null;
     @SuppressLint("StaticFieldLeak")
     static Activity mActivity = null;
-//    @SuppressLint("StaticFieldLeak")
-//    static SetActivity setActivity = null;
+    @SuppressLint("StaticFieldLeak")
+    static SettingActivity settingActivity = null;
     @SuppressLint("StaticFieldLeak")
     static SearchActivity searchActivity = null;
     @SuppressLint("StaticFieldLeak")
@@ -45,7 +45,7 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static ScrollView nowScrollView;
     static int nowVisibleLine;
-//    static BookMarkAdapter bookMarkAdapter;
+    static BookMarkAdapter bookMarkAdapter;
     static RecyclerView bookMarkView;
 
     static int nowBible = 0, nowChapter = 1, nowVerse = 0, nowHymn = 0, maxVerse = 0;
@@ -66,15 +66,16 @@ public class Vars {
     static boolean agpShow = false;
     static boolean cevShow = false;
 
-    static int highLiteMenuColor, readNowColor;
-    static int bibleColorFore, verseColorFore, referColorFore, paraColorFore, numberColorFore;
+    static int menuSelectedBack;
+    static int bibleColorFore, scriptColorFore, referColorFore, paraColorFore, numberColorFore;
     static int agpColorFore, cevColorFore, dicColorFore;
     static int hymnColorFore, hymnColorTitle, hymnColorImage;
-    static int textColorBack;
+    static int screenColorBack, markColorBack;
     static ViewGroup fBody;
 
     static String nowDic;
 
+    static View topLayout, btmLayout;
     static ImageView vSetting, vSearch;
     static TextView vAgpBible, vOldBible, vNewBible, vHymn, vCevBible;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
@@ -86,12 +87,13 @@ public class Vars {
     // followings are from shared preference
     static SharedPreferences sharedPref;
     static SharedPreferences.Editor sharedEdit;
+    static HandlePrefs handlePrefs;
     static int textSizeBible66 = 24;
     static int textSizeBibleTitle = 24;
-    static int textSizeBibleRefer = 40;
-    static int textSizeHymnBody = 20;
-    static int textSizeBibleBody = 20;
-    static int textSizeKeyWord = 20;
+    static int textSizeRefer = 40;
+    static int textSizeHymn = 20;
+    static int textSizeScript = 20;
+    static int textSizeDic = 20;
     static int searchDepth = 20;
     static String searchText = null;
 
@@ -99,7 +101,7 @@ public class Vars {
     static int hymnShowWhat = 0;
     static boolean alwaysOn = true;
     static int textSizeSpace = 10;
-    static int normalMenuColor = 0;
+    static int menuColorFore = 0, menuColorBack = 0;
     static View fTop, fBtm;
     static final int SHEET_THEN_LYRIC = 0;
     static final int LYRIC_THEN_SHEET = 1;
@@ -108,9 +110,9 @@ public class Vars {
 
     static Text2Speech text2Speech = null;
     static boolean isReadingNow = false;
-    static float bibleSpeed = 0.8f;
-    static float biblePitch = 1.0f;
-    static float hymnSpeed = 0.9f;
+    static int bibleSpeed = 90;
+    static int biblePitch = 90;
+    static int hymnSpeed = 90;
     static boolean hymnAccompany = true;
     static boolean searchNext = false;
 

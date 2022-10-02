@@ -5,11 +5,11 @@ import static com.urrecliner.dicbible.Vars.LYRIC_ONLY;
 import static com.urrecliner.dicbible.Vars.LYRIC_THEN_SHEET;
 import static com.urrecliner.dicbible.Vars.SHEET_ONLY;
 import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
+import static com.urrecliner.dicbible.Vars.btmLayout;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.fBody;
-import static com.urrecliner.dicbible.Vars.highLiteMenuColor;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.hymnColorFore;
 import static com.urrecliner.dicbible.Vars.hymnColorImage;
@@ -20,14 +20,17 @@ import static com.urrecliner.dicbible.Vars.hymnTitles;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.normalMenuColor;
+import static com.urrecliner.dicbible.Vars.menuColorBack;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
+import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
+import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
 import static com.urrecliner.dicbible.Vars.speaking;
-import static com.urrecliner.dicbible.Vars.textColorBack;
-import static com.urrecliner.dicbible.Vars.textSizeHymnBody;
+import static com.urrecliner.dicbible.Vars.topLayout;
+import static com.urrecliner.dicbible.Vars.textSizeHymn;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
@@ -158,11 +161,11 @@ class MakeHymn {
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
                 b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark: R.drawable.button_number);
-                b.setTextSize(textSizeHymnBody*9/10);
+                b.setTextSize(textSizeHymn *9/10);
                 b.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
-                b.setTextColor((darkMode)? mActivity.getColor(R.color.screenBodyColor) : mActivity.getColor(R.color.hymnColorFore));
+                b.setTextColor((darkMode)? mActivity.getColor(R.color.screenColorBack) : mActivity.getColor(R.color.hymnColorFore));
                 columnLayout.addView(b);
                 b.setId((row+row+col)*41);    // 81
                 b.setOnClickListener(v -> {
@@ -193,12 +196,12 @@ class MakeHymn {
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
         tVBody.setText(txt);
-        tVBody.setTextSize(textSizeHymnBody+textSizeHymnBody/5);
+        tVBody.setTextSize(textSizeHymn + textSizeHymn /5);
         tVBody.setPadding(0,20,0,20);
         tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
         tVBody.setWidth(xPixels);
         tVBody.setTextColor(hymnColorFore);
-        tVBody.setBackgroundColor(normalMenuColor | 0x777777);
+        tVBody.setBackgroundColor(menuColorFore | 0x777777);
         linearLayout.addView(tVBody);
 
         switch (hymnShowWhat) {
@@ -224,7 +227,7 @@ class MakeHymn {
 
     private void showHymnText(String[] hymnTexts, LinearLayout linearlayout) {
         textView = new TextView(mContext);
-        textView.setTextSize(textSizeHymnBody);
+        textView.setTextSize(textSizeHymn);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         textView.setWidth(xPixels);
         textView.setTextColor(hymnColorFore);
@@ -281,7 +284,7 @@ class MakeHymn {
             textView.setText(hymnTitles[sortedNumbers[start]]);
             textView.setId(sortedNumbers[start]);
             textView.setTextColor(bibleColorFore);
-            textView.setTextSize(textSizeHymnBody);
+            textView.setTextSize(textSizeHymn);
             textView.setLineSpacing(1.2f, 1.2f);
             columnLayout.addView(textView);
             textView.setOnClickListener(v -> {
@@ -293,7 +296,7 @@ class MakeHymn {
             textView.setText(text);
             textView.setId(sortedNumbers[start]);
             textView.setTextColor(paraColorFore);
-            textView.setTextSize(textSizeHymnBody);
+            textView.setTextSize(textSizeHymn);
             textView.setLineSpacing(1.2f, 1.2f);
             textView.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
             columnLayout.addView(textView);
@@ -320,7 +323,7 @@ class MakeHymn {
 
     private void initScrollView() {
         scrollView = new ScrollView(mContext);
-        scrollView.setBackgroundColor(textColorBack);
+        scrollView.setBackgroundColor(screenColorBack);
         textView = new TextView(mContext);
         linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -330,16 +333,19 @@ class MakeHymn {
 
     void buildMenu() {
 
+        topLayout.setBackgroundColor(menuColorBack);
+        btmLayout.setBackgroundColor(menuColorBack);
+
         vSearch.setVisibility(View.GONE);
-        vAgpBible.setBackgroundColor(normalMenuColor);
-        vOldBible.setBackgroundColor(normalMenuColor);
-        vNewBible.setBackgroundColor(normalMenuColor);
-        vHymn.setBackgroundColor(highLiteMenuColor);
+        vAgpBible.setBackgroundColor(menuColorBack);
+        vOldBible.setBackgroundColor(menuColorBack);
+        vNewBible.setBackgroundColor(menuColorBack);
+//        vHymn.setBackgroundColor(menuSelectedBack);
+        vHymn.setBackgroundResource(R.drawable.bible_border);
+        vCevBible.setBackgroundColor(menuColorBack);
 
         vAgpBible.setText(blank);
-        vAgpBible.setBackgroundColor(normalMenuColor);
         vCevBible.setText(blank);
-        vCevBible.setBackgroundColor(normalMenuColor);
 
         if (nowHymn == 0) {     // show Hymn List
             vLeftAction.setText(blank);

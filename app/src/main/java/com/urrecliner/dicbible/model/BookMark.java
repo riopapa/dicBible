@@ -34,6 +34,7 @@ public class BookMark {
             }.getType();
             return  gson.fromJson(json, type);
         }
-
     }
+    public boolean isSave() { return save; }
+    public void setSave(boolean save) { this.save = save; }
 }

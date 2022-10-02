@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/bible_border.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/button_bible.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/button_number.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/confirm_delete.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_search.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_settings.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_speak.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_speak_off.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_speak_on.xml" value="0.18" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/setting_border.xml" value="0.1265" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/settings.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/speak_or_not.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_selector.xml" value="0.1795" />
@@ -20,7 +24,9 @@
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_search.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_setting.xml" value="0.264" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/book_mark.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/confirm_delete.xml" value="0.14266304347826086" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/history_table.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_activity.xml" value="0.176" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_item.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/speak_or_not.xml" value="0.14266304347826086" />

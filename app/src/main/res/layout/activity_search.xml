@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@color/markDark"
+        android:background="@color/markColorBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="성경 찾기"
             android:layout_gravity="center"
-            android:textColor="@color/MenuForeColor"
+            android:textColor="@color/menuColorFore"
             android:textSize="20sp" />
 
         <!-- search bible -->
@@ -49,7 +49,7 @@
                 android:layout_gravity="center"
                 android:text="고전12:31"
                 android:textSize="18sp"
-                android:textColor="@color/MenuForeColor"
+                android:textColor="@color/menuColorFore"
                 />
 
             <ImageView
@@ -72,7 +72,7 @@
                 android:hint="찾을 문장"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/MenuForeColor"
+                android:textColor="@color/menuColorFore"
                 />
 
             <ImageView

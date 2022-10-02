@@ -5,6 +5,7 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpShow;
+import static com.urrecliner.dicbible.Vars.btmLayout;
 import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.fBody;
@@ -21,6 +22,7 @@ import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
+import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
@@ -41,6 +43,10 @@ import android.widget.Toast;
 public class BuildMenuButton {
 
     public static void setViewVars() {
+
+        topLayout = mActivity.findViewById(R.id.lTop);
+        btmLayout = mActivity.findViewById(R.id.lBtm);
+
         vSetting = mActivity.findViewById(R.id.setting);
         vAgpBible = mActivity.findViewById(R.id.agpBible);
         vOldBible = mActivity.findViewById(R.id.oldBible);
@@ -115,8 +121,8 @@ public class BuildMenuButton {
             if (isReadingNow)
                 text2Speech.stopRead();
             history.push();
-//                Intent i = new Intent(MainActivity.this, SetActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(mActivity, SettingActivity.class);
+                mActivity.startActivity(i);
 //                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         });
 
