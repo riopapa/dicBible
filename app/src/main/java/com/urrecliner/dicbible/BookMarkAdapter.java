@@ -6,7 +6,6 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
-import static com.urrecliner.dicbible.Vars.handlePrefs;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -59,30 +58,12 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
                 pos = getAbsoluteAdapterPosition();
                 jump2BookMark();
             });
-            tvBibleChapter.setOnLongClickListener(view -> {
-                pos = getAbsoluteAdapterPosition();
-                saveOrNot();
-                return true;
-            });
 
             tvDateTime.setOnClickListener(view -> {
                 pos = getAbsoluteAdapterPosition();
                 jump2BookMark();
             });
-            tvDateTime.setOnLongClickListener(view -> {
-                pos = getAbsoluteAdapterPosition();
-                saveOrNot();
-                return true;
-            });
         }
-    }
-
-    private static void saveOrNot() {
-        BookMark bookMark = bookMarks.get(pos);
-        bookMark.setSave(!bookMark.isSave());
-        bookMarks.set(pos, bookMark);
-        handlePrefs.saveArray("bookMark", bookMarks);
-        bookMarkAdapter.notifyItemChanged(pos);
     }
 
     private static void jump2BookMark() {
@@ -94,24 +75,24 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
             s += " "+bookMark.verse+" 절";
         builder.setMessage(s);
         builder.setPositiveButton(s+" 로 이동",
-                (dialog, which) -> {
-                    history.push();
-                    nowBible = bookMark.bible;
-                    nowChapter = bookMark.chapter;
-                    nowVerse = bookMark.verse;
-                    nowHymn = 0;
-                    topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
-                    if (makeBible == null)
-                        makeBible = new MakeBible();
-                    makeBible.showBibleBody();
-                    setActivity.finish();
-                    setActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            (dialog, which) -> {
+                history.push();
+                nowBible = bookMark.bible;
+                nowChapter = bookMark.chapter;
+                nowVerse = bookMark.verse;
+                nowHymn = 0;
+                topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
+                if (makeBible == null)
+                    makeBible = new MakeBible();
+                makeBible.showBibleBody();
+                setActivity.finish();
+                setActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 });
         builder.setNegativeButton("삭제",
-                (dialog, which) -> {
-                    bookMarks.remove(pos);
-                    bookMarkAdapter.notifyItemRemoved(pos);
-                });
+            (dialog, which) -> {
+                bookMarks.remove(pos);
+                bookMarkAdapter.notifyItemRemoved(pos);
+            });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -128,14 +109,8 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
         holder.tvBibleChapter.setText(s);
         s = sdfDate.format(bookMark.when);
         holder.tvDateTime.setText(s);
-        if (bookMark.isSave()) {
-            holder.tvBibleChapter.setTypeface(null, Typeface.BOLD_ITALIC);
-            holder.tvDateTime.setTypeface(null, Typeface.BOLD_ITALIC);
-        }
-        else {
-            holder.tvBibleChapter.setTypeface(null, Typeface.NORMAL);
-            holder.tvDateTime.setTypeface(null, Typeface.NORMAL);
-        }
+        holder.tvBibleChapter.setTypeface(null, Typeface.NORMAL);
+        holder.tvDateTime.setTypeface(null, Typeface.NORMAL);
 
         setTextBackGround(holder.tvBibleChapter);
         setTextBackGround(holder.tvDateTime);

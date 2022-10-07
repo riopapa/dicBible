@@ -59,7 +59,6 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -264,9 +263,10 @@ class MakeBible {
         maxVerse  = bibleTexts.length;
 
         marked = new boolean[maxVerse+1];
-        for (BookMark bm: bookMarks)
-            marked[bm.verse] = (bm.bible == nowBible && bm.chapter == nowChapter);
-
+        for (BookMark bm: bookMarks) {
+            if (bm.bible == nowBible && bm.chapter == nowChapter)
+                marked[bm.verse] = true;
+        }
         idxText = 0;
         idxVerse = 0;
         idxRefer = 0;
@@ -298,8 +298,6 @@ class MakeBible {
         zoomControl.set();
         fBody.post(() -> new Timer().schedule(new TimerTask() {
             public void run() {
-                int pos = fBody.getBottom() * nowVerse / maxVerse;
-                Log.w("scroll "+pos,"getBottom="+fBody.getBottom());
                 scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody);
             }
         }, 200));
@@ -518,7 +516,7 @@ class MakeBible {
                 }
                 Toast.makeText(mContext, fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절이\n북마크 해제 되었습니다",Toast.LENGTH_LONG).show();
             } else {
-                bookMarks.add(0, new BookMark(bible, chapter, verse, System.currentTimeMillis(), false));
+                bookMarks.add(0, new BookMark(bible, chapter, verse, System.currentTimeMillis()));
                 Toast.makeText(mContext, fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절이\n북마크 설정 되었습니다",Toast.LENGTH_LONG).show();
             }
             HandlePrefs.saveArray("bookMark", bookMarks);
@@ -606,7 +604,7 @@ class MakeBible {
                         tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
                         tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
                         tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.4f, 1.4f);
+                        tVLine.setLineSpacing(1.5f, 1.5f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line.substring(1));
                         break;
@@ -617,7 +615,7 @@ class MakeBible {
                         tVLine.setTextColor(scriptColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.2f, 1.2f);
+                        tVLine.setLineSpacing(1.1f, 1.1f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;

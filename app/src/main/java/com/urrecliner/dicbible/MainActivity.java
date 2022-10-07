@@ -78,9 +78,14 @@ public class MainActivity extends AppCompatActivity {
         utils.setXPixels(mContext);
         goBacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
-        if (bookMarks.size() == 0)
-            bookMarks.add(new BookMark(44, 3,16,
-                    System.currentTimeMillis(), true));
+        if (bookMarks.size() == 0) {
+            bookMarks.add(new BookMark(44, 3, 16,
+                    System.currentTimeMillis()));
+            bookMarks.add(new BookMark(23, 41, 10,
+                    System.currentTimeMillis()));
+            bookMarks.add(new BookMark(40, 11, 28,
+                    System.currentTimeMillis()));
+        }
         history = new History();
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(mActivity, packageFolder);

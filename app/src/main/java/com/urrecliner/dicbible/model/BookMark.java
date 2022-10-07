@@ -13,15 +13,13 @@ public class BookMark {
     public int bible;
     public int chapter;
     public int verse;
-    public boolean save;
     public long when;
 
-    public BookMark(int bible, int chapter, int verse, long when, boolean save) {
+    public BookMark(int bible, int chapter, int verse, long when) {
         this.bible = bible;
         this.chapter = chapter;
         this.verse = verse;
         this.when = when;
-        this.save = save;
     }
 
     public static ArrayList<BookMark> read(SharedPreferences sharedPref) {
@@ -35,6 +33,4 @@ public class BookMark {
             return  gson.fromJson(json, type);
         }
     }
-    public boolean isSave() { return save; }
-    public void setSave(boolean save) { this.save = save; }
 }

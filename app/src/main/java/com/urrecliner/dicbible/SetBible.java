@@ -156,7 +156,7 @@ public class SetBible {
         sZSpeed = setActivity.findViewById(R.id.speed_size);
         uPSpeed = setActivity.findViewById(R.id.speed_up);
         setTexts(tVSpeed, dNSpeed, sZSpeed, uPSpeed, bibleSpeed*20/100);
-        txt = "" + bibleSpeed;
+        txt = "" + bibleSpeed + "%";
         sZSpeed.setText(txt);
         dNSpeed.setOnClickListener(v -> {
             bibleSpeed -= 5;
@@ -179,7 +179,7 @@ public class SetBible {
         sZPitch = setActivity.findViewById(R.id.pitch_size);
         uPPitch = setActivity.findViewById(R.id.pitch_up);
         setTexts(tVPitch, dNPitch, sZPitch, uPPitch, biblePitch*20/100);
-        txt = "" + biblePitch;
+        txt = "" + biblePitch + "%";
         sZPitch.setText(txt);
         dNPitch.setOnClickListener(v -> {
             biblePitch -= 5;
@@ -201,21 +201,21 @@ public class SetBible {
         dNDepth = setActivity.findViewById(R.id.depth_down);
         sZDepth = setActivity.findViewById(R.id.depth_size);
         uPDepth = setActivity.findViewById(R.id.depth_up);
-        setTexts(tVDepth, dNDepth, sZDepth, uPDepth, searchDepth);
+        setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
         txt = "" + searchDepth;
         sZDepth.setText(txt);
         dNDepth.setOnClickListener(v -> {
-            textSizeSpace--;
+            searchDepth--;
             String t = "" + searchDepth;
             sZDepth.setText(t);
-            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, searchDepth);
+            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
             sharedEdit.putInt("searchDepth", searchDepth).apply();
         });
         uPDepth.setOnClickListener(v -> {
-            textSizeSpace++;
+            searchDepth++;
             String t = "" + searchDepth;
             sZDepth.setText(t);
-            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, searchDepth);
+            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
             sharedEdit.putInt("searchDepth", searchDepth).apply();
         });
 
