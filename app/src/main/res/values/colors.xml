@@ -6,7 +6,7 @@
     <color name="switchOff">#888888</color>
 
 <!--  Day Color  darkMode Off -->
-    <color name="screenColorBack">#CBE4E4</color>
+    <color name="screenColorBack">#C5CAE9</color>
     <color name="hymnImageBack">#E3EFE8</color>
 
     <color name="menuColorBack">#C5CAE9</color>
@@ -26,11 +26,11 @@
 
     <!--  Night Color  darkMode On -->
 
-    <color name="screenColorBackN">#222222</color>
+    <color name="screenColorBackN">#081A57</color>
     <color name="hymnImageBackN">#EEEEEE</color>
 
     <color name="menuColorBackN">#081A57</color>
-    <color name="menuColorForeN">#5D617C</color>
+    <color name="menuColorForeN">#EEEEEE</color>
 
     <color name="bibleColorForeN">#EFDEDE</color>
     <color name="hymnColorForeN">#ECE6E6</color>

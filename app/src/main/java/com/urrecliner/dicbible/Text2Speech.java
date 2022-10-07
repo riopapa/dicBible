@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.maxVerse;
-import static com.urrecliner.dicbible.Vars.menuColorFore;
+import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
@@ -19,12 +19,11 @@ import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
+import android.speech.tts.UtteranceProgressListener;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,33 +41,39 @@ class Text2Speech {
         mTTS = new TextToSpeech(context, ttsInitListener);
     }
     // It's callback
-    private final TextToSpeech.OnInitListener ttsInitListener = new TextToSpeech.OnInitListener()
-    {
-        @SuppressLint("NewApi")
+    private final TextToSpeech.OnInitListener ttsInitListener = new TextToSpeech.OnInitListener() {
+        //        @SuppressLint("NewApi")
         @Override
-        public void onInit(int status)
-        {
+        public void onInit(int status) {
             if (status != TextToSpeech.SUCCESS)
                 return;
             mTTS.setPitch(biblePitch);
             mTTS.setSpeechRate(bibleSpeed);
-            mTTS.setOnUtteranceCompletedListener(completedListener);
-        }
-    };
-
-    @SuppressWarnings("deprecation")
-    private final OnUtteranceCompletedListener completedListener = utteranceId -> {
-        ttsVerseNow++;
-        if (isReadingNow && ttsVerseNow < maxVerse)
-            readVerseByTTS(ttsVerseNow);
-        else if (isReadingNow) {
-           makeBible.goBibleRight();
-            new Timer().schedule(new TimerTask() {
-                public void run() {
-                    ttsVerseNow =0;
-                    readVerseByTTS(ttsVerseNow);
+            mTTS.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onDone(String utteranceId) {
+                    ttsVerseNow++;
+                    if (isReadingNow && ttsVerseNow < maxVerse)
+                        readVerseByTTS(ttsVerseNow);
+                    else if (isReadingNow) {
+                        makeBible.goBibleRight();
+                        new Timer().schedule(new TimerTask() {
+                            public void run() {
+                                ttsVerseNow = 0;
+                                readVerseByTTS(ttsVerseNow);
+                            }
+                        }, 2000);
+                    }
                 }
-            }, 2000);
+
+                @Override
+                public void onError(String utteranceId) {
+                }
+
+                @Override
+                public void onStart(String utteranceId) {
+                }
+            });
         }
     };
 
@@ -114,9 +119,10 @@ class Text2Speech {
     }
 
     private void readVerseByTTS(int v) {
+        String text;
         String para = null;
         ttsVerseNow = v;
-        String text = bibleTexts[v].substring(0, bibleTexts[v].indexOf("`a"));
+        text = bibleTexts[v].substring(0, bibleTexts[v].indexOf("`a"));
         if (text.charAt(0) == '{') {
             para = text.substring(1,(text.indexOf("}")));
             text = text.substring(text.indexOf("}")+1);
@@ -164,8 +170,8 @@ class Text2Speech {
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 if (isReadingNow) {
-                   makeHymn.goHymnRight();
-                   new Timer().schedule(new TimerTask() {
+                    makeHymn.goHymnRight();
+                    new Timer().schedule(new TimerTask() {
                         public void run() {
                             playHymn();
                         }
@@ -188,6 +194,6 @@ class Text2Speech {
         }
         mTTS.stop();
         isReadingNow = false;
-        vCenterAction.setBackgroundColor(menuColorFore);
+        vCenterAction.setBackgroundColor(menuColorBack);
     }
 }

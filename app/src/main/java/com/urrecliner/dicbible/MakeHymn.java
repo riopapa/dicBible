@@ -5,42 +5,29 @@ import static com.urrecliner.dicbible.Vars.LYRIC_ONLY;
 import static com.urrecliner.dicbible.Vars.LYRIC_THEN_SHEET;
 import static com.urrecliner.dicbible.Vars.SHEET_ONLY;
 import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
-import static com.urrecliner.dicbible.Vars.btmLayout;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
-import static com.urrecliner.dicbible.Vars.blank;
+import static com.urrecliner.dicbible.Vars.buildMenu;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.history;
+import static com.urrecliner.dicbible.Vars.hymnAccompany;
 import static com.urrecliner.dicbible.Vars.hymnColorFore;
 import static com.urrecliner.dicbible.Vars.hymnColorImage;
 import static com.urrecliner.dicbible.Vars.hymnColorTitle;
-import static com.urrecliner.dicbible.Vars.hymnName;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
-import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
-import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
 import static com.urrecliner.dicbible.Vars.speaking;
-import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
-import static com.urrecliner.dicbible.Vars.vAgpBible;
-import static com.urrecliner.dicbible.Vars.vCenterAction;
-import static com.urrecliner.dicbible.Vars.vCevBible;
-import static com.urrecliner.dicbible.Vars.vHymn;
-import static com.urrecliner.dicbible.Vars.vLeftAction;
-import static com.urrecliner.dicbible.Vars.vNewBible;
-import static com.urrecliner.dicbible.Vars.vOldBible;
-import static com.urrecliner.dicbible.Vars.vRightAction;
-import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.AlertDialog;
@@ -48,7 +35,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -58,8 +44,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.File;
-
-//import uk.co.senab.photoview.PhotoViewAttacher;
 
 class MakeHymn {
 
@@ -74,7 +58,7 @@ class MakeHymn {
 
     void showNumberKey() {
 
-        buildMenu();
+        buildMenu.setHYMN();
         initScrollView();
 
         Button b;
@@ -103,7 +87,7 @@ class MakeHymn {
                 int buttonWidth;
                 switch (id) {
                     case BTN_CLEAR:
-                        buttonWidth = 320;
+                        buttonWidth = 420;
                         buttonText = "Clear";
                         break;
                     case BTN_GO:
@@ -183,7 +167,7 @@ class MakeHymn {
 
     void showHymnBody() {
 
-        buildMenu();
+        buildMenu.setHYMN();
         initScrollView();
 
         String txt = "Hymn/" + nowHymn + ".txt";
@@ -200,8 +184,8 @@ class MakeHymn {
         tVBody.setPadding(0,20,0,20);
         tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
         tVBody.setWidth(xPixels);
-        tVBody.setTextColor(hymnColorFore);
-        tVBody.setBackgroundColor(menuColorFore | 0x777777);
+        tVBody.setTextColor(menuColorFore);
+        tVBody.setBackgroundColor(menuColorBack);
         linearLayout.addView(tVBody);
 
         switch (hymnShowWhat) {
@@ -237,6 +221,9 @@ class MakeHymn {
             String workLine = hymnText+"\n";
             bodyText.append(workLine);
         }
+        if (hymnShowWhat == SHEET_THEN_LYRIC || hymnShowWhat == LYRIC_ONLY) {
+            bodyText.append(newLine).append(newLine);
+        }
 
         SpannableString sfBody = new SpannableString(bodyText);
         textView.setText(sfBody);
@@ -262,7 +249,7 @@ class MakeHymn {
 
     private void showSortedHymnList(int start) {
 
-        buildMenu();
+        buildMenu.setHYMN();
         initScrollView();
 
         nowHymn = -1 - start;
@@ -331,42 +318,6 @@ class MakeHymn {
         scrollView.addView(linearLayout);
     }
 
-    void buildMenu() {
-
-        topLayout.setBackgroundColor(menuColorBack);
-        btmLayout.setBackgroundColor(menuColorBack);
-
-        vSearch.setVisibility(View.GONE);
-        vAgpBible.setBackgroundColor(menuColorBack);
-        vOldBible.setBackgroundColor(menuColorBack);
-        vNewBible.setBackgroundColor(menuColorBack);
-//        vHymn.setBackgroundColor(menuSelectedBack);
-        vHymn.setBackgroundResource(R.drawable.bible_border);
-        vCevBible.setBackgroundColor(menuColorBack);
-
-        vAgpBible.setText(blank);
-        vCevBible.setText(blank);
-
-        if (nowHymn == 0) {     // show Hymn List
-            vLeftAction.setText(blank);
-            vRightAction.setText(blank);
-            vCenterAction.setText(hymnName);
-        } else if (nowHymn < 0) {   // show Hymn
-            vLeftAction.setText(blank);
-            vRightAction.setText(blank);
-            vCenterAction.setText(hymnTitles[sortedNumbers[-nowHymn - 1]].substring(0,8));
-        }
-        else {
-            vLeftAction.setText((nowHymn > 1) ? "" + (nowHymn - 1):blank);
-            vCenterAction.setText(hymnTitles[nowHymn]);
-            vRightAction.setText((nowHymn < 645) ? "" + (nowHymn + 1):blank);
-        }
-
-        vCenterAction.setSingleLine(true);
-        vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        vCenterAction.setSelected(true);
-    }
-
     void confirmSpeak() {
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.speak_or_not, null);
 
@@ -376,19 +327,13 @@ class MakeHymn {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         TextView textView = dialogView.findViewById(R.id.promptMessage);
-        String s = "찬송가 반주를 그만 두려면\n["+hymnTitles[nowHymn]+"] 를 누르세요";
+        String s = hymnTitles[nowHymn] + "\n" + ((hymnAccompany)? "반주를 시작합니다":"찬양을 시작합니다");
         textView.setText(s);
         Button ok_btn = dialogView.findViewById(R.id.ok_btn);
-        ok_btn.setText((isReadingNow)? "반주 그만": "반주 시작");
+        ok_btn.setText("확인");
         ok_btn.setOnClickListener(v -> {
             alertDialog.dismiss();
             speaking.say();
-        });
-
-        Button bookMark = dialogView.findViewById(R.id.cancle_btn);
-        bookMark.setText((isReadingNow)? "계속 반주":"반주 안 함");
-        bookMark.setOnClickListener(v -> {
-            alertDialog.dismiss();
         });
     }
 

@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.urrecliner.dicbible">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/icon_dic_bible"
         android:label="@string/app_name"
@@ -28,8 +26,10 @@
         </activity>
 
         <activity android:name=".SearchActivity" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SetActivity" />
 
     </application>
 
 </manifest>
+
+<!--  android:dataExtractionRules="@xml/data_extraction_rules" -->

@@ -14,6 +14,7 @@
 
     <!-- 설정 header   -->
     <LinearLayout
+        android:id="@+id/set"
         android:orientation="horizontal"
         android:background="@color/menuColorBack"
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
             android:textSize="24sp"
             />
         <TextView
+            android:id="@+id/head"
             android:layout_width="0dp"
             android:layout_weight="9"
             android:layout_margin="4sp"
@@ -41,31 +43,7 @@
 
     <!--  dark mode, alwaysOn  -->
     <LinearLayout
-        style="@style/SetStyle1"
-        android:orientation="horizontal"
-        android:background="@color/menuColorBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/dark_mode"
-            style="@style/OnOffSwitch"
-            android:layout_width="0dp"
-            android:layout_weight="12"
-            android:text="다크 모드"
-            android:textColor="@color/menuColorFore"
-            android:textSize="24sp"
-            app:track="@drawable/switch_selector"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:background="@color/menuColorBack"
-            android:text=" "
-            />
-    </LinearLayout>
-    <LinearLayout
+        android:id="@+id/lAlwaysOn"
         style="@style/SetStyle1"
         android:orientation="horizontal"
         android:background="@color/menuColorBack"
@@ -75,46 +53,43 @@
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/always_on"
             style="@style/OnOffSwitch"
-            android:layout_width="0dp"
-            android:layout_weight="12"
+            android:layout_width="match_parent"
             android:text="화면 계속 켜 두기"
             android:textColor="@color/menuColorFore"
             android:textSize="24sp"
-            android:checked="true"
+            android:layout_marginEnd="40dp"
             app:track="@drawable/switch_selector"
             />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:background="@color/menuColorBack"
-            android:text=" "
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lDarkMode"
+        style="@style/SetStyle1"
+        android:orientation="horizontal"
+        android:background="@color/menuColorBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/dark_mode"
+            style="@style/OnOffSwitch"
+            android:layout_width="match_parent"
+            android:text="다크 모드"
+            android:textColor="@color/menuColorFore"
+            android:textSize="24sp"
+            android:layout_marginEnd="40dp"
+            app:track="@drawable/switch_selector"
             />
     </LinearLayout>
 
 <!-- 성경 관련   -->
     <TextView
+        android:id="@+id/tBible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bible"
         style="@style/SetStyle1"
         />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <TextView
-            android:id="@+id/bibleSample"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/menuColorBack"
-            android:padding="4sp"
-            android:layout_marginStart="44sp"
-            android:text="문단제목\n12 예수께서 대답하여 이르시되\n"
-            />
-    </LinearLayout>
     <!--    성경 글씨 크기 -->
     <TextView
         android:id="@+id/lBibleName"
@@ -386,7 +361,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/speed_text"
+            android:id="@+id/txtSpeed"
             android:textSize="20sp"
             android:layout_width="0dp"
             android:layout_weight="6"
@@ -397,7 +372,7 @@
             android:layout_gravity="center"
             />
         <TextView
-            android:id="@+id/speed_size_down"
+            android:id="@+id/speed_down"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:gravity="center"
@@ -416,7 +391,7 @@
             android:textStyle="bold"
             android:textSize="20sp" />
         <TextView
-            android:id="@+id/speed_size_up"
+            android:id="@+id/speed_up"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:gravity="center"
@@ -435,7 +410,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/pitch_text"
+            android:id="@+id/txtPitch"
             android:textSize="20sp"
             android:layout_width="0dp"
             android:layout_weight="6"
@@ -446,7 +421,7 @@
             android:layout_gravity="center"
             />
         <TextView
-            android:id="@+id/pitch_size_down"
+            android:id="@+id/pitch_down"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:gravity="center"
@@ -465,7 +440,7 @@
             android:textStyle="bold"
             android:textSize="20sp" />
         <TextView
-            android:id="@+id/pitch_size_up"
+            android:id="@+id/pitch_up"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:gravity="center"
@@ -478,7 +453,7 @@
     <!--search depth-->
     <LinearLayout
         android:id="@+id/lBibleDepth"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -527,6 +502,7 @@
 
     <!--    찬송 관련 설정 -->
     <TextView
+        android:id="@+id/tHymn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="찬송"
@@ -534,12 +510,14 @@
         />
     <!--   찬송 레이아웃 -->
     <TextView
+        android:id="@+id/tHymnLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="찬송 레이 아웃"
         style="@style/SetStyle2"
         />
     <LinearLayout
+        android:id="@+id/lHymnShowGrp"
         style="@style/SetStyle2"
         android:gravity="center"
         android:orientation="horizontal"
@@ -597,6 +575,7 @@
 
     <!--hymn text size-->
     <LinearLayout
+        android:id="@+id/lHymnSize"
         style="@style/SetStyle2"
         android:gravity="center"
         android:orientation="horizontal"
@@ -645,6 +624,7 @@
     </LinearLayout>
     <!--hymn song speed-->
     <LinearLayout
+        android:id="@+id/lHymnSpeed"
         style="@style/SetStyle2"
         android:gravity="center"
         android:orientation="horizontal"
@@ -672,7 +652,7 @@
             android:textStyle="bold"
             android:textSize="24sp" />
         <TextView
-            android:id="@+id/hymn_sped"
+            android:id="@+id/hymn_speed_size"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:gravity="center"
@@ -692,10 +672,9 @@
             android:textSize="24sp" />
     </LinearLayout>
 
-
-
     <!-- hymn accompany, play -->
     <LinearLayout
+        android:id="@+id/lHymnType"
         style="@style/SetStyle2"
         android:gravity="center"
         android:orientation="horizontal"
@@ -738,45 +717,20 @@
                 android:textSize="20sp" />
         </RadioGroup>
     </LinearLayout>
-    <!-- black background -->
-    <LinearLayout
-        android:gravity="center"
-        android:padding="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_margin="4dp"
-        android:orientation="horizontal"
-        android:background="@drawable/setting_border"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:gravity="end|center_vertical"
-            android:layout_height="wrap_content"
-            android:text="@string/background_black"
-            android:layout_gravity="center"
-            android:textSize="20sp" />
-        <CheckBox
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/black_back"/>
-    </LinearLayout>
+
     <!--bible bookmark-->
     <TextView
-        android:padding="4dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/setting_border"
+        android:id="@+id/tBookMark"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/bibleBookMark"
-        android:layout_gravity="center"
-        android:textSize="28sp" />
+        android:text="책갈피"
+        style="@style/SetStyle1"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/book_marks"
         android:layout_width="match_parent"
+        android:layout_marginStart="60dp"
         android:layout_height="match_parent"
         app:layoutManager="GridLayoutManager"
         app:spanCount="2"
@@ -785,13 +739,12 @@
     <!--app info-->
     <TextView
         android:id="@+id/build_time"
+        style="@style/SetStyle1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:background="@color/appInfo"
         android:layout_gravity="center"
         android:text="@string/about"
-        android:textSize="18sp" />
+        />
     <!--app info-->
     <TableLayout
         android:id="@+id/table"

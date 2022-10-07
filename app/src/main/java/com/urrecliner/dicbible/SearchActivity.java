@@ -1,8 +1,12 @@
 package com.urrecliner.dicbible;
 
 
+import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
+import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.mContext;
+import static com.urrecliner.dicbible.Vars.menuColorBack;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -17,6 +21,7 @@ import static com.urrecliner.dicbible.Vars.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.urrecliner.dicbible.model.Searched;
 
@@ -46,10 +53,13 @@ public class SearchActivity extends Activity {
 
         searchActivity = this;
 //        utils.log(logID, "searchNext "+searchNext);
+        setLayoutBackGround(this.findViewById(R.id.lSearch));
+        setTextBackGround(this.findViewById(R.id.tSearch));
 
         tvFrom = findViewById(R.id.searchStartVerse);
         String s = shortBibleNames[nowBible]+" "+nowChapter+":1~";
         tvFrom.setText(s);
+        tvFrom.setTextColor(menuColorFore);
         searcheds = null;
         tvSearchKey = findViewById(R.id.txtSearch);
         if (searchText != null) {
@@ -63,11 +73,22 @@ public class SearchActivity extends Activity {
             return false;
         };
         tvSearchKey.setOnKeyListener(keyListenerEnter);
+        tvSearchKey.setTextColor(menuColorFore);
 
         ivQuickSearch = findViewById(R.id.quickSearch);
         ivQuickSearch.setOnClickListener(v -> searchQuick());
+        Drawable d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
+        Drawable wrappedDrawable = DrawableCompat.wrap(d);
+        DrawableCompat.setTint(wrappedDrawable, menuColorFore);
+        ivQuickSearch.setImageDrawable(wrappedDrawable);
 
         ivSearchNext = findViewById(R.id.searchNext);
+        ivSearchNext.setBackgroundColor(menuColorBack);
+        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search_next, null);
+        wrappedDrawable = DrawableCompat.wrap(d);
+        DrawableCompat.setTint(wrappedDrawable, menuColorFore);
+        ivSearchNext.setImageDrawable(wrappedDrawable);
+
         ivSearchNext.setOnClickListener(v -> {
             if (topTab < TAB_MODE_HYMN) {
                 searchText = tvSearchKey.getText().toString();
@@ -79,6 +100,10 @@ public class SearchActivity extends Activity {
             }
         });
         ivTextClear = findViewById(R.id.text_clear);
+        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.clear_text, null);
+        wrappedDrawable = DrawableCompat.wrap(d);
+        DrawableCompat.setTint(wrappedDrawable, menuColorFore);
+        ivTextClear.setImageDrawable(wrappedDrawable);
         ivTextClear.setOnClickListener(v -> {
             tvSearchKey.setText("");
             tvSearchKey.setFocusable(true);
@@ -139,7 +164,7 @@ public class SearchActivity extends Activity {
             }
         }
         if (searcheds.size() == 0)
-            Toast.makeText(mContext," 검색되지 않습니다. 계속 버튼을 누르거나\n설정에서 검색장수("+searchDepth+")를 늘려보세요.",Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext,searchText+" 없음. ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.",Toast.LENGTH_LONG).show();
     }
 
     private String extractVerse(String bibleVers) {

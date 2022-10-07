@@ -8,9 +8,8 @@ import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
-import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.bookMarks;
-import static com.urrecliner.dicbible.Vars.btmLayout;
+import static com.urrecliner.dicbible.Vars.buildMenu;
 import static com.urrecliner.dicbible.Vars.cevColorFore;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
@@ -18,13 +17,10 @@ import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.history;
-import static com.urrecliner.dicbible.Vars.isReadingNow;
-import static com.urrecliner.dicbible.Vars.logFile;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.markColorBack;
 import static com.urrecliner.dicbible.Vars.maxVerse;
-import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -34,7 +30,6 @@ import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.numberColorFore;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
-import static com.urrecliner.dicbible.Vars.referColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.scriptColorFore;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
@@ -45,19 +40,7 @@ import static com.urrecliner.dicbible.Vars.textSizeDic;
 import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
-import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.topTab;
-import static com.urrecliner.dicbible.Vars.utils;
-import static com.urrecliner.dicbible.Vars.vAgpBible;
-import static com.urrecliner.dicbible.Vars.vBackAction;
-import static com.urrecliner.dicbible.Vars.vCenterAction;
-import static com.urrecliner.dicbible.Vars.vCevBible;
-import static com.urrecliner.dicbible.Vars.vHymn;
-import static com.urrecliner.dicbible.Vars.vLeftAction;
-import static com.urrecliner.dicbible.Vars.vNewBible;
-import static com.urrecliner.dicbible.Vars.vOldBible;
-import static com.urrecliner.dicbible.Vars.vRightAction;
-import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.xPixels;
 import static com.urrecliner.dicbible.Vars.zoomControl;
 import static java.lang.Integer.parseInt;
@@ -70,7 +53,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
@@ -78,12 +60,9 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -107,7 +86,8 @@ class MakeBible {
     private final String markChar = "†";
 
     void showBibleList() {
-        buildMenu();
+
+        buildMenu.setBible();
         initScrollView();
 
         int loop = (topTab == TAB_MODE_OLD) ?  39: 27;
@@ -159,7 +139,10 @@ class MakeBible {
         linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        scrollView.addView(linearLayout);
+        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lParams.setMargins(20, 0, 30, 0);
+        scrollView.addView(linearLayout, lParams);
     }
 
     private void addBlankLine(LinearLayout linearlayout) {
@@ -172,9 +155,12 @@ class MakeBible {
     }
 
     void showChapterList() {
-        buildMenu();
+        buildMenu.setBible();
         initScrollView();
-        textView.setText(newLine);
+        textView.setText(newLine+fullBibleNames[nowBible]);
+        textView.setTextColor(menuColorFore);
+        textView.setTextSize(textSizeScript);
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
         linearLayout.addView(textView);
 
         int chapterMax = nbrOfChapters[nowBible];
@@ -235,8 +221,8 @@ class MakeBible {
     private final int [] verseT = new int[VERSE_SIZE];
     private int idxText, idxVerse;
 
-    private final int [] crossF = new int[TABLE_SIZE];
-    private final int [] crossT = new int[TABLE_SIZE];
+    private final int [] referF = new int[TABLE_SIZE];
+    private final int [] referT = new int[TABLE_SIZE];
     private final int [] crossV = new int[TABLE_SIZE];
     private final String [] crossS = new String[TABLE_SIZE];
     private int idxRefer;
@@ -263,10 +249,10 @@ class MakeBible {
 
     private int ptrBody;
     private StringBuilder bodyText;
-    int paraSize, dicSize, referSize, spaceSize;
+    int paraSize, referSize;
 
     void showBibleBody() {
-        buildMenu();
+        buildMenu.setBible();
         initScrollView();
 
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
@@ -278,10 +264,8 @@ class MakeBible {
         maxVerse  = bibleTexts.length;
 
         marked = new boolean[maxVerse+1];
-        for (BookMark bm: bookMarks) {
-            if (bm.bible == nowBible && bm.chapter == nowChapter)
-                marked[bm.verse] = true;
-        }
+        for (BookMark bm: bookMarks)
+            marked[bm.verse] = (bm.bible == nowBible && bm.chapter == nowChapter);
 
         idxText = 0;
         idxVerse = 0;
@@ -292,9 +276,9 @@ class MakeBible {
         idxCev = 0;
         idxSpace = 0;
 
-        final ViewGroup.MarginLayoutParams lp =(ViewGroup.MarginLayoutParams)linearLayout.getLayoutParams();
-        lp.setMargins(20,16,20,16);
-        linearLayout.setLayoutParams(lp);
+//        final ViewGroup.MarginLayoutParams lp =(ViewGroup.MarginLayoutParams)linearLayout.getLayoutParams();
+//        lp.setMargins(20,0,60,0);
+//        linearLayout.setLayoutParams(lp);
         bodyText = new StringBuilder();
         bodyText.append(newLine);
         ptrBody = 1;
@@ -324,9 +308,6 @@ class MakeBible {
     private SpannableString settleSpannableString(StringBuilder bodyText) {
 
         paraSize = textSizeScript * 11 / 10;
-        dicSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeDic, mContext.getResources().getDisplayMetrics());
-        referSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeRefer, mContext.getResources().getDisplayMetrics());
-        spaceSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeSpace, mContext.getResources().getDisplayMetrics());
 
         SpannableString ss = new SpannableString(bodyText);
 
@@ -335,7 +316,9 @@ class MakeBible {
             ss.setSpan(new ForegroundColorSpan(scriptColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxKeyword; i++) {
-            ss.setSpan(new keywordSpan(keywords[i], keywordV[i]), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new keywordClick(keywords[i], keywordV[i]), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(textSizeDic, true), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(dicColorFore), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxVerse; i++) {
             ss.setSpan(new verseSpan(nowBible, nowChapter, i+1), verseF[i], verseT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -348,18 +331,17 @@ class MakeBible {
             ss.setSpan(new StyleSpan(BOLD), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxRefer; i++) {
-            ss.setSpan(new referSpan(crossS[i], crossV[i]), crossF[i], crossT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(textSizeRefer, true), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new referSpan(crossS[i], crossV[i]), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxCev; i++) {
             ss.setSpan(new ForegroundColorSpan(cevColorFore), cevF[i], cevT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            ss.setSpan(new BackgroundColorSpan(cevColorBlack), cevF[i], cevT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxAgp; i++) {
             ss.setSpan(new ForegroundColorSpan(agpColorFore), agpF[i], agpT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            ss.setSpan(new BackgroundColorSpan(agpColorBlack), agpF[i], agpT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxSpace; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(spaceSize, false), spaceF[i], spaceT[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(textSizeSpace/2, true), spaceF[i], spaceT[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (highLightF > 0)
             ss.setSpan(new BackgroundColorSpan(markColorBack), highLightF, highLightT, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -411,9 +393,9 @@ class MakeBible {
                     paraT[idxPara] = ptrBody + str.length() + 1;
                     idxPara++;
                     ptrBody += str.length() + 1;
-                    spaceF[idxSpace] = ptrBody;
+                    spaceF[idxSpace] = ptrBody-1;
                     bodyText.append(" " + newLine);
-                    spaceT[idxSpace] = ptrBody + 2;
+                    spaceT[idxSpace] = ptrBody + 3;
                     ptrBody += 2;
                     idxSpace++;
                 }
@@ -484,8 +466,8 @@ class MakeBible {
             String bibShort = shortBibleNames[parseInt(keyword.substring(1, 3))];
             String showWord = " (" + bibShort + keyword.substring(4) + ") ";      // $01#12:34 -> (창12:34) 로 표시
             bodyText.append(showWord);
-            crossF[idxRefer] = ptrBody;
-            crossT[idxRefer] = ptrBody + showWord.length();
+            referF[idxRefer] = ptrBody;
+            referT[idxRefer] = ptrBody + showWord.length();
             crossV[idxRefer] = verse;
             crossS[idxRefer] = keyword.substring(1);  // save 01#12:34
             idxRefer++;
@@ -508,12 +490,6 @@ class MakeBible {
                     bodyText.append(keyword);
                 }
                 idxKeyword++;
-//            } else {
-//                if (tilde != -1)
-//                    searchKey = searchKey.substring(0,searchKey.length()-1);
-//                bodyText.append(searchKey);
-//                ptrBody += searchKey.length();
-//            }
         }
         return ptr;
     }
@@ -552,18 +528,15 @@ class MakeBible {
         }
     }
 
-    public class keywordSpan extends ClickableSpan {
+    public class keywordClick extends ClickableSpan {
 
         String key;
         int verse;
-        keywordSpan(String key, int verse) { this.key = key; this.verse = verse;}
+        keywordClick(String key, int verse) { this.key = key; this.verse = verse;}
 
-        Typeface boldface = Typeface.create(Typeface.DEFAULT, BOLD);
         @Override
         public void updateDrawState(TextPaint ds) {
-            ds.setColor(dicColorFore);
-            ds.setTypeface(boldface);
-            ds.setTextSize(dicSize);
+            ds.setUnderlineText(false);
         }
 
         @Override
@@ -581,8 +554,6 @@ class MakeBible {
         referSpan(String key, int verse) { this.key = key; this.verse = verse;}
         @Override
         public void updateDrawState(TextPaint ds) {
-            ds.setColor(referColorFore);
-            ds.setTextSize(referSize);  // double size
             ds.setUnderlineText(false);    // this remove the underline
         }
 
@@ -596,20 +567,21 @@ class MakeBible {
 
     void showDicWord() {
 
+        history.push();
         topTab = TAB_MODE_DIC;
-        buildMenu();
+        buildMenu.setBible();
         initScrollView();
 
         int verse = nowVerse;
         String txt = "dict/" + nowDic + ".txt";
-        history.pop();
-        nowVerse = verse;
-        history.push();
+//        history.pop();
+//        nowVerse = verse;
+//        history.push();
         String [] dicTexts = FileRead.readBibleFile(txt);
         if (dicTexts != null) {
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
-            lp.setMargins(60,36,60,40);
-            linearLayout.setLayoutParams(lp);
+//            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
+//            lp.setMargins(60,36,60,40);
+//            linearLayout.setLayoutParams(lp);
             for (String line : dicTexts) {
                 switch (line.substring(0, 1)) {
                     case "@":       // contains image file name
@@ -652,14 +624,11 @@ class MakeBible {
                     }
                 }
             }
-        }
-        else {
+        } else {
             String errText = "[" + nowDic + "] not found";
             Toast.makeText(mContext,errText,Toast.LENGTH_LONG).show();
-            utils.log(logFile, errText);
+//            utils.log(logFile, errText);
         }
-        topTab = TAB_MODE_DIC;
-        history.push();
 
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
@@ -690,116 +659,6 @@ class MakeBible {
                 return i;
         }
         return 0;
-    }
-
-    public void buildMenu() {
-
-        String s;
-
-        topLayout.setBackgroundColor(menuColorBack);
-        btmLayout.setBackgroundColor(menuColorBack);
-        fBody.setBackgroundColor(screenColorBack);
-        vBackAction.setBackgroundColor(menuColorBack);
-        vBackAction.setTextColor(menuColorFore);
-
-        if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && (nowBible > 0 && nowChapter > 0))
-            vSearch.setVisibility(View.VISIBLE);
-        else
-            vSearch.setVisibility(View.GONE);
-
-        vOldBible.setBackgroundColor(menuColorBack);
-        vOldBible.setTextColor(menuColorFore);
-        vNewBible.setBackgroundColor(menuColorBack);
-        vNewBible.setTextColor(menuColorFore);
-        vHymn.setBackgroundColor(menuColorBack);
-        vHymn.setTextColor(menuColorFore);
-
-        if (topTab == TAB_MODE_NEW) {
-            vNewBible.setBackgroundResource(R.drawable.bible_border);
-        } else if (topTab == TAB_MODE_OLD) {
-            vOldBible.setBackgroundResource(R.drawable.bible_border);
-        } else if (topTab == TAB_MODE_DIC) {
-            vAgpBible.setText(blank);
-            vAgpBible.setBackgroundColor(menuColorBack);
-            vOldBible.setText(blank);
-            vNewBible.setText(blank);
-            vHymn.setText(blank);
-            vOldBible.setBackgroundColor(menuColorBack);
-            vNewBible.setBackgroundColor(menuColorBack);
-            vHymn.setBackgroundColor(menuColorBack);
-            vCevBible.setText(blank);
-            vCevBible.setBackgroundColor(menuColorBack);
-            vLeftAction.setText(blank);
-            vLeftAction.setBackgroundColor(menuColorBack);
-            vRightAction.setText(blank);
-            vRightAction.setBackgroundColor(menuColorBack);
-            vCenterAction.setText(nowDic);
-            vCenterAction.setBackgroundColor(menuColorBack);
-            return;
-        }
-        // from now NEW or OLD only
-        if (nowBible > 0 && nowChapter > 0) {
-            vAgpBible.setText("agp");
-            vAgpBible.setTextColor(menuColorFore);
-            vAgpBible.setBackgroundColor((agpShow)? agpColorFore : menuColorBack);
-            vCevBible.setText("cev");
-            vCevBible.setTextColor(menuColorFore);
-            vCevBible.setBackgroundColor((cevShow)? cevColorFore : menuColorBack);
-        } else {
-            vAgpBible.setText(blank);
-            vAgpBible.setBackgroundColor(menuColorBack);
-            vCevBible.setText(blank);
-            vCevBible.setBackgroundColor(menuColorBack);
-        }
-        vSearch.setBackgroundColor(menuColorBack);
-
-        vLeftAction.setTextColor(menuColorFore);
-        vRightAction.setTextColor(menuColorFore);
-        vCenterAction.setTextColor(menuColorFore);
-        vLeftAction.setBackgroundColor(menuColorBack);
-        vRightAction.setBackgroundColor(menuColorBack);
-        vCenterAction.setBackgroundColor(menuColorBack);
-
-        if (nowBible == 0) {        // show bible list
-            vLeftAction.setText(blank);
-            vRightAction.setText(blank);
-            vCenterAction.setText(blank);
-        } else if (nowChapter == 0) {
-            // bible = 33, chapt = 0
-            // 마, 막, 누
-            vLeftAction.setText((nowBible == 0) ? blank: shortBibleNames[nowBible-1]);
-            vRightAction.setText((nowBible == 65) ? blank: shortBibleNames[nowBible+1]);
-            vCenterAction.setText(fullBibleNames[nowBible]);
-        } else {
-            // bible = 33, chapt = 3
-            // 마3 마태복음 마4
-            if (nowChapter > 1) {
-                s = shortBibleNames[nowBible]+(nowChapter-1);
-            } else {
-                if (nowBible > 1) {
-                    s = shortBibleNames[nowBible-1]+nbrOfChapters[nowBible-1];
-                } else {
-                    s = blank;
-                }
-            }
-            vLeftAction.setText(s);
-
-            vCenterAction.setText(fullBibleNames[nowBible]+nowChapter);
-            vCenterAction.setSingleLine(true);
-            vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            vCenterAction.setSelected(true);
-
-            if (nowChapter < nbrOfChapters[nowBible]) {
-                s = shortBibleNames[nowBible]+(nowChapter+1);
-            } else {
-                if (nowBible < 66) {
-                    s = shortBibleNames[nowBible+1]+"1";
-                } else {
-                    s = blank;
-                }
-            }
-            vRightAction.setText(s);
-        }
     }
 
     void goBibleLeft() {
@@ -845,19 +704,13 @@ class MakeBible {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         TextView textView = dialogView.findViewById(R.id.promptMessage);
-        String s = "성경 읽는 중에 중지하려면\n["+fullBibleNames[nowBible]+nowChapter+"] 를 누르세요";
+        String s = fullBibleNames[nowBible]+nowChapter+"\n 성경 읽기를 시작합니다";
         textView.setText(s);
         Button ok_btn = dialogView.findViewById(R.id.ok_btn);
-        ok_btn.setText((isReadingNow)? "그만 읽기": "읽기 시작");
+        ok_btn.setText("읽기 시작");
         ok_btn.setOnClickListener(v -> {
             alertDialog.dismiss();
             speaking.say();
-        });
-
-        Button bookMark = dialogView.findViewById(R.id.cancle_btn);
-        bookMark.setText((isReadingNow)? "계속 읽기":"읽기 안 함");
-        bookMark.setOnClickListener(v -> {
-            alertDialog.dismiss();
         });
     }
 

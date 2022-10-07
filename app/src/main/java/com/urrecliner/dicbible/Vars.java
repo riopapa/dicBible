@@ -27,13 +27,15 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static Activity mActivity = null;
     @SuppressLint("StaticFieldLeak")
-    static SettingActivity settingActivity = null;
+    static SetActivity setActivity = null;
     @SuppressLint("StaticFieldLeak")
     static SearchActivity searchActivity = null;
     @SuppressLint("StaticFieldLeak")
     static MakeBible makeBible = null;
     @SuppressLint("StaticFieldLeak")
     static MakeHymn makeHymn = null;
+    @SuppressLint("StaticFieldLeak")
+    static BuildMenu buildMenu = null;
     @SuppressLint("StaticFieldLeak")
     static Speaking speaking = null;
     static History history = null;
@@ -102,7 +104,6 @@ public class Vars {
     static boolean alwaysOn = true;
     static int textSizeSpace = 10;
     static int menuColorFore = 0, menuColorBack = 0;
-    static View fTop, fBtm;
     static final int SHEET_THEN_LYRIC = 0;
     static final int LYRIC_THEN_SHEET = 1;
     static final int SHEET_ONLY = 2;

@@ -1,5 +1,6 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
@@ -7,13 +8,12 @@ import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.handlePrefs;
 import static com.urrecliner.dicbible.Vars.history;
-import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.nowVerse;
-import static com.urrecliner.dicbible.Vars.settingActivity;
+import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.graphics.Typeface;
@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.urrecliner.dicbible.model.BookMark;
@@ -88,7 +87,7 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
 
     private static void jump2BookMark() {
         final BookMark bookMark = bookMarks.get(pos);
-        AlertDialog.Builder builder = new AlertDialog.Builder(settingActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(setActivity);
         builder.setTitle("성경 책갈피");
         String s = fullBibleNames[bookMark.bible] + " " + bookMark.chapter+" 장";
         if (bookMark.verse > 0)
@@ -105,8 +104,8 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
                     if (makeBible == null)
                         makeBible = new MakeBible();
                     makeBible.showBibleBody();
-                    settingActivity.finish();
-                    settingActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                    setActivity.finish();
+                    setActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 });
         builder.setNegativeButton("삭제",
                 (dialog, which) -> {
@@ -137,7 +136,10 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
             holder.tvBibleChapter.setTypeface(null, Typeface.NORMAL);
             holder.tvDateTime.setTypeface(null, Typeface.NORMAL);
         }
-        int grayed = 200 * pos / (bookMarks.size()+1);
-        holder.lo.setBackgroundColor(ContextCompat.getColor(mContext,R.color.screenColorBack) - grayed - grayed * 256 - grayed * 256 * 256);
+
+        setTextBackGround(holder.tvBibleChapter);
+        setTextBackGround(holder.tvDateTime);
+//        int grayed = 200 * pos / (bookMarks.size()+1);
+//        holder.lo.setBackgroundColor(ContextCompat.getColor(mContext,R.color.screenColorBack) - grayed - grayed * 256 - grayed * 256 * 256);
     }
 }

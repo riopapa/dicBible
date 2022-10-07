@@ -1,0 +1,175 @@
+package com.urrecliner.dicbible;
+
+
+import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.alwaysOn;
+import static com.urrecliner.dicbible.Vars.bibleColorFore;
+import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
+import static com.urrecliner.dicbible.Vars.bookMarkView;
+import static com.urrecliner.dicbible.Vars.darkMode;
+import static com.urrecliner.dicbible.Vars.mActivity;
+import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.menuColorBack;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
+import static com.urrecliner.dicbible.Vars.nowBible;
+import static com.urrecliner.dicbible.Vars.nowHymn;
+import static com.urrecliner.dicbible.Vars.screenColorBack;
+import static com.urrecliner.dicbible.Vars.scriptColorFore;
+import static com.urrecliner.dicbible.Vars.setActivity;
+import static com.urrecliner.dicbible.Vars.sharedEdit;
+import static com.urrecliner.dicbible.Vars.topTab;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
+
+public class SetActivity extends Activity {
+
+    ScrollView scrollView;
+    TextView tv;
+    SwitchCompat switchCompat;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_set);
+        setActivity = this;
+        scrollView = findViewById(R.id.setScrollView);
+        tv = findViewById(R.id.goBack);
+        tv.setOnClickListener(v -> {
+            finish();
+            if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
+                if (nowBible != 0)
+                    makeBible.showBibleBody();
+                else
+                    makeBible.showBibleList();
+            }
+            else if (topTab == TAB_MODE_HYMN) {
+                if (makeHymn == null)
+                    makeHymn = new MakeHymn();
+                if (nowHymn <= 0)
+                    makeHymn.showNumberKey();
+                else
+                    makeHymn.showHymnBody();
+            }
+            else if (topTab == TAB_MODE_DIC) {
+                makeBible.showDicWord();
+            }
+        });
+
+        darkModeAlwaysOn();
+
+        reshowAll();
+    }
+
+    private void reshowAll() {
+
+        View v = setActivity.findViewById(R.id.scrollLayout);
+        v.setBackgroundColor(screenColorBack);
+        setLayoutBackGround(setActivity.findViewById(R.id.set));
+        setTextBackGround(setActivity.findViewById(R.id.goBack));
+        setTextBackGround(setActivity.findViewById(R.id.head));
+
+        setLayoutBackGround(setActivity.findViewById(R.id.lDarkMode));
+        switchCompat = findViewById(R.id.dark_mode);
+        switchCompat.setBackgroundColor(menuColorBack);
+        switchCompat.setTextColor(menuColorFore);
+        setLayoutBackGround(setActivity.findViewById(R.id.lAlwaysOn));
+        switchCompat = findViewById(R.id.always_on);
+        switchCompat.setBackgroundColor(menuColorBack);
+        switchCompat.setTextColor(menuColorFore);
+        switchCompat.setChecked(alwaysOn);
+
+        SetBible.set();
+        SetHymn.set();
+        showBookMark();
+        SetHistory.set();
+        scrollView.invalidate();
+    }
+
+    private void darkModeAlwaysOn() {
+
+        setLayoutBackGround(setActivity.findViewById(R.id.lDarkMode));
+        switchCompat = findViewById(R.id.dark_mode);
+        switchCompat.setBackgroundColor(menuColorBack);
+        switchCompat.setTextColor(menuColorFore);
+        switchCompat.setChecked(darkMode);
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            darkMode = isChecked;
+            sharedEdit.putBoolean("darkMode", darkMode).apply();
+            ScreenColor.setVars();
+            reshowAll();
+        });
+
+        setLayoutBackGround(setActivity.findViewById(R.id.lAlwaysOn));
+        switchCompat = findViewById(R.id.always_on);
+        switchCompat.setBackgroundColor(menuColorBack);
+        switchCompat.setTextColor(menuColorFore);
+        switchCompat.setChecked(alwaysOn);
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            alwaysOn = isChecked;
+            sharedEdit.putBoolean("alwaysOn", alwaysOn).apply();
+            if (alwaysOn)
+                mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            else
+                mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        });
+    }
+
+    private void showBookMark() {
+        setTextBackGround(setActivity.findViewById(R.id.tBookMark));
+        bookMarkView = findViewById(R.id.book_marks);
+        bookMarkAdapter = new BookMarkAdapter();
+        bookMarkView.setAdapter(bookMarkAdapter);
+    }
+
+    static void setTextBackGround(TextView view) {
+        view.setBackgroundColor(screenColorBack);
+        view.setTextColor(scriptColorFore);
+    }
+    static void setLayoutBackGround(View view) {
+        view.setBackgroundColor(screenColorBack);
+    }
+
+    static void setTexts(TextView tV, TextView dN, TextView sZ, TextView uP, int textColor) {
+        tV.setBackgroundColor(screenColorBack); tV.setTextColor(bibleColorFore); tV.setTextSize(textColor);
+        dN.setBackgroundColor(screenColorBack); dN.setTextColor(bibleColorFore); dN.setTextSize(textColor);
+        sZ.setBackgroundColor(screenColorBack); sZ.setTextColor(bibleColorFore); sZ.setTextSize(textColor);
+        uP.setBackgroundColor(screenColorBack); uP.setTextColor(bibleColorFore); uP.setTextSize(textColor);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+//        history.pop();
+        if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+            if (nowBible != 0)
+                makeBible.showBibleBody();
+            else
+                makeBible.showBibleList();
+        }
+        else if (topTab == TAB_MODE_HYMN) {
+            if (makeHymn == null)
+                makeHymn = new MakeHymn();
+            if (nowHymn <= 0)
+                makeHymn.showNumberKey();
+            else
+                makeHymn.showHymnBody();
+        } else if (topTab == TAB_MODE_DIC) {
+            makeBible.showDicWord();
+        }
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+    }
+
+}

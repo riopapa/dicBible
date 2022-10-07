@@ -7,11 +7,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/lSearch"
         android:orientation="vertical"
         android:background="@color/markColorBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tSearch"
             android:padding="4dp"
             android:layout_margin="4dp"
             android:layout_width="match_parent"
@@ -38,7 +40,7 @@
                 android:layout_height="32dp"
                 android:background="#00000000"
                 style="@style/exitButton"
-                android:src="@mipmap/search_next" />
+                android:src="@drawable/ic_search_next" />
 
             <TextView
                 android:id="@+id/searchStartVerse"
@@ -84,7 +86,7 @@
                 android:background="#00000000"
                 style="@style/exitButton"
                 app:layout_constraintHorizontal_weight="3"
-                android:src="@mipmap/search" />
+                android:src="@drawable/ic_search" />
 
         </LinearLayout>
 

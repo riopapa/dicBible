@@ -120,9 +120,9 @@ public class BuildMenuButton {
         vSetting.setOnClickListener(v -> {
             if (isReadingNow)
                 text2Speech.stopRead();
-            history.push();
-                Intent i = new Intent(mActivity, SettingActivity.class);
-                mActivity.startActivity(i);
+//            history.push();
+            Intent i = new Intent(mActivity, SetActivity.class);
+            mActivity.startActivity(i);
 //                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         });
 
@@ -140,10 +140,18 @@ public class BuildMenuButton {
         vCenterAction.setOnClickListener(v -> {
             if (vCenterAction.getText().toString().equals(blank))
                 return;
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0)
-                makeBible.confirmSpeak();
-            else if (topTab == TAB_MODE_HYMN)
-                makeHymn.confirmSpeak();
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0) {
+                if (isReadingNow)
+                    text2Speech.stopRead();
+                else
+                    makeBible.confirmSpeak();
+            }
+            else if (topTab == TAB_MODE_HYMN) {
+                if (isReadingNow)
+                    text2Speech.stopRead();
+                else
+                    makeHymn.confirmSpeak();
+            }
         });
 
         vRightAction.setOnClickListener(v -> {
@@ -160,7 +168,7 @@ public class BuildMenuButton {
         vBackAction.setOnClickListener(v -> {
             if (isReadingNow)
                 text2Speech.stopRead();
-            if (goBacks.size() > 1) {
+            if (goBacks.size() > 0) {
                 goBackward();
             }
         });
@@ -174,7 +182,6 @@ public class BuildMenuButton {
             return 0;
     }
     static void goBackward() {
-            history.pop();
             history.pop();
             if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
                 if (nowBible == 0)

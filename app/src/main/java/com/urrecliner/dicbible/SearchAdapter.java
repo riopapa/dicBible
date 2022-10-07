@@ -1,9 +1,12 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
+import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowVerse;
@@ -41,12 +44,19 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvVerse, tvText;
+
         ViewHolder(final View itemView) {
             super(itemView);
 
+            setLayoutBackGround(itemView.findViewById(R.id.search_item));
             tvVerse = (TextView) itemView.findViewById(R.id.result_Verse);
             tvText = (TextView) itemView.findViewById(R.id.result_Text);
-            tvText.setTextSize(textSizeScript *2/7);
+            tvVerse.setTextSize(textSizeScript);
+            tvVerse.setTextColor(menuColorFore);
+            tvText.setTextSize(textSizeScript*9/10);
+            tvText.setTextColor(menuColorFore);
+
+            //            tvText.setTextSize(textSizeScript *2/7);
 
             View view = itemView.findViewById(R.id.search_item);
             view.setOnClickListener(view1 -> jump2Searched(getAdapterPosition()));
@@ -80,21 +90,30 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
 //        holder.tvBible.setText(shortBibleNames[searched.getBible()]);
         String s = shortBibleNames[searched.bible]+"\n"+searched.chapter+":"+searched.verse;
         holder.tvVerse.setText(s);
-        s = searched.text;
-        String[] verses = s.split("\n");
+//        holder.tvVerse.setTextSize(textSizeScript);
+//        holder.tvVerse.setTextColor(menuColorFore);
+//        holder.tvVerse.setBackgroundResource(R.drawable.history_border);
+//        holder.tvVerse.setBackgroundColor(menuColorBack);
+
+        s = searched.text.replace(" ", "\u00A0"); // to prevent word wrap
         SpannableString ss = new SpannableString(s);
-        int sLen = verses[0].length();
-        int tLen = 0;
-        tLen += sLen + 1;
-        sLen = verses[1].length();
-        ss.setSpan(new BackgroundColorSpan(0x3845B2D9), tLen, tLen + sLen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        ss.setSpan(new AbsoluteSizeSpan(textSizeScript, true), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        ss.setSpan(new ForegroundColorSpan(menuColorFore), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        ss.setSpan(new BackgroundColorSpan(menuColorBack), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        int sLen = verses[0].length();
+//        int tLen = 0;
+//        tLen += sLen + 1;
+//        sLen = verses[1].length();
+//        ss.setSpan(new BackgroundColorSpan(menuColorBack), tLen, tLen + sLen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         int kPos = s.indexOf(searchText);
-        while (kPos > 0) {
-            ss.setSpan(new BackgroundColorSpan(0xFF00FF00), kPos, kPos + searchText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        while (kPos > 0) {  // 0xFF00FF00
+            ss.setSpan(new BackgroundColorSpan(menuSelectedBack), kPos, kPos + searchText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             kPos = s.indexOf(searchText, kPos+2);
         }
 
         holder.tvText.setText(ss);
+//        holder.tvText.setBackgroundColor(menuColorBack);
+        holder.tvText.setBackgroundResource(R.drawable.history_border);
 
     }
 

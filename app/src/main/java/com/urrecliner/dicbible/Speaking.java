@@ -3,12 +3,11 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
-import static com.urrecliner.dicbible.Vars.menuSelectedBack;
-import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
+import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
@@ -23,8 +22,8 @@ public class Speaking {
     void say() {
         if (isReadingNow) {
             isReadingNow = false;
-            history.push();
             text2Speech.stopRead();
+            setCenterColor();
         } else if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
             isReadingNow = true;
 //            bookMarkNow = false;
@@ -40,7 +39,7 @@ public class Speaking {
 
     void setCenterColor() {
         vCenterAction.setEnabled(false);
-        vCenterAction.setBackgroundColor((isReadingNow)? menuSelectedBack ^ 0xAAAAAA: menuColorFore);
+        vCenterAction.setBackgroundColor((isReadingNow)? menuSelectedBack: menuColorFore);
 
         new Timer().schedule(new TimerTask() {
             public void run() {
