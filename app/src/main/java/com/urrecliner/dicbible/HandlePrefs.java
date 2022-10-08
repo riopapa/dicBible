@@ -8,7 +8,6 @@ import static com.urrecliner.dicbible.Vars.bibleTTS;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
-import static com.urrecliner.dicbible.Vars.hymnImageFirst;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnSpeed;
 import static com.urrecliner.dicbible.Vars.searchDepth;
@@ -25,9 +24,9 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class HandlePrefs {
+class HandlePrefs {
 
-    static void get() {
+    void get() {
 
         darkMode = sharedPref.getBoolean("darkMode", true);
         alwaysOn = sharedPref.getBoolean("alwaysOn",true);
@@ -43,7 +42,6 @@ public class HandlePrefs {
         searchDepth = sharedPref.getInt("searchDepth", 30);
 
         textSizeHymn = sharedPref.getInt("textSizeHymn", 20);
-        hymnImageFirst = sharedPref.getBoolean("hymnImageFirst", true);
         hymnShowWhat = sharedPref.getInt("hymnShowWhat", 0);
         hymnAccompany = sharedPref.getBoolean("hymnAccompany",true);
         hymnSpeed = sharedPref.getInt("hymnSpeed", 90);

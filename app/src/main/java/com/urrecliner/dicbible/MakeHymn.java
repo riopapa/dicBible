@@ -240,9 +240,6 @@ class MakeHymn {
             linearlayout.addView(imV);
             imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
             imV.requestLayout();
-//            PhotoViewAttacher pA;
-//            pA = new PhotoViewAttacher(imV);
-//            pA.update();
         }
     }
 

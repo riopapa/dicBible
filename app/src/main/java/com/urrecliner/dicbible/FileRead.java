@@ -63,8 +63,7 @@ public class FileRead {
     {
         ArrayList<String> lines = new ArrayList<>();
         InputStream inputStream = ctx.getResources().openRawResource(resId);
-        BufferedReader reader = null;
-        reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_16));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_16));
 
         String line = "";
         while (line != null) {

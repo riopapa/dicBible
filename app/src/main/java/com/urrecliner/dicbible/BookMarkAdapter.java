@@ -45,7 +45,6 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvBibleChapter, tvDateTime;
-        View lo = itemView.findViewById(R.id.bookMark);
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -112,7 +111,5 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
 
         setTextBackGround(holder.tvBibleChapter);
         setTextBackGround(holder.tvDateTime);
-//        int grayed = 200 * pos / (bookMarks.size()+1);
-//        holder.lo.setBackgroundColor(ContextCompat.getColor(mContext,R.color.screenColorBack) - grayed - grayed * 256 - grayed * 256 * 256);
     }
 }

@@ -2,6 +2,7 @@ package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
+import static com.urrecliner.dicbible.Vars.bibleTTS;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
@@ -40,41 +41,38 @@ class Text2Speech {
     void setReady(Context context) {
         mTTS = new TextToSpeech(context, ttsInitListener);
     }
+    //        @SuppressLint("NewApi")
     // It's callback
-    private final TextToSpeech.OnInitListener ttsInitListener = new TextToSpeech.OnInitListener() {
-        //        @SuppressLint("NewApi")
-        @Override
-        public void onInit(int status) {
-            if (status != TextToSpeech.SUCCESS)
-                return;
-            mTTS.setPitch(biblePitch);
-            mTTS.setSpeechRate(bibleSpeed);
-            mTTS.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                @Override
-                public void onDone(String utteranceId) {
-                    ttsVerseNow++;
-                    if (isReadingNow && ttsVerseNow < maxVerse)
-                        readVerseByTTS(ttsVerseNow);
-                    else if (isReadingNow) {
-                        makeBible.goBibleRight();
-                        new Timer().schedule(new TimerTask() {
-                            public void run() {
-                                ttsVerseNow = 0;
-                                readVerseByTTS(ttsVerseNow);
-                            }
-                        }, 2000);
-                    }
+    private final TextToSpeech.OnInitListener ttsInitListener = status -> {
+        if (status != TextToSpeech.SUCCESS)
+            return;
+        mTTS.setPitch((float) biblePitch / 100);
+        mTTS.setSpeechRate((float) bibleSpeed / 100);
+        mTTS.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override
+            public void onDone(String utteranceId) {
+                ttsVerseNow++;
+                if (isReadingNow && ttsVerseNow < maxVerse)
+                    readVerseByTTS(ttsVerseNow);
+                else if (isReadingNow) {
+                    makeBible.goBibleRight();
+                    new Timer().schedule(new TimerTask() {
+                        public void run() {
+                            ttsVerseNow = 0;
+                            readVerseByTTS(ttsVerseNow);
+                        }
+                    }, 2000);
                 }
+            }
 
-                @Override
-                public void onError(String utteranceId) {
-                }
+            @Override
+            public void onError(String utteranceId) {
+            }
 
-                @Override
-                public void onStart(String utteranceId) {
-                }
-            });
-        }
+            @Override
+            public void onStart(String utteranceId) {
+            }
+        });
     };
 
     private MediaPlayer mediaPlayer = null;
@@ -83,10 +81,17 @@ class Text2Speech {
 
         if (mediaPlayer == null)
             mediaPlayer = new MediaPlayer();
-        String fileName = packageFolder.getAbsolutePath()+"/bible_mp3/"+nowBible+"_"+nowChapter+".mp3z";
-        File file = new File(fileName);
-        FileDescriptor fd;
-        if (file.exists()) {
+        if (bibleTTS) {
+            readVerseByTTS(0);
+        } else {
+            String fileName = packageFolder.getAbsolutePath()+"/bible_mp3/"
+                    +nowBible+"_"+nowChapter+".mp3z";
+            File file = new File(fileName);
+            FileDescriptor fd;
+            if (!file.exists()) {
+                Toast.makeText(mContext, file.getName()+" 파일이 없습니다", Toast.LENGTH_LONG).show();
+                return;
+            }
             try {
                 FileInputStream fs = new FileInputStream(file);
                 fd = fs.getFD();
@@ -113,8 +118,6 @@ class Text2Speech {
                 }
             });
             mediaPlayer.start();
-        } else {
-            readVerseByTTS(0);
         }
     }
 
@@ -152,7 +155,7 @@ class Text2Speech {
     void playHymn() {
         mediaPlayer = new MediaPlayer();
         String fileName = packageFolder.getAbsolutePath()+((hymnAccompany)? "/hymn_mp3/":"/hymn_play/")+nowHymn+".mp3z";
-        File file = new File(fileName);;
+        File file = new File(fileName);
         FileDescriptor fd;
         if (file.exists()) {
             try {

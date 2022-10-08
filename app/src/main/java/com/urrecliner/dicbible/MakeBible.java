@@ -273,9 +273,6 @@ class MakeBible {
         idxCev = 0;
         idxSpace = 0;
 
-//        final ViewGroup.MarginLayoutParams lp =(ViewGroup.MarginLayoutParams)linearLayout.getLayoutParams();
-//        lp.setMargins(20,0,60,0);
-//        linearLayout.setLayoutParams(lp);
         bodyText = new StringBuilder();
         bodyText.append(newLine);
         ptrBody = 1;
@@ -284,7 +281,7 @@ class MakeBible {
 
         textView.setText(ss);
         textView.setTextSize(textSizeScript);
-        textView.setLineSpacing(1.1f, 1.1f);
+//        textView.setLineSpacing(0.1f, 1.0f);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         linearLayout.addView(textView);
@@ -569,9 +566,6 @@ class MakeBible {
         String txt = "dict/" + nowDic + ".txt";
         String [] dicTexts = FileRead.readBibleFile(txt);
         if (dicTexts != null) {
-//            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
-//            lp.setMargins(60,36,60,40);
-//            linearLayout.setLayoutParams(lp);
             for (String line : dicTexts) {
                 switch (line.substring(0, 1)) {
                     case "@":       // contains image file name
@@ -583,10 +577,6 @@ class MakeBible {
                             linearLayout.addView(imV);
                             imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
                             imV.requestLayout();
-
-//                            PhotoViewAttacher pA;
-//                            pA = new PhotoViewAttacher(imV);
-//                            pA.update();
                         }
                         break;
                     case "~": { // contains subject name
@@ -607,7 +597,7 @@ class MakeBible {
                         tVLine.setTextColor(scriptColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.1f, 1.1f);
+//                        tVLine.setLineSpacing(0.1f, 1.1f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;

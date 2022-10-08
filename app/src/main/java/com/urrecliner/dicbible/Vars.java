@@ -43,7 +43,6 @@ public class Vars {
     static FileRead fileRead = null;
 
     static ZoomControl zoomControl;
-    static float windowYUpper, windowXCenter;
     @SuppressLint("StaticFieldLeak")
     static ScrollView scrollView;
     static BookMarkAdapter bookMarkAdapter;
@@ -76,8 +75,6 @@ public class Vars {
     static TextView vAgpBible, vOldBible, vNewBible, vHymn, vCevBible;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
 
-    static int textSizeBibleNumber = 20;
-    static int textSizeHymnTitle = 20;
     static int textSizeHymnKeypad = 24;
 
     // followings are from shared preference
@@ -85,7 +82,6 @@ public class Vars {
     static SharedPreferences.Editor sharedEdit;
     static HandlePrefs handlePrefs;
     static int textSizeBible66 = 24;
-    static int textSizeBibleTitle = 24;
     static int textSizeRefer = 40;
     static int textSizeHymn = 20;
     static int textSizeScript = 20;
@@ -93,7 +89,6 @@ public class Vars {
     static int searchDepth = 20;
     static String keyText = "";
 
-    static boolean hymnImageFirst = true;
     static int hymnShowWhat = 0;
     static boolean alwaysOn = true;
     static int textSizeSpace = 10;

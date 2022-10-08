@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref = getApplicationContext().getSharedPreferences("bible", MODE_PRIVATE);
         sharedEdit = sharedPref.edit();
-        HandlePrefs.get();
 
         setFullScreen();
         utils = new Utils();
@@ -96,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         makeHymn = new MakeHymn();
         buildMenu = new BuildMenu();
         handlePrefs = new HandlePrefs();
+        handlePrefs.get();
         isReadingNow = false;
 
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
         decoView.setSystemUiVisibility(flags);
     }
 
-    final long BACK_DELAY = 1000;
-    long backKeyPressedTime;
     @Override
     public void onBackPressed() {
 
@@ -169,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList findUnAskedPermissions(ArrayList<String> wanted) {
+    private ArrayList<String> findUnAskedPermissions(ArrayList<String> wanted) {
         ArrayList <String> result = new ArrayList<>();
         for (String perm : wanted) if (hasPermission(perm)) result.add(perm);
         return result;
