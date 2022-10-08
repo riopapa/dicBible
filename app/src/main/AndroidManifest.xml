@@ -9,9 +9,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/icon_dic_bible"
+        android:icon="@mipmap/ic_dic_bible"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon_dic_bible"
+        android:roundIcon="@mipmap/ic_dic_bible"
         android:supportsRtl="true"
         android:theme="@style/Theme.dicBible"
         >

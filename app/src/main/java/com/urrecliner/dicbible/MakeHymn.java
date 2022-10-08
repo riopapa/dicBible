@@ -58,7 +58,7 @@ class MakeHymn {
 
     void showNumberKey() {
 
-        buildMenu.setHYMN();
+        buildMenu.set();
         initScrollView();
 
         Button b;
@@ -167,7 +167,7 @@ class MakeHymn {
 
     void showHymnBody() {
 
-        buildMenu.setHYMN();
+        buildMenu.set();
         initScrollView();
 
         String txt = "Hymn/" + nowHymn + ".txt";
@@ -249,7 +249,7 @@ class MakeHymn {
 
     private void showSortedHymnList(int start) {
 
-        buildMenu.setHYMN();
+        buildMenu.set();
         initScrollView();
 
         nowHymn = -1 - start;

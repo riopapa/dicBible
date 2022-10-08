@@ -1,6 +1,5 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -12,15 +11,6 @@ import static com.urrecliner.dicbible.Vars.topTab;
 import com.urrecliner.dicbible.model.GoBack;
 
 class History {
-
-    void init() {
-        topTab = TAB_MODE_NEW;
-        nowBible = 0;
-        nowChapter = 0;
-        nowVerse = 0;
-        nowHymn = 0;
-        nowDic = "";
-    }
 
     public void push() {
         if (goBacks.size() > 40) {

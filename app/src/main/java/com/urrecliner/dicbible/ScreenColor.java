@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat;
 public class ScreenColor {
 
 
-    public static void setVars() {
+    public static void set() {
 
 //        ColorDrawable cd = (ColorDrawable) vCenterAction.getBackground();
 

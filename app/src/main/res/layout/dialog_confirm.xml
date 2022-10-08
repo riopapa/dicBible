@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon_dic_bible"
+        android:src="@mipmap/ic_dic_bible"
         android:layout_gravity="center"
         />
     <LinearLayout

@@ -40,9 +40,9 @@ import static com.urrecliner.dicbible.Vars.vSetting;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class BuildMenuButton {
+public class SetUpMenuButton {
 
-    public static void setViewVars() {
+    public static void init() {
 
         topLayout = mActivity.findViewById(R.id.lTop);
         btmLayout = mActivity.findViewById(R.id.lBtm);
@@ -60,12 +60,7 @@ public class BuildMenuButton {
         vRightAction = mActivity.findViewById(R.id.rightAction);
         vBackAction = mActivity.findViewById(R.id.backAction);
         fBody = mActivity.findViewById(R.id.fBody);
-    }
 
-    public static void assignListener() {
-
-//        if (isReadingNow)
-//            text2Speech.stopRead();
         vOldBible.setOnClickListener(v -> {
             topTab = TAB_MODE_OLD;
             nowVerse = getNowTopVerse();
@@ -114,16 +109,11 @@ public class BuildMenuButton {
             }
         });
 
-//        vSpeak.setOnClickListener(v -> {
-//            new Speaking().say();
-//        });
         vSetting.setOnClickListener(v -> {
             if (isReadingNow)
                 text2Speech.stopRead();
-//            history.push();
             Intent i = new Intent(mActivity, SetActivity.class);
             mActivity.startActivity(i);
-//                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
         });
 
         vLeftAction.setOnClickListener(v -> {

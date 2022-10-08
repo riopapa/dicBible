@@ -26,7 +26,14 @@ public class BookMark {
         Gson gson = new Gson();
         String json = sharedPref.getString("bookMark", "");
         if (json.isEmpty()) {
-            return new ArrayList<BookMark>();
+            ArrayList<BookMark> bm = new ArrayList<>();
+            bm.add(new BookMark(44, 3, 16,
+                        System.currentTimeMillis()));
+            bm.add(new BookMark(23, 41, 10,
+                        System.currentTimeMillis()));
+            bm.add(new BookMark(40, 11, 28,
+                        System.currentTimeMillis()));
+            return bm;
         } else {
             Type type = new TypeToken<List<BookMark>>() {
             }.getType();

@@ -22,11 +22,10 @@ public class GoBack {
     }
 
     public static ArrayList<GoBack> read(SharedPreferences sharedPref) {
-        // read GoBack
         Gson gson = new Gson();
         String json = sharedPref.getString("goBack", "");
         if (json.isEmpty()) {
-            return new ArrayList<GoBack>();
+            return new ArrayList<>();
         } else {
             Type type = new TypeToken<List<GoBack>>() {
             }.getType();

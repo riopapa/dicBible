@@ -27,7 +27,6 @@ import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowVerse;
-import static com.urrecliner.dicbible.Vars.numberColorFore;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
@@ -35,7 +34,6 @@ import static com.urrecliner.dicbible.Vars.scriptColorFore;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.textSizeBible66;
-import static com.urrecliner.dicbible.Vars.textSizeBibleNumber;
 import static com.urrecliner.dicbible.Vars.textSizeDic;
 import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
@@ -86,7 +84,7 @@ class MakeBible {
 
     void showBibleList() {
 
-        buildMenu.setBible();
+        buildMenu.set();
         initScrollView();
 
         int loop = (topTab == TAB_MODE_OLD) ?  39: 27;
@@ -154,7 +152,7 @@ class MakeBible {
     }
 
     void showChapterList() {
-        buildMenu.setBible();
+        buildMenu.set();
         initScrollView();
         textView.setText(newLine+fullBibleNames[nowBible]);
         textView.setTextColor(menuColorFore);
@@ -177,15 +175,13 @@ class MakeBible {
                 tVNbr = new TextView(mContext);
                 String text = ""+chapter;
                 tVNbr.setText(text);
-                tVNbr.setTextColor(numberColorFore);
+                tVNbr.setTextColor(menuColorFore);
                 tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-                tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+                tVNbr.setTextSize(textSizeScript);
                 tVNbr.setWidth(buttonWidth);
                 tVNbr.setGravity(Gravity.CENTER_HORIZONTAL);
                 tVNbr.setPadding(0,16,0,16);
                 tVNbr.setId(chapter);
-                tVNbr.setTextSize(textSizeBibleNumber);
-                tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
                 columnLayout.addView(tVNbr);
                 tVNbr.setOnClickListener(v -> {
                     nowChapter = v.getId();
@@ -251,7 +247,7 @@ class MakeBible {
     int paraSize, referSize;
 
     void showBibleBody() {
-        buildMenu.setBible();
+        buildMenu.set();
         initScrollView();
 
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
@@ -567,7 +563,7 @@ class MakeBible {
 
         history.push();
         topTab = TAB_MODE_DIC;
-        buildMenu.setBible();
+        buildMenu.set();
         initScrollView();
 
         int verse = nowVerse;

@@ -7,9 +7,15 @@
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/bible_border.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/button_bible.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/button_number.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/cell_border.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/clear_text.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/confirm_delete.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/exit_button.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/history_border.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_dic_bible.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_dic_bible_adobe_express.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_like.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_like_adobe_express.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_search.xml" value="0.18" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_search_next.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/ic_settings.xml" value="0.18" />

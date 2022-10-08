@@ -48,10 +48,8 @@ public class BuildMenu {
 
     Drawable d;
     Drawable wrappedDrawable;
-    public void setBible() {
+    public void set() {
 
-        String s;
-        
         setCommon();
 
         switch (topTab) {
@@ -142,8 +140,8 @@ public class BuildMenu {
     private void setOLD() {
 
         setSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        setBibleHymn();
-        vOldBible.setBackgroundResource(R.drawable.bible_border);
+        setTopMenu();
+        vOldBible.setBackgroundResource(R.drawable.top_tab_border);
         setAgpCev();
         setBibleBottom();
 
@@ -152,14 +150,13 @@ public class BuildMenu {
     private void setNEW() {
 
         setSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        setBibleHymn();
-        vNewBible.setBackgroundResource(R.drawable.bible_border);
+        setTopMenu();
+        vNewBible.setBackgroundResource(R.drawable.top_tab_border);
         setAgpCev();
         setBibleBottom();
-
     }
 
-    private void setBibleHymn() {
+    private void setTopMenu() {
         vOldBible.setBackgroundColor(menuColorBack);
         vOldBible.setTextColor(menuColorFore);
         vNewBible.setBackgroundColor(menuColorBack);
@@ -170,8 +167,8 @@ public class BuildMenu {
 
     void setHYMN() {
         setSearch(menuColorBack);
-        setBibleHymn();
-        vHymn.setBackgroundResource(R.drawable.bible_border);
+        setTopMenu();
+        vHymn.setBackgroundResource(R.drawable.top_tab_border);
         setAgpCev();
         vAgpBible.setText(blank);
         vCevBible.setText(blank);
@@ -199,7 +196,7 @@ public class BuildMenu {
 
     private void setDIC() {
         setSearch(menuColorBack);
-        setBibleHymn();
+        setTopMenu();
         vLeftAction.setTextColor(menuColorFore);
         vRightAction.setTextColor(menuColorFore);
         vCenterAction.setTextColor(menuColorFore);

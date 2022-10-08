@@ -5,6 +5,7 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.setActivity;
+import static com.urrecliner.dicbible.Vars.textSizeScript;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -33,8 +34,10 @@ public class SetHistory {
 
         tv.setOnClickListener(v -> {
             TableLayout tableLayout = setActivity.findViewById(R.id.table);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.MATCH_PARENT, 1f);
             TableRow tr;
-            TableRow.LayoutParams params;
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             ArrayList<String> histories = fileRead.readRawTextFile(mContext, R.raw.history);
             TextView tvCell;
@@ -50,28 +53,27 @@ public class SetHistory {
                 else
                     tvCell.setTypeface(null, Typeface.NORMAL);
                 tvCell.setText(oneLines[0]);
-                tvCell.setTextSize(18);
+                tvCell.setTextSize((float)textSizeScript*4/5);
                 tvCell.setTextColor(menuColorFore);
                 tvCell.setBackgroundColor(menuColorBack);
-                tvCell.setBackgroundResource(R.drawable.history_border);
+                tvCell.setBackgroundResource(R.drawable.cell_border);
                 tvCell =  oneLine.findViewById(R.id.updates);
                 if (oneLines[1].equals("b"))
                     tvCell.setTypeface(null, Typeface.BOLD);
                 else
                     tvCell.setTypeface(null, Typeface.NORMAL);
-                tvCell.setText(oneLines[2].replace("||", "\n"));
-                tvCell.setTextSize(16);
+                s = oneLines[2].replace("||", "\n");
+                tvCell.setText(s);
+                tvCell.setTextSize((float)textSizeScript*3/4);
                 tvCell.setTextColor(menuColorFore);
                 tvCell.setBackgroundColor(menuColorBack);
-                tvCell.setBackgroundResource(R.drawable.history_border);
-                params = new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.MATCH_PARENT, 1f);
+                tvCell.setBackgroundResource(R.drawable.cell_border);
                 tr.addView(oneLine, params);
                 tableLayout.addView(tr);
             }
             ScrollView scrollView = setActivity.findViewById(R.id.setScrollView);
-            scrollView.post(() -> scrollView.scrollTo(0, 500));
+            scrollView.post(() ->
+                scrollView.scrollTo(0, scrollView.getHeight()-1));
         });
     }
 }

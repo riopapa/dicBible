@@ -107,7 +107,7 @@ public class SetActivity extends Activity {
         switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
             darkMode = isChecked;
             sharedEdit.putBoolean("darkMode", darkMode).apply();
-            ScreenColor.setVars();
+            ScreenColor.set();
             reshowAll();
         });
 

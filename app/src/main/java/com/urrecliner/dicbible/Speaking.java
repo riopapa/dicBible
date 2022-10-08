@@ -26,7 +26,6 @@ public class Speaking {
             setCenterColor();
         } else if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
             isReadingNow = true;
-//            bookMarkNow = false;
             Toast.makeText(mContext,"성경읽기를 시작합니다",Toast.LENGTH_SHORT).show();
             text2Speech.readVerse();
         } else if (topTab == TAB_MODE_HYMN) {
@@ -46,6 +45,5 @@ public class Speaking {
                 mActivity.runOnUiThread(() -> vCenterAction.setEnabled(true));
             }
         }, 1500);
-
     }
 }

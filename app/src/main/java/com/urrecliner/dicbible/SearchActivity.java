@@ -4,6 +4,7 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
@@ -13,7 +14,6 @@ import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.searchActivity;
 import static com.urrecliner.dicbible.Vars.searchDepth;
 import static com.urrecliner.dicbible.Vars.searchNext;
-import static com.urrecliner.dicbible.Vars.searchText;
 import static com.urrecliner.dicbible.Vars.searcheds;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.topTab;
@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +53,6 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         searchActivity = this;
-//        utils.log(logID, "searchNext "+searchNext);
         setLayoutBackGround(this.findViewById(R.id.lSearch));
         setTextBackGround(this.findViewById(R.id.tSearch));
 
@@ -62,18 +62,19 @@ public class SearchActivity extends Activity {
         tvFrom.setTextColor(menuColorFore);
         searcheds = null;
         tvSearchKey = findViewById(R.id.txtSearch);
-        if (searchText != null) {
-            tvSearchKey.setText(searchText);
-            tvSearchKey.setSelectAllOnFocus(true);
-            tvSearchKey.requestFocus();
-        }
+        tvSearchKey.setText(keyText);
+        tvSearchKey.setTextColor(menuColorFore);
+        tvSearchKey.setSelectAllOnFocus(true);
+        tvSearchKey.requestFocus();
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(tvSearchKey, InputMethodManager.SHOW_IMPLICIT);
         View.OnKeyListener keyListenerEnter = (v, keyCode, event) -> {
             if(keyCode == KeyEvent.KEYCODE_ENTER)       // response to 다음 on keyboard
                 searchQuick();
             return false;
         };
         tvSearchKey.setOnKeyListener(keyListenerEnter);
-        tvSearchKey.setTextColor(menuColorFore);
 
         ivQuickSearch = findViewById(R.id.quickSearch);
         ivQuickSearch.setOnClickListener(v -> searchQuick());
@@ -91,7 +92,7 @@ public class SearchActivity extends Activity {
 
         ivSearchNext.setOnClickListener(v -> {
             if (topTab < TAB_MODE_HYMN) {
-                searchText = tvSearchKey.getText().toString();
+                keyText = tvSearchKey.getText().toString();
                 search_BibleNext();
                 recyclerView = findViewById(R.id.searchedList);
                 SearchAdapter searchAdapter = new SearchAdapter();
@@ -106,12 +107,15 @@ public class SearchActivity extends Activity {
         ivTextClear.setImageDrawable(wrappedDrawable);
         ivTextClear.setOnClickListener(v -> {
             tvSearchKey.setText("");
-            tvSearchKey.setFocusable(true);
+            tvSearchKey.requestFocus();
+//            InputMethodManager imm2 = (InputMethodManager)
+                    getSystemService(mContext.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(tvSearchKey, InputMethodManager.SHOW_IMPLICIT);
         });
         if (searchNext) {
             searchNext = false;
-            search_Bible(searchText);
-            recyclerView = (RecyclerView) findViewById(R.id.searchedList);
+            search_Bible(keyText);
+            recyclerView = findViewById(R.id.searchedList);
             SearchAdapter searchAdapter = new SearchAdapter();
             recyclerView.setAdapter(searchAdapter);
 //            tvSearchKey.requestFocus();
@@ -122,9 +126,9 @@ public class SearchActivity extends Activity {
 
     void searchQuick() {
         if (topTab < TAB_MODE_HYMN) {
-            searchText = tvSearchKey.getText().toString();
-            search_Bible(searchText);
-            recyclerView = (RecyclerView) findViewById(R.id.searchedList);
+            keyText = tvSearchKey.getText().toString();
+            search_Bible(keyText);
+            recyclerView = findViewById(R.id.searchedList);
             SearchAdapter searchAdapter = new SearchAdapter();
             recyclerView.setAdapter(searchAdapter);
 //            tvSearchKey.requestFocus();
@@ -164,7 +168,7 @@ public class SearchActivity extends Activity {
             }
         }
         if (searcheds.size() == 0)
-            Toast.makeText(mContext,searchText+" 없음. ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.",Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, keyText +" 없음. ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.",Toast.LENGTH_LONG).show();
     }
 
     private String extractVerse(String bibleVers) {

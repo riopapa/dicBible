@@ -46,7 +46,6 @@
                 android:id="@+id/searchStartVerse"
                 android:layout_width="0dp"
                 android:layout_weight="5"
-                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="고전12:31"

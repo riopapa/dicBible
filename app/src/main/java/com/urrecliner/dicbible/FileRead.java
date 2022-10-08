@@ -24,7 +24,6 @@ public class FileRead {
         this.packageFolder = packageFolder;
     }
 
-
     static String[] readBibleFile(String filename) {
 
         String file2read = packageFolder + "/" + filename;

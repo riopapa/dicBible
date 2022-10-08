@@ -46,7 +46,6 @@ public class Vars {
     static float windowYUpper, windowXCenter;
     @SuppressLint("StaticFieldLeak")
     static ScrollView nowScrollView;
-    static int nowVisibleLine;
     static BookMarkAdapter bookMarkAdapter;
     static RecyclerView bookMarkView;
 
@@ -54,17 +53,12 @@ public class Vars {
     static int xPixels;
     static boolean darkMode;
 
-    static String oldName = "구 약";
-    static String newName = "신 약";
-    static String hymnName = "찬송가";
     final static int TAB_MODE_OLD = 1;
     final static int TAB_MODE_NEW = 2;
     final static int TAB_MODE_HYMN = 4;
     final static int TAB_MODE_DIC = 8;
 
     static int topTab = TAB_MODE_NEW;    // if topTab < TAB_MODE_HYMN then it means OLD or NEW
-    static String logFile = "log.txt";
-
     static boolean agpShow = false;
     static boolean cevShow = false;
 
@@ -97,7 +91,7 @@ public class Vars {
     static int textSizeScript = 20;
     static int textSizeDic = 20;
     static int searchDepth = 20;
-    static String searchText = null;
+    static String keyText = "";
 
     static boolean hymnImageFirst = true;
     static int hymnShowWhat = 0;

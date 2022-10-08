@@ -1,6 +1,8 @@
 package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.buildMenu;
 import static com.urrecliner.dicbible.Vars.fileRead;
@@ -13,9 +15,7 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowBible;
-import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
-import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.sharedPref;
@@ -27,7 +27,6 @@ import static com.urrecliner.dicbible.Vars.zoomControl;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,19 +34,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.urrecliner.dicbible.model.BookMark;
 import com.urrecliner.dicbible.model.GoBack;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,21 +76,14 @@ public class MainActivity extends AppCompatActivity {
         utils.setXPixels(mContext);
         goBacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
-        if (bookMarks.size() == 0) {
-            bookMarks.add(new BookMark(44, 3, 16,
-                    System.currentTimeMillis()));
-            bookMarks.add(new BookMark(23, 41, 10,
-                    System.currentTimeMillis()));
-            bookMarks.add(new BookMark(40, 11, 28,
-                    System.currentTimeMillis()));
-        }
         history = new History();
+        if (goBacks.size() > 1)
+            history.pop();
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(mActivity, packageFolder);
-        BuildMenuButton.setViewVars();
-        BuildMenuButton.assignListener();
+        SetUpMenuButton.init();
         utils.setKeepScreen();
-        ScreenColor.setVars();
+        ScreenColor.set();
         zoomControl = new ZoomControl(); zoomControl.set();
 
         speaking = new Speaking();
@@ -104,20 +95,18 @@ public class MainActivity extends AppCompatActivity {
         buildMenu = new BuildMenu();
         handlePrefs = new HandlePrefs();
 
-        if (topTab < TAB_MODE_HYMN) {
-            buildMenu.setBible();
+        if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible > 0)
                 makeBible.showBibleBody();
             else
                 makeBible.showBibleList();
-        } else {
-            buildMenu.setHYMN();
+        } else if (topTab == TAB_MODE_HYMN) {
             if (nowHymn > 0)
                 makeHymn.showHymnBody();
             else
                 makeHymn.showNumberKey();
-        }
-
+        } else
+            makeBible.showBibleList();
     }
 
     private void setFullScreen() {
@@ -140,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         confirmExit();
     }
 
-
     void confirmExit() {
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_quit, null);
 
@@ -150,63 +138,17 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         dialogView.findViewById(R.id.quitApp).setOnClickListener(v -> {
+            history.push();
+            HandlePrefs.saveArray("goBack", goBacks);
             finish();
-            System.exit(0);
-            android.os.Process.killProcess(android.os.Process.myPid());
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            }, 500);
+
         });
     }
-
-
-    int saveTab, saveBible, saveChapter, saveVerse, saveHymn;
-
-    private void saveNow() {
-        saveTab = topTab;
-        saveBible = nowBible;
-        saveChapter = nowChapter;
-        saveVerse = nowVerse;
-        saveHymn = nowHymn;
-    }
-    private void reloadNow() {
-        topTab = saveTab;
-        nowBible = saveBible;
-        nowChapter = saveChapter;
-        nowVerse = saveVerse;
-        nowHymn = saveHymn;
-    }
-    public static class MainDialog extends DialogFragment {
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-            LayoutInflater mLayoutInflater = getActivity().getLayoutInflater();
-            mBuilder.setView(mLayoutInflater.inflate(R.layout.dialog_quit, null));
-            mBuilder.setTitle(getString(R.string.wanna_quit));
-            return mBuilder.create();
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-        }
-
-    }
-
-    public void finish_bye(View v) {
-        finish();
-        System.exit(0);
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
-
-
-
-
-
-
-
-
 
     // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓
     ArrayList<String> permissions = new ArrayList<>();
