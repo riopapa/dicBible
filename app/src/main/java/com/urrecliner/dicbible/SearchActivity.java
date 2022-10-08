@@ -97,7 +97,6 @@ public class SearchActivity extends Activity {
                 recyclerView = findViewById(R.id.searchedList);
                 SearchAdapter searchAdapter = new SearchAdapter();
                 recyclerView.setAdapter(searchAdapter);
-//                tvSearchKey.requestFocus();
             }
         });
         ivTextClear = findViewById(R.id.text_clear);
@@ -108,8 +107,6 @@ public class SearchActivity extends Activity {
         ivTextClear.setOnClickListener(v -> {
             tvSearchKey.setText("");
             tvSearchKey.requestFocus();
-//            InputMethodManager imm2 = (InputMethodManager)
-                    getSystemService(mContext.INPUT_METHOD_SERVICE);
             imm.showSoftInput(tvSearchKey, InputMethodManager.SHOW_IMPLICIT);
         });
         if (searchNext) {
@@ -118,7 +115,6 @@ public class SearchActivity extends Activity {
             recyclerView = findViewById(R.id.searchedList);
             SearchAdapter searchAdapter = new SearchAdapter();
             recyclerView.setAdapter(searchAdapter);
-//            tvSearchKey.requestFocus();
             utils.hideKeyboard(searchActivity);
         }
 

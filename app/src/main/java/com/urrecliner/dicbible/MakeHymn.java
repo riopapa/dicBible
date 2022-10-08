@@ -15,6 +15,7 @@ import static com.urrecliner.dicbible.Vars.hymnColorFore;
 import static com.urrecliner.dicbible.Vars.hymnColorImage;
 import static com.urrecliner.dicbible.Vars.hymnColorTitle;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
+import static com.urrecliner.dicbible.Vars.hymnSpeed;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
@@ -169,13 +170,12 @@ class MakeHymn {
 
         buildMenu.set();
         initScrollView();
+        history.push();
 
         String txt = "Hymn/" + nowHymn + ".txt";
         String [] hymnTexts = FileRead.readBibleFile(txt);
-        if (hymnTexts == null) {
-//            Toast.makeText(mContext, "찬송가 " + nowHymn + " 가사 파일 없음",Toast.LENGTH_LONG).show();
+        if (hymnTexts == null)
             return;
-        }
 
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
@@ -204,7 +204,6 @@ class MakeHymn {
                 showHymnText(hymnTexts, linearLayout);
                 break;
         }
-        history.push();
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
     }
@@ -264,7 +263,6 @@ class MakeHymn {
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.addView(rowLayout);
-
             LinearLayout columnLayout = new LinearLayout(mContext);
             columnLayout.setOrientation(LinearLayout.HORIZONTAL);
             textView = new TextView(mContext);
@@ -305,7 +303,6 @@ class MakeHymn {
         rowLayout.addView(textView);
 
         fBody.addView(scrollView);
-        history.push();
     }
 
     private void initScrollView() {
@@ -327,10 +324,11 @@ class MakeHymn {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         TextView textView = dialogView.findViewById(R.id.promptMessage);
-        String s = hymnTitles[nowHymn] + "\n" + ((hymnAccompany)? "반주를 시작합니다":"찬양을 시작합니다");
+        String s = hymnTitles[nowHymn] + "\n" + ((hymnAccompany)? "반주":"찬양"
+                + " 속도 : "+hymnSpeed+"%");
         textView.setText(s);
         Button ok_btn = dialogView.findViewById(R.id.ok_btn);
-        ok_btn.setText("확인");
+        ok_btn.setText("시작");
         ok_btn.setOnClickListener(v -> {
             alertDialog.dismiss();
             speaking.say();
@@ -339,14 +337,16 @@ class MakeHymn {
 
     void goHymnLeft() {
         nowHymn--;
-        if (nowHymn > 0)
+        if (nowHymn > 0) {
             showHymnBody();
+        }
     }
 
     void goHymnRight() {
         nowHymn++;
-        if (nowHymn < 645)
+        if (nowHymn < 645) {
             showHymnBody();
+        }
     }
 
 }

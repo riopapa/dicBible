@@ -105,6 +105,7 @@ public class Vars {
 
     static Text2Speech text2Speech = null;
     static boolean isReadingNow = false;
+    static boolean bibleTTS = true;
     static int bibleSpeed = 90;
     static int biblePitch = 90;
     static int hymnSpeed = 90;

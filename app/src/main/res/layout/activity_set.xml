@@ -101,7 +101,7 @@
     <!--bible name-->
     <LinearLayout
         android:id="@+id/lBibleNameSize"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -151,7 +151,7 @@
     <!--bible body-->
     <LinearLayout
         android:id="@+id/lBibleScript"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -200,7 +200,7 @@
     <!--bible keyword-->
     <LinearLayout
         android:id="@+id/lBibileDic"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -249,7 +249,7 @@
     <!--bible refer-->
     <LinearLayout
         android:id="@+id/lBibleRefer"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -298,7 +298,7 @@
     <!--bible refer-->
     <LinearLayout
         android:id="@+id/lBibleSpace"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -352,10 +352,57 @@
         android:text="성경 읽기"
         style="@style/SetStyle2"
         />
+
+    <!-- bible TTS, voice -->
+    <LinearLayout
+        android:id="@+id/lBibleType"
+        style="@style/SetStyle2"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tts_voice"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:textColor="@color/menuColorFore"
+            android:layout_height="wrap_content"
+            android:text="성경 타입"
+            android:layout_gravity="center"
+            />
+        <RadioGroup
+            android:id="@+id/bibleSpeakType"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+            <RadioButton
+                android:id="@+id/bible_tts"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:textColor="@color/menuColorFore"
+                android:text="시스템"
+                android:textSize="20sp" />
+            <RadioButton
+                android:id="@+id/bible_voice"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:textColor="@color/menuColorFore"
+                android:text="성우"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
     <!--bible read speed-->
     <LinearLayout
         android:id="@+id/lBibleSpeed"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -404,7 +451,7 @@
     <!--bible read pitch-->
     <LinearLayout
         android:id="@+id/lBiblePitch"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -576,7 +623,7 @@
     <!--hymn text size-->
     <LinearLayout
         android:id="@+id/lHymnSize"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -625,7 +672,7 @@
     <!--hymn song speed-->
     <LinearLayout
         android:id="@+id/lHymnSpeed"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -675,7 +722,7 @@
     <!-- hymn accompany, play -->
     <LinearLayout
         android:id="@+id/lHymnType"
-        style="@style/SetStyle2"
+        style="@style/SetStyle1"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"

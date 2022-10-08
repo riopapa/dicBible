@@ -151,7 +151,8 @@ public class SetActivity extends Activity {
     @Override
     public void onBackPressed() {
 
-//        history.pop();
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible != 0)
                 makeBible.showBibleBody();
@@ -168,8 +169,6 @@ public class SetActivity extends Activity {
         } else if (topTab == TAB_MODE_DIC) {
             makeBible.showDicWord();
         }
-        finish();
-        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
 
 }

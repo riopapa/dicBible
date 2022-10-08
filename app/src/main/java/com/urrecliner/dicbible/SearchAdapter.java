@@ -3,14 +3,13 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
-import static com.urrecliner.dicbible.Vars.history;
+import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.searchActivity;
-import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.searcheds;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
@@ -71,15 +70,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
             searchActivity.finish();
             searchActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-            history.push();
-            history.push();
             makeBible.showBibleBody();
-//            mActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    makeBible.makeBibleBody();
-//                }
-//            });
         }
     }
 

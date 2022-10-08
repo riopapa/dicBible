@@ -77,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
         goBacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
         history = new History();
-        if (goBacks.size() > 1)
+        if (goBacks.size() > 1) {
             history.pop();
+            history.push();
+        }
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(mActivity, packageFolder);
-        SetUpMenuButton.init();
+        SetMenuButton.init();
         utils.setKeepScreen();
         ScreenColor.set();
         zoomControl = new ZoomControl(); zoomControl.set();
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         makeHymn = new MakeHymn();
         buildMenu = new BuildMenu();
         handlePrefs = new HandlePrefs();
+        isReadingNow = false;
 
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible > 0)
@@ -138,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         dialogView.findViewById(R.id.quitApp).setOnClickListener(v -> {
-            history.push();
             HandlePrefs.saveArray("goBack", goBacks);
             finish();
             new Timer().schedule(new TimerTask() {

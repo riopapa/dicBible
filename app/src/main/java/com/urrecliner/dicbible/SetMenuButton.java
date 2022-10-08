@@ -40,7 +40,7 @@ import static com.urrecliner.dicbible.Vars.vSetting;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class SetUpMenuButton {
+public class SetMenuButton {
 
     public static void init() {
 
@@ -86,8 +86,6 @@ public class SetUpMenuButton {
                 return;
             agpShow = !agpShow;
             sharedEdit.putBoolean("agpShow", agpShow).apply();
-            history.pop();
-            nowVerse = getNowTopVerse();
             makeBible.showBibleBody();
         });
         vCevBible.setOnClickListener(v -> {
@@ -95,14 +93,11 @@ public class SetUpMenuButton {
                 return;
             cevShow = !cevShow;
             sharedEdit.putBoolean("cevShow", cevShow).apply();
-            history.pop();
-            nowVerse = getNowTopVerse();
             makeBible.showBibleBody();
         });
 
         vSearch.setOnClickListener(v -> {
             if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0) {
-                history.push();
                 Intent i = new Intent(mActivity, SearchActivity.class);
                 mActivity.startActivity(i);
                 mActivity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
@@ -172,6 +167,7 @@ public class SetUpMenuButton {
             return 0;
     }
     static void goBackward() {
+            history.pop();
             history.pop();
             if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
                 if (nowBible == 0)

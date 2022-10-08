@@ -13,6 +13,7 @@ import com.urrecliner.dicbible.model.GoBack;
 class History {
 
     public void push() {
+//        dumpGoBack("push");
         if (goBacks.size() > 40) {
             goBacks.remove(0); goBacks.remove(0); goBacks.remove(0);
             goBacks.remove(0); goBacks.remove(0); goBacks.remove(0);
@@ -22,6 +23,7 @@ class History {
     }
 
     public void pop() {
+//        dumpGoBack("pop");
         if (goBacks.size() > 1) {
             GoBack goBack = goBacks.get(goBacks.size()-1);
             topTab = goBack.topTab;
@@ -34,4 +36,14 @@ class History {
         }
     }
 
+//    void dumpGoBack(String pp) {
+//        Log.w("goBack "+goBacks.size(), pp); {
+//            for (int i = 0; i < goBacks.size(); i++) {
+//                GoBack gb = goBacks.get(i);
+//                Log.w("back "+i, "topTab="+gb.topTab+" bib="+gb.bible
+//                        +" chap="+gb.chapter+" ver="+gb.verse+" hymn="+gb.hymn
+//                        +" dic="+gb.dic);
+//            }
+//        }
+//    }
 }

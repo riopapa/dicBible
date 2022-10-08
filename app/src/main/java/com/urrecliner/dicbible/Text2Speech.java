@@ -93,8 +93,8 @@ class Text2Speech {
                 mediaPlayer.setDataSource(fd);
                 fs.close();
                 mediaPlayer.setLooping(false);
-                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(bibleSpeed));
-                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setPitch(biblePitch));
+                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed((float)bibleSpeed/100));
+                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setPitch((float)biblePitch/100));
                 mediaPlayer.prepare();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,7 +152,7 @@ class Text2Speech {
     void playHymn() {
         mediaPlayer = new MediaPlayer();
         String fileName = packageFolder.getAbsolutePath()+((hymnAccompany)? "/hymn_mp3/":"/hymn_play/")+nowHymn+".mp3z";
-        File file = new File(fileName);
+        File file = new File(fileName);;
         FileDescriptor fd;
         if (file.exists()) {
             try {
@@ -161,7 +161,8 @@ class Text2Speech {
                 mediaPlayer.setDataSource(fd);
                 fs.close();
                 mediaPlayer.setLooping(false);
-                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(hymnSpeed));
+                mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams()
+                        .setSpeed((float) hymnSpeed / 100));
                 mediaPlayer.prepare();
             } catch (Exception e) {
                 e.printStackTrace();

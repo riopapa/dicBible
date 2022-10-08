@@ -4,6 +4,7 @@ import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
+import static com.urrecliner.dicbible.Vars.bibleTTS;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
@@ -38,7 +39,8 @@ public class HandlePrefs {
         textSizeSpace = sharedPref.getInt("textSizeSpace", 9);
         bibleSpeed = sharedPref.getInt("bibleSpeed", 90);
         biblePitch = sharedPref.getInt("biblePitch",100);
-        searchDepth = sharedPref.getInt("searchDepth", 20);
+        bibleTTS = sharedPref.getBoolean("bibleTTS", true);
+        searchDepth = sharedPref.getInt("searchDepth", 30);
 
         textSizeHymn = sharedPref.getInt("textSizeHymn", 20);
         hymnImageFirst = sharedPref.getBoolean("hymnImageFirst", true);

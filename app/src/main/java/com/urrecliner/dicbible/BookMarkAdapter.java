@@ -6,7 +6,6 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
-import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -76,7 +75,6 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
         builder.setMessage(s);
         builder.setPositiveButton(s+" 로 이동",
             (dialog, which) -> {
-                history.push();
                 nowBible = bookMark.bible;
                 nowChapter = bookMark.chapter;
                 nowVerse = bookMark.verse;

@@ -7,6 +7,8 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
+import static com.urrecliner.dicbible.Vars.biblePitch;
+import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.buildMenu;
@@ -80,7 +82,6 @@ class MakeBible {
     private ScrollView scrollView;
     private TextView textView;
     private LinearLayout linearLayout;
-    private final String markChar = "†";
 
     void showBibleList() {
 
@@ -154,7 +155,7 @@ class MakeBible {
     void showChapterList() {
         buildMenu.set();
         initScrollView();
-        textView.setText(newLine+fullBibleNames[nowBible]);
+        textView.setText(fullBibleNames[nowBible]);
         textView.setTextColor(menuColorFore);
         textView.setTextSize(textSizeScript);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -244,12 +245,12 @@ class MakeBible {
 
     private int ptrBody;
     private StringBuilder bodyText;
-    int paraSize, referSize;
+    int paraSize;
 
     void showBibleBody() {
         buildMenu.set();
         initScrollView();
-
+        history.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
         bibleTexts = FileRead.readBibleFile(file2read);
         if (bibleTexts == null) {
@@ -281,7 +282,6 @@ class MakeBible {
         makeBibleAllVerses();
         SpannableString ss = settleSpannableString(bodyText);
 
-        history.push();
         textView.setText(ss);
         textView.setTextSize(textSizeScript);
         textView.setLineSpacing(1.1f, 1.1f);
@@ -362,7 +362,8 @@ class MakeBible {
                 cevText = " ";
             workLine = workLine.substring(0, idx).replace(" ", spacing);
             // to prevent word wrap
-            String verseString = (line+1)+(marked[line+1] ? markChar:spacing);
+            String markChar = "†";
+            String verseString = (line+1)+(marked[line+1] ? markChar :spacing);
             if (line < maxVerse-1) {
                 String nextLine = bibleTexts[line+1].substring(0, bibleTexts[line+1].indexOf("`a")).trim();
                 if (nextLine.length() == 0)
@@ -561,16 +562,11 @@ class MakeBible {
 
     void showDicWord() {
 
-        history.push();
         topTab = TAB_MODE_DIC;
         buildMenu.set();
         initScrollView();
 
-        int verse = nowVerse;
         String txt = "dict/" + nowDic + ".txt";
-//        history.pop();
-//        nowVerse = verse;
-//        history.push();
         String [] dicTexts = FileRead.readBibleFile(txt);
         if (dicTexts != null) {
 //            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) linearLayout.getLayoutParams();
@@ -607,7 +603,7 @@ class MakeBible {
                     }
                     default: {
                         TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize(textSizeScript*4/5);
+                        tVLine.setTextSize((float) textSizeScript*4/5);
                         tVLine.setTextColor(scriptColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
@@ -632,10 +628,6 @@ class MakeBible {
     private void makeRefer() {
 
         String refer = nowDic; // 41#4:18
-        int verse = nowVerse;
-        history.pop();
-        nowVerse = verse;
-        history.push();
         nowBible = parseInt(refer.substring(0,2));
         topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
         refer = refer.substring(3) + "z";
@@ -656,12 +648,13 @@ class MakeBible {
     }
 
     void goBibleLeft() {
+
         int prevChapter = nowChapter - 1;
         if (prevChapter == 0) {   // prev bible required
             int prevBible = nowBible - 1;
-            if (prevBible == 0)
+            if (prevBible == 0) {
                 return;
-            else {
+            } else {
                 nowBible = prevBible;
                 nowChapter = nbrOfChapters[prevBible];
             }
@@ -698,7 +691,8 @@ class MakeBible {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         TextView textView = dialogView.findViewById(R.id.promptMessage);
-        String s = fullBibleNames[nowBible]+nowChapter+"\n 성경 읽기를 시작합니다";
+        String s = fullBibleNames[nowBible]+nowChapter+"\n속도 : "
+                + bibleSpeed+"% 높낮이 : "+biblePitch+"%";
         textView.setText(s);
         Button ok_btn = dialogView.findViewById(R.id.ok_btn);
         ok_btn.setText("읽기 시작");
@@ -707,5 +701,4 @@ class MakeBible {
             speaking.say();
         });
     }
-
 }
