@@ -25,6 +25,7 @@ import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
+import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
 import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
@@ -53,7 +54,6 @@ class MakeHymn {
     private final int [] ids = {7,8,9,4,5,6,1,2,3,0,BTN_CLEAR,-1,BTN_GO,-1,-1};
 
     private final String newLine = "\n";
-    private ScrollView scrollView;
     private TextView textView;
     private LinearLayout linearLayout;
 
@@ -146,7 +146,7 @@ class MakeHymn {
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
                 b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark: R.drawable.button_number);
-                b.setTextSize(textSizeHymn *9/10);
+                b.setTextSize((float)textSizeHymn *9/10);
                 b.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
@@ -180,7 +180,7 @@ class MakeHymn {
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
         tVBody.setText(txt);
-        tVBody.setTextSize(textSizeHymn + textSizeHymn /5);
+        tVBody.setTextSize(textSizeHymn + (float)textSizeHymn /5);
         tVBody.setPadding(0,20,0,20);
         tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
         tVBody.setWidth(xPixels);

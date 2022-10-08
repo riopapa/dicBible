@@ -5,6 +5,7 @@ import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.SetActivity.setTexts;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
+import static com.urrecliner.dicbible.Vars.bibleTTS;
 import static com.urrecliner.dicbible.Vars.searchDepth;
 import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
@@ -14,6 +15,8 @@ import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
 
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class SetBible {
@@ -150,6 +153,23 @@ public class SetBible {
 
         setTextBackGround(setActivity.findViewById(R.id.tBibleRead));
 
+        setLayoutBackGround(setActivity.findViewById(R.id.lBibleType));
+        setTextBackGround(setActivity.findViewById(R.id.tts_voice));
+        setTextBackGround(setActivity.findViewById(R.id.bible_tts));
+        setTextBackGround(setActivity.findViewById(R.id.bible_voice));
+
+        RadioGroup radioGroup = setActivity.findViewById(R.id.rBibleType);
+        RadioButton radioButton;
+        radioButton = (bibleTTS) ? setActivity.findViewById(R.id.bible_tts):setActivity.findViewById(R.id.bible_voice);
+        radioButton.setChecked(true);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.bible_tts)
+                bibleTTS = true;
+            else if (checkedId == R.id.bible_voice)
+                bibleTTS = false;
+            sharedEdit.putBoolean("bibleTTS", bibleTTS).apply();
+        });
+
         setLayoutBackGround(setActivity.findViewById(R.id.lBibleSpeed));
         tVSpeed = setActivity.findViewById(R.id.txtSpeed);
         dNSpeed = setActivity.findViewById(R.id.speed_down);
@@ -218,7 +238,6 @@ public class SetBible {
             setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
             sharedEdit.putInt("searchDepth", searchDepth).apply();
         });
-
     }
 
 }

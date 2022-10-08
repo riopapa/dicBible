@@ -11,8 +11,6 @@ import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnSpeed;
-import static com.urrecliner.dicbible.Vars.menuColorBack;
-import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
@@ -33,12 +31,12 @@ public class SetHymn {
 
         setLayoutBackGround(setActivity.findViewById(R.id.lHymnShowGrp));
 
-        setGroupColor(setActivity.findViewById(R.id.sheetThenLyric));
-        setGroupColor(setActivity.findViewById(R.id.lyricThenSheet));
-        setGroupColor(setActivity.findViewById(R.id.sheet_only));
-        setGroupColor(setActivity.findViewById(R.id.lyric_only));
+        setTextBackGround(setActivity.findViewById(R.id.sheetThenLyric));
+        setTextBackGround(setActivity.findViewById(R.id.lyricThenSheet));
+        setTextBackGround(setActivity.findViewById(R.id.sheet_only));
+        setTextBackGround(setActivity.findViewById(R.id.lyric_only));
 
-        RadioGroup radioGroup1 = setActivity.findViewById(R.id.hymnShowGrp);
+        RadioGroup radioGroup1 = setActivity.findViewById(R.id.rHymnShowWhat);
         RadioButton radioButton1;
         switch(hymnShowWhat) {
             case SHEET_THEN_LYRIC:
@@ -109,9 +107,9 @@ public class SetHymn {
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lHymnType));
-        setGroupColor(setActivity.findViewById(R.id.accompany_choir));
-        setGroupColor(setActivity.findViewById(R.id.hymnChoir));
-        setGroupColor(setActivity.findViewById(R.id.hymnMusic));
+        setTextBackGround(setActivity.findViewById(R.id.accompany_choir));
+        setTextBackGround(setActivity.findViewById(R.id.hymnChoir));
+        setTextBackGround(setActivity.findViewById(R.id.hymnMusic));
 
         RadioGroup radioGroup2 = setActivity.findViewById(R.id.hymnSpeakType);
         RadioButton radioButton2;
@@ -125,13 +123,5 @@ public class SetHymn {
                 hymnAccompany = true;
             sharedEdit.putBoolean("hymnAccompany", hymnAccompany).apply();
         });
-
-
     }
-
-    static void setGroupColor(TextView tV) {
-        tV.setBackgroundColor(menuColorBack);
-        tV.setTextColor(menuColorFore);
-    }
-
 }

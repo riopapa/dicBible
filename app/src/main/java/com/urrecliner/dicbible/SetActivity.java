@@ -18,7 +18,6 @@ import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
-import static com.urrecliner.dicbible.Vars.scriptColorFore;
 import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.topTab;
@@ -134,8 +133,8 @@ public class SetActivity extends Activity {
     }
 
     static void setTextBackGround(TextView view) {
-        view.setBackgroundColor(screenColorBack);
-        view.setTextColor(scriptColorFore);
+        view.setBackgroundColor(menuColorBack);
+        view.setTextColor(menuColorFore);
     }
     static void setLayoutBackGround(View view) {
         view.setBackgroundColor(screenColorBack);

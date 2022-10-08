@@ -5,7 +5,7 @@ import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
-import static com.urrecliner.dicbible.Vars.nowScrollView;
+import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
@@ -41,9 +41,9 @@ public class ZoomControl {
                         makeBible.showBibleBody();
                     else if (topTab == TAB_MODE_HYMN)
                         makeHymn.showHymnBody();
-                    nowScrollView.post(() -> new Timer().schedule(new TimerTask() {
+                    scrollView.post(() -> new Timer().schedule(new TimerTask() {
                         public void run() {
-                            nowScrollView.scrollTo(0, nowScrollView.getChildAt(0).getHeight() * yRatio / 1000);
+                            scrollView.scrollTo(0, scrollView.getChildAt(0).getHeight() * yRatio / 1000);
                             shouldSave = true;
                         }
                     }, 300));
@@ -65,17 +65,17 @@ public class ZoomControl {
                         makeBible.showBibleBody();
                     else if (topTab == TAB_MODE_HYMN)
                         makeHymn.showHymnBody();
-                    nowScrollView.post(() -> new Timer().schedule(new TimerTask() {
+                    scrollView.post(() -> new Timer().schedule(new TimerTask() {
                         public void run() {
-                            nowScrollView.scrollTo(0, nowScrollView.getChildAt(0).getHeight() * yRatio / 1000);
+                            scrollView.scrollTo(0, scrollView.getChildAt(0).getHeight() * yRatio / 1000);
                             shouldSave = true;
                         }
                     }, 300));
                 }
             }
             int saveYPositionRatio() {
-                int totalHeight = nowScrollView.getChildAt(0).getHeight();
-                return (totalHeight != 0) ? (nowScrollView.getScrollY() * 1000 / totalHeight):0;
+                int totalHeight = scrollView.getChildAt(0).getHeight();
+                return (totalHeight != 0) ? (scrollView.getScrollY() * 1000 / totalHeight):0;
             }
         };
 

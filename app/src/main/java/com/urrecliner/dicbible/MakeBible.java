@@ -33,6 +33,7 @@ import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.scriptColorFore;
+import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.textSizeBible66;
@@ -79,7 +80,6 @@ import java.util.TimerTask;
 class MakeBible {
 
     private final String newLine = "\n";
-    private ScrollView scrollView;
     private TextView textView;
     private LinearLayout linearLayout;
 
@@ -292,11 +292,11 @@ class MakeBible {
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
         zoomControl.set();
-        fBody.post(() -> new Timer().schedule(new TimerTask() {
+        scrollView.post(() -> new Timer().schedule(new TimerTask() {
             public void run() {
-                scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody);
+                mActivity.runOnUiThread(() -> scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody));
             }
-        }, 200));
+        }, 30));
     }
 
     private SpannableString settleSpannableString(StringBuilder bodyText) {

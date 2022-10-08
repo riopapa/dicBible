@@ -45,7 +45,7 @@ public class Vars {
     static ZoomControl zoomControl;
     static float windowYUpper, windowXCenter;
     @SuppressLint("StaticFieldLeak")
-    static ScrollView nowScrollView;
+    static ScrollView scrollView;
     static BookMarkAdapter bookMarkAdapter;
     static RecyclerView bookMarkView;
 

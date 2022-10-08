@@ -373,7 +373,7 @@
             android:layout_gravity="center"
             />
         <RadioGroup
-            android:id="@+id/bibleSpeakType"
+            android:id="@+id/rBibleType"
             android:layout_width="0dp"
             android:layout_weight="8"
             android:orientation="horizontal"
@@ -572,7 +572,7 @@
         android:layout_height="wrap_content">
 
         <RadioGroup
-            android:id="@+id/hymnShowGrp"
+            android:id="@+id/rHymnShowWhat"
             android:layout_width="0dp"
             android:layout_weight="8"
             android:orientation="horizontal"
