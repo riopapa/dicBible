@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
 import static com.urrecliner.dicbible.Vars.bookMarks;
-import static com.urrecliner.dicbible.Vars.buildMenu;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.cevColorFore;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
@@ -43,7 +43,6 @@ import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.xPixels;
-import static com.urrecliner.dicbible.Vars.zoomControl;
 import static java.lang.Integer.parseInt;
 
 import android.app.AlertDialog;
@@ -85,7 +84,7 @@ class MakeBible {
 
     void showBibleList() {
 
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
 
         int loop = (topTab == TAB_MODE_OLD) ?  39: 27;
@@ -153,7 +152,7 @@ class MakeBible {
     }
 
     void showChapterList() {
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
         textView.setText(fullBibleNames[nowBible]);
         textView.setTextColor(menuColorFore);
@@ -219,8 +218,8 @@ class MakeBible {
 
     private final int [] referF = new int[TABLE_SIZE];
     private final int [] referT = new int[TABLE_SIZE];
-    private final int [] crossV = new int[TABLE_SIZE];
-    private final String [] crossS = new String[TABLE_SIZE];
+    private final int [] referV = new int[TABLE_SIZE];
+    private final String [] referS = new String[TABLE_SIZE];
     private int idxRefer;
 
     private final int [] paraF = new int[30];
@@ -248,7 +247,7 @@ class MakeBible {
     int paraSize;
 
     void showBibleBody() {
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
         history.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
@@ -288,7 +287,7 @@ class MakeBible {
 
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
-        zoomControl.set();
+//        zoomControl.set();
         scrollView.post(() -> new Timer().schedule(new TimerTask() {
             public void run() {
                 mActivity.runOnUiThread(() -> scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody));
@@ -323,7 +322,7 @@ class MakeBible {
         }
         for (int i = 0; i < idxRefer; i++) {
             ss.setSpan(new AbsoluteSizeSpan(textSizeRefer, true), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new referSpan(crossS[i], crossV[i]), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new referSpan(referS[i], referV[i]), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxCev; i++) {
             ss.setSpan(new ForegroundColorSpan(cevColorFore), cevF[i], cevT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -460,8 +459,8 @@ class MakeBible {
             bodyText.append(showWord);
             referF[idxRefer] = ptrBody;
             referT[idxRefer] = ptrBody + showWord.length();
-            crossV[idxRefer] = verse;
-            crossS[idxRefer] = keyword.substring(1);  // save 01#12:34
+            referV[idxRefer] = verse;
+            referS[idxRefer] = keyword.substring(1);  // save 01#12:34
             idxRefer++;
             ptrBody += showWord.length();
         } else {  // keyword case
@@ -560,8 +559,9 @@ class MakeBible {
     void showDicWord() {
 
         topTab = TAB_MODE_DIC;
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
+        history.push();
 
         String txt = "dict/" + nowDic + ".txt";
         String [] dicTexts = FileRead.readBibleFile(txt);

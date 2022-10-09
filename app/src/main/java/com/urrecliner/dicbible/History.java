@@ -8,6 +8,8 @@ import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.topTab;
 
+import android.util.Log;
+
 import com.urrecliner.dicbible.model.GoBack;
 
 class History {
@@ -20,6 +22,7 @@ class History {
         }
         GoBack goBack = new GoBack(topTab,nowBible, nowChapter, nowVerse, nowHymn, nowDic);
         goBacks.add(goBack);
+//        dump("after push");
     }
 
     public void pop() {
@@ -34,5 +37,17 @@ class History {
             nowDic = goBack.dic;
             goBacks.remove(goBacks.size()-1);
         }
+//        dump("after pop");
+    }
+
+    private void dump(String s) {
+        Log.w(s,"size="+goBacks.size());
+        for (int i = 0; i < goBacks.size(); i++) {
+            GoBack gb = goBacks.get(i);
+            Log.w(s + i, "tab="+gb.topTab+" bib="+gb.bible+" ch="+gb.chapter
+                    +" ver="+gb.verse+" h="+gb.hymn+" d="+gb.dic);
+        }
+        Log.w(s+"now", "tab="+topTab+" bib="+nowBible+" ch="+nowChapter
+                +" ver="+nowVerse+" h="+nowHymn+" d="+nowDic);
     }
 }

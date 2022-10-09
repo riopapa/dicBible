@@ -25,6 +25,7 @@ import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
+import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vBackAction;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
@@ -40,7 +41,7 @@ import static com.urrecliner.dicbible.Vars.vSetting;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class SetMenuButton {
+public class ButtonAssign {
 
     public static void init() {
 
@@ -168,24 +169,28 @@ public class SetMenuButton {
     }
     static void goBackward() {
             history.pop();
-            history.pop();
-            if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
-                if (nowBible == 0)
-                    makeBible.showBibleList();
-                else if (nowChapter == 0)
-                    makeBible.showChapterList();
-                else
-                    makeBible.showBibleBody();
-            } else if (topTab == TAB_MODE_HYMN) {
-                if (nowHymn > 0)
-                    makeHymn.showHymnBody();
-                else {
-                    makeHymn.showNumberKey();
+            if (goBacks.size() > 1) {
+                history.pop();
+                if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+//                    if (nowBible == 0)
+//                        makeBible.showBibleList();
+//                    else if (nowChapter == 0)
+//                        makeBible.showChapterList();
+//                    else
+                        makeBible.showBibleBody();
+                } else if (topTab == TAB_MODE_HYMN) {
+//                    if (nowHymn > 0)
+                        makeHymn.showHymnBody();
+//                    else {
+//                        makeHymn.showNumberKey();
+//                    }
+                } else if (topTab == TAB_MODE_DIC) {
+                    makeBible.showDicWord();
+                } else {
+                    Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
                 }
-            } else if (topTab == TAB_MODE_DIC) {
-                makeBible.showDicWord();
             } else {
-                Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
+                utils.confirmExit();
             }
         }
 }

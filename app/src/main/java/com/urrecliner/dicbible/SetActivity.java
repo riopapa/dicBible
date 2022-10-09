@@ -9,6 +9,7 @@ import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarkView;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
@@ -106,7 +107,8 @@ public class SetActivity extends Activity {
         switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
             darkMode = isChecked;
             sharedEdit.putBoolean("darkMode", darkMode).apply();
-            ScreenColor.set();
+            ScreenColor.apply();
+            screenMenu.buildButtonColor();
             reshowAll();
         });
 

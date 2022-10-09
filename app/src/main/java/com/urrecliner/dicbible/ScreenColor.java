@@ -23,10 +23,7 @@ import androidx.core.content.ContextCompat;
 
 public class ScreenColor {
 
-
-    public static void set() {
-
-//        ColorDrawable cd = (ColorDrawable) vCenterAction.getBackground();
+    public static void apply() {
 
         if (darkMode) {
             menuColorFore = ContextCompat.getColor(mContext, R.color.menuColorForeN);

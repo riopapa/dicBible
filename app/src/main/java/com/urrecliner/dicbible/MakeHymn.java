@@ -6,7 +6,7 @@ import static com.urrecliner.dicbible.Vars.LYRIC_THEN_SHEET;
 import static com.urrecliner.dicbible.Vars.SHEET_ONLY;
 import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
 import static com.urrecliner.dicbible.Vars.bibleColorFore;
-import static com.urrecliner.dicbible.Vars.buildMenu;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.history;
@@ -59,7 +59,7 @@ class MakeHymn {
 
     void showNumberKey() {
 
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
 
         Button b;
@@ -168,7 +168,7 @@ class MakeHymn {
 
     void showHymnBody() {
 
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
         history.push();
 
@@ -245,7 +245,7 @@ class MakeHymn {
 
     private void showSortedHymnList(int start) {
 
-        buildMenu.set();
+        screenMenu.build();
         initScrollView();
 
         nowHymn = -1 - start;

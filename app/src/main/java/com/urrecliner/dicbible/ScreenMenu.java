@@ -13,11 +13,9 @@ import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
-import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
-import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -46,33 +44,63 @@ import android.widget.Toast;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
-public class BuildMenu {
+public class ScreenMenu {
 
     Drawable d;
     Drawable wrappedDrawable;
-    public void set() {
+    public void build() {
 
-        setCommon();
+        vOldBible.setBackgroundColor(menuColorBack);
+        vNewBible.setBackgroundColor(menuColorBack);
+        vHymn.setBackgroundColor(menuColorBack);
 
         switch (topTab) {
             case TAB_MODE_OLD:
-                setOLD();
+                buildOld();
                 break;
             case TAB_MODE_NEW:
-                setNEW();
+                buildNew();
                 break;
             case TAB_MODE_HYMN:
-                setHYMN();
+                buildHymn();
                 break;
             case TAB_MODE_DIC:
-                setDIC();
+                buildDic();
                 break;
             default:
                 Toast.makeText(mContext, "topTab Case Error "+topTab, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setBibleBottom() {
+    void buildButtonColor() {
+
+        topLayout.setBackgroundColor(menuColorBack);
+        btmLayout.setBackgroundColor(menuColorBack);
+        fBody.setBackgroundColor(screenColorBack);
+
+        vSetting.setBackgroundColor(menuColorBack);
+        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);
+        wrappedDrawable = DrawableCompat.wrap(d);
+        DrawableCompat.setTint(wrappedDrawable, menuColorFore);
+        vSetting.setImageDrawable(wrappedDrawable);
+        vOldBible.setBackgroundColor(menuColorBack);
+        vOldBible.setTextColor(menuColorFore);
+        vNewBible.setBackgroundColor(menuColorBack);
+        vNewBible.setTextColor(menuColorFore);
+        vHymn.setBackgroundColor(menuColorBack);
+        vHymn.setTextColor(menuColorFore);
+
+        vLeftAction.setTextColor(menuColorFore);
+        vCenterAction.setTextColor(menuColorFore);
+        vRightAction.setTextColor(menuColorFore);
+        vBackAction.setTextColor(menuColorFore);
+        vLeftAction.setBackgroundColor(menuColorBack);
+        vCenterAction.setBackgroundColor(menuColorBack);
+        vRightAction.setBackgroundColor(menuColorBack);
+        vBackAction.setBackgroundColor(menuColorBack);
+    }
+
+    private void buildBibleBottom() {
         String s;
 
         if (nowBible == 0) {        // show bible list
@@ -117,7 +145,7 @@ public class BuildMenu {
         }
     }
 
-    private void setAgpCev() {
+    private void buildAgpCev() {
         if (nowBible > 0 && nowChapter > 0) {
             vAgpBible.setText(R.string.agp);
             vAgpBible.setTextColor(menuColorFore);
@@ -133,27 +161,27 @@ public class BuildMenu {
         }
     }
 
-    private void setOLD() {
+    private void buildOld() {
 
-        setSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
+        buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
         vOldBible.setBackgroundResource(R.drawable.top_tab_border);
-        setAgpCev();
-        setBibleBottom();
+        buildAgpCev();
+        buildBibleBottom();
 
     }
 
-    private void setNEW() {
+    private void buildNew() {
 
-        setSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
+        buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
         vNewBible.setBackgroundResource(R.drawable.top_tab_border);
-        setAgpCev();
-        setBibleBottom();
+        buildAgpCev();
+        buildBibleBottom();
     }
 
-    void setHYMN() {
-        setSearch(menuColorBack);
+    void buildHymn() {
+        buildSearch(menuColorBack);
         vHymn.setBackgroundResource(R.drawable.top_tab_border);
-        setAgpCev();
+        buildAgpCev();
         vAgpBible.setText(blank);
         vCevBible.setText(blank);
 
@@ -171,46 +199,18 @@ public class BuildMenu {
         vCenterAction.setSelected(true);
     }
 
-    private void setDIC() {
-        setSearch(menuColorBack);
+    private void buildDic() {
+        buildSearch(menuColorBack);
         vCenterAction.setText(nowDic);
     }
 
-    private void setSearch(int color) {
+    private void buildSearch(int color) {
         vSearch.setEnabled(color == menuColorFore);
         vSearch.setBackgroundColor(menuColorBack);
         d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
         wrappedDrawable = DrawableCompat.wrap(d);
         DrawableCompat.setTint(wrappedDrawable, color);
         vSearch.setImageDrawable(wrappedDrawable);
-    }
-
-    void setCommon() {
-        
-        topLayout.setBackgroundColor(menuColorBack);
-        btmLayout.setBackgroundColor(menuColorBack);
-        fBody.setBackgroundColor(screenColorBack);
-
-        vSetting.setBackgroundColor(menuColorBack);
-        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);
-        wrappedDrawable = DrawableCompat.wrap(d);
-        DrawableCompat.setTint(wrappedDrawable, menuColorFore);
-        vSetting.setImageDrawable(wrappedDrawable);
-        vOldBible.setBackgroundColor(menuColorBack);
-        vOldBible.setTextColor(menuColorFore);
-        vNewBible.setBackgroundColor(menuColorBack);
-        vNewBible.setTextColor(menuColorFore);
-        vHymn.setBackgroundColor(menuColorBack);
-        vHymn.setTextColor(menuColorFore);
-
-        vLeftAction.setTextColor(menuColorFore);
-        vRightAction.setTextColor(menuColorFore);
-        vCenterAction.setTextColor(menuColorFore);
-        vCenterAction.setBackgroundColor((isReadingNow)? menuSelectedBack: menuColorBack);
-        vLeftAction.setBackgroundColor(menuColorBack);
-        vRightAction.setBackgroundColor(menuColorBack);
-        vBackAction.setBackgroundColor(menuColorBack);
-        vBackAction.setTextColor(menuColorFore);
     }
 
 }

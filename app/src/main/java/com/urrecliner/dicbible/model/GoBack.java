@@ -28,7 +28,6 @@ public class GoBack {
             ArrayList<GoBack> bm = new ArrayList<>();
             bm.add(new GoBack(1,44, 3, 16, 0, ""));
             bm.add(new GoBack(1,23, 41, 10, 0, ""));
-            bm.add(new GoBack(1,40, 11, 28, 0, ""));
             return bm;
         } else {
             Type type = new TypeToken<List<GoBack>>() {

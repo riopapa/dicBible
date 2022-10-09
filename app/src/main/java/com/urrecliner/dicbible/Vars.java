@@ -35,7 +35,7 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static MakeHymn makeHymn = null;
     @SuppressLint("StaticFieldLeak")
-    static BuildMenu buildMenu = null;
+    static ScreenMenu screenMenu = null;
     @SuppressLint("StaticFieldLeak")
     static Speaking speaking = null;
     static History history = null;

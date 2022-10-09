@@ -4,7 +4,7 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarks;
-import static com.urrecliner.dicbible.Vars.buildMenu;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.handlePrefs;
@@ -23,7 +23,6 @@ import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
-import static com.urrecliner.dicbible.Vars.zoomControl;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -44,8 +43,6 @@ import com.urrecliner.dicbible.model.GoBack;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -69,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPref = getApplicationContext().getSharedPreferences("bible", MODE_PRIVATE);
         sharedEdit = sharedPref.edit();
+        handlePrefs = new HandlePrefs();
+        handlePrefs.get();
 
-        setFullScreen();
         utils = new Utils();
         utils.setXPixels(mContext);
         goBacks = GoBack.read(sharedPref);
@@ -82,21 +80,22 @@ public class MainActivity extends AppCompatActivity {
         }
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(mActivity, packageFolder);
-        SetMenuButton.init();
-        utils.setKeepScreen();
-        ScreenColor.set();
-        zoomControl = new ZoomControl(); zoomControl.set();
+//        zoomControl = new ZoomControl(); zoomControl.set();
 
         speaking = new Speaking();
         text2Speech = new Text2Speech();
         text2Speech.setReady(getApplicationContext());
 
+        setFullScreen();
+        ScreenColor.apply();
+        ButtonAssign.init();
+
+        utils.setKeepScreen();
         makeBible = new MakeBible();
         makeHymn = new MakeHymn();
-        buildMenu = new BuildMenu();
-        handlePrefs = new HandlePrefs();
-        handlePrefs.get();
+        screenMenu = new ScreenMenu();
         isReadingNow = false;
+        screenMenu.buildButtonColor();
 
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible > 0)
@@ -127,27 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isReadingNow)
             text2Speech.stopRead();
-        confirmExit();
-    }
-
-    void confirmExit() {
-        View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_quit, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
-        builder.setView(dialogView);
-
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        dialogView.findViewById(R.id.quitApp).setOnClickListener(v -> {
-            HandlePrefs.saveArray("goBack", goBacks);
-            finish();
-            new Timer().schedule(new TimerTask() {
-                public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
-            }, 500);
-
-        });
+        utils.confirmExit();
     }
 
     // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓
