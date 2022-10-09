@@ -11,7 +11,6 @@ import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
 import static com.urrecliner.dicbible.Vars.bookMarks;
-import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.cevColorFore;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
@@ -32,6 +31,7 @@ import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenColorBack;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.scriptColorFore;
 import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
@@ -63,7 +63,6 @@ import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -71,6 +70,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.otaliastudios.zoom.ZoomImageView;
 import com.urrecliner.dicbible.model.BookMark;
 
 import java.io.File;
@@ -81,7 +81,7 @@ class MakeBible {
 
     private final String newLine = "\n";
     private TextView textView;
-    private LinearLayout linearLayout;
+    LinearLayout linearLayout;
 
     void showBibleList() {
 
@@ -94,7 +94,12 @@ class MakeBible {
         final int nbrColumn = 3;
         int buttonWidth = xPixels / nbrColumn;
 
-        addBlankLine(linearLayout);
+        textView.setText(newLine);
+        textView.setTextSize(10);
+        textView.setWidth(xPixels);
+        textView.setTextColor(0);
+        textView.setGravity(Gravity.CENTER);
+        linearLayout.addView(textView);
 
         for(int i = 0; i<15;i++) {
             Button b;
@@ -141,15 +146,6 @@ class MakeBible {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lParams.setMargins(20, 0, 30, 0);
         scrollView.addView(linearLayout, lParams);
-    }
-
-    private void addBlankLine(LinearLayout linearlayout) {
-        textView.setText(newLine);
-        textView.setTextSize(10);
-        textView.setWidth(xPixels);
-        textView.setTextColor(0);
-        textView.setGravity(Gravity.CENTER);
-        linearlayout.addView(textView);
     }
 
     void showChapterList() {
@@ -573,7 +569,8 @@ class MakeBible {
                         if (imgFile.exists()) {
                             Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                             int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
-                            ImageView imV = new ImageView(mContext);
+                            ZoomImageView imV = new ZoomImageView(mContext);
+                            imV.setMaxZoom(8f);
                             linearLayout.addView(imV);
                             imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
                             imV.requestLayout();
