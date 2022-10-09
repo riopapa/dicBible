@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         goBacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
         history = new History();
-        if (goBacks.size() > 1) {
+        if (goBacks.size() > 0) {
             history.pop();
             history.push();
         }
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         if (isReadingNow)
-            text2Speech.stopRead();
+            text2Speech.stopPlay();
         utils.confirmExit();
     }
 

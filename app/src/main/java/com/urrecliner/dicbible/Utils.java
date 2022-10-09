@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,6 +57,34 @@ public class Utils {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+    void showSnackBar(String title, String text) {
+
+        View mLayoutView = mActivity.findViewById(R.id.main);
+        Snackbar snackbar = Snackbar.make(mLayoutView, "", Snackbar.LENGTH_LONG);
+        View sView = mActivity.getLayoutInflater().inflate(R.layout.snack_message, null);
+
+        TextView tv1 = sView.findViewById(R.id.textView1);
+        TextView tv2 = sView.findViewById(R.id.textView2);
+
+        tv1.setText(title);
+        tv2.setText(text);
+
+        // now change the layout of the snackbar
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
+//        snackbarLayout.setPadding(8, 8, 8, 8);
+//        snackbarLayout.setBackgroundColor(0x00FFFFFF);  // remove background
+//        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarLayout.getLayoutParams();
+//        params.gravity = Gravity.CENTER_VERTICAL;
+//        sView.setLayoutParams(params);
+        // register the button from the custom_snackbar_view layout file
+
+        // add the custom snack bar layout to snackbar layout
+        snackbarLayout.addView(sView, 0);
+
+        snackbar.show();
     }
 
 

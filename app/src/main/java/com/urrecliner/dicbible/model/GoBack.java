@@ -26,8 +26,9 @@ public class GoBack {
         String json = sharedPref.getString("goBack", "");
         if (json.isEmpty()) {
             ArrayList<GoBack> bm = new ArrayList<>();
-            bm.add(new GoBack(1,44, 3, 16, 0, ""));
-            bm.add(new GoBack(1,23, 41, 10, 0, ""));
+            bm.add(new GoBack(1,20, 3, 5, 0, ""));
+            bm.add(new GoBack(1,19, 27, 1, 0, ""));
+            bm.add(new GoBack(2,43, 14, 6, 0, ""));
             return bm;
         } else {
             Type type = new TypeToken<List<GoBack>>() {

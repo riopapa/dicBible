@@ -27,11 +27,11 @@ public class BookMark {
         String json = sharedPref.getString("bookMark", "");
         if (json.isEmpty()) {
             ArrayList<BookMark> bm = new ArrayList<>();
-            bm.add(new BookMark(44, 3, 16,
+            bm.add(new BookMark(20, 3, 5,
                         System.currentTimeMillis()));
-            bm.add(new BookMark(23, 41, 10,
+            bm.add(new BookMark(19, 27, 1,
                         System.currentTimeMillis()));
-            bm.add(new BookMark(40, 11, 28,
+            bm.add(new BookMark(43, 14, 6,
                         System.currentTimeMillis()));
             return bm;
         } else {

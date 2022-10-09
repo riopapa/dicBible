@@ -107,14 +107,14 @@ public class ButtonAssign {
 
         vSetting.setOnClickListener(v -> {
             if (isReadingNow)
-                text2Speech.stopRead();
+                text2Speech.stopPlay();
             Intent i = new Intent(mActivity, SetActivity.class);
             mActivity.startActivity(i);
         });
 
         vLeftAction.setOnClickListener(v -> {
             if (isReadingNow)
-                text2Speech.stopRead();
+                text2Speech.stopPlay();
             if (vLeftAction.getText().toString().equals(blank))
                 return;
             if (topTab < TAB_MODE_HYMN)
@@ -128,13 +128,13 @@ public class ButtonAssign {
                 return;
             if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0) {
                 if (isReadingNow)
-                    text2Speech.stopRead();
+                    text2Speech.stopPlay();
                 else
                     makeBible.confirmSpeak();
             }
             else if (topTab == TAB_MODE_HYMN) {
                 if (isReadingNow)
-                    text2Speech.stopRead();
+                    text2Speech.stopPlay();
                 else
                     makeHymn.confirmSpeak();
             }
@@ -142,7 +142,7 @@ public class ButtonAssign {
 
         vRightAction.setOnClickListener(v -> {
             if (isReadingNow)
-                text2Speech.stopRead();
+                text2Speech.stopPlay();
             if (vRightAction.getText().toString().equals(blank))
                 return;
             if (topTab < TAB_MODE_HYMN)
@@ -153,7 +153,7 @@ public class ButtonAssign {
 
         vBackAction.setOnClickListener(v -> {
             if (isReadingNow)
-                text2Speech.stopRead();
+                text2Speech.stopPlay();
             if (goBacks.size() > 0) {
                 goBackward();
             }

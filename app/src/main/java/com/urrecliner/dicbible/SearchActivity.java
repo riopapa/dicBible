@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -164,7 +163,7 @@ public class SearchActivity extends Activity {
             }
         }
         if (searcheds.size() == 0)
-            Toast.makeText(mContext, keyText +" 없음. ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.",Toast.LENGTH_LONG).show();
+            utils.showSnackBar(keyText +" 없음."," ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.");
     }
 
     private String extractVerse(String bibleVers) {

@@ -42,6 +42,7 @@ import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
+import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.xPixels;
 import static java.lang.Integer.parseInt;
 
@@ -253,7 +254,7 @@ class MakeBible {
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
         bibleTexts = FileRead.readBibleFile(file2read);
         if (bibleTexts == null) {
-            Toast.makeText(mContext, "Bible source not found " + fullBibleNames[nowBible] + " " + nowChapter,Toast.LENGTH_LONG).show();
+            utils.showSnackBar("성경 말씀 파일 없음 ", fullBibleNames[nowBible] + " " + nowChapter);
             return;
         }
         maxVerse  = bibleTexts.length;
@@ -507,14 +508,13 @@ class MakeBible {
                         break;
                     }
                 }
-                Toast.makeText(mContext, fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절이\n북마크 해제 되었습니다",Toast.LENGTH_LONG).show();
+                utils.showSnackBar( "북마크가 해제 되었습니다", fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절");
             } else {
                 bookMarks.add(0, new BookMark(bible, chapter, verse, System.currentTimeMillis()));
-                Toast.makeText(mContext, fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절이\n북마크 설정 되었습니다",Toast.LENGTH_LONG).show();
+                utils.showSnackBar( "북마크가 설정 되었습니다", fullBibleNames[bible]+" "+chapter+" 장"+verse+" 절");
             }
             HandlePrefs.saveArray("bookMark", bookMarks);
             nowVerse = verse;
-
             showBibleBody();
         }
     }

@@ -41,8 +41,7 @@ class Text2Speech {
     void setReady(Context context) {
         mTTS = new TextToSpeech(context, ttsInitListener);
     }
-    //        @SuppressLint("NewApi")
-    // It's callback
+
     private final TextToSpeech.OnInitListener ttsInitListener = status -> {
         if (status != TextToSpeech.SUCCESS)
             return;
@@ -53,13 +52,13 @@ class Text2Speech {
             public void onDone(String utteranceId) {
                 ttsVerseNow++;
                 if (isReadingNow && ttsVerseNow < maxVerse)
-                    readVerseByTTS(ttsVerseNow);
+                    readBibleTTS(ttsVerseNow);
                 else if (isReadingNow) {
                     makeBible.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             ttsVerseNow = 0;
-                            readVerseByTTS(ttsVerseNow);
+                            readBibleTTS(ttsVerseNow);
                         }
                     }, 2000);
                 }
@@ -77,19 +76,18 @@ class Text2Speech {
 
     private MediaPlayer mediaPlayer = null;
 
-    void readVerse() {
+    void playBible() {
 
-        if (mediaPlayer == null)
-            mediaPlayer = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
         if (bibleTTS) {
-            readVerseByTTS(0);
+            readBibleTTS(0);
         } else {
             String fileName = packageFolder.getAbsolutePath()+"/bible_mp3/"
                     +nowBible+"_"+nowChapter+".mp3z";
             File file = new File(fileName);
             FileDescriptor fd;
             if (!file.exists()) {
-                Toast.makeText(mContext, file.getName()+" 파일이 없습니다", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, file.getName()+" 성경 낭독 파일이 없습니다", Toast.LENGTH_LONG).show();
                 return;
             }
             try {
@@ -112,7 +110,7 @@ class Text2Speech {
                     makeBible.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
-                            readVerse();
+                            playBible();
                         }
                     }, 2000);
                 }
@@ -121,7 +119,7 @@ class Text2Speech {
         }
     }
 
-    private void readVerseByTTS(int v) {
+    private void readBibleTTS(int v) {
         String text;
         String para = null;
         ttsVerseNow = v;
@@ -185,12 +183,12 @@ class Text2Speech {
             mediaPlayer.start();
             isReadingNow = true;
         } else {
-            Toast.makeText(mContext, "찬송가 "+nowHymn+"장 음악 파일이 없습니다.", Toast.LENGTH_LONG).show();
+            utils.showSnackBar("찬송가 "+nowHymn+"장 " + ((hymnAccompany)? "반주":"찬양"), " 파일이 없습니다");
             isReadingNow = false;
         }
     }
 
-    void stopRead() {
+    void stopPlay() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();

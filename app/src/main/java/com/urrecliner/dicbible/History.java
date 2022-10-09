@@ -27,7 +27,7 @@ class History {
 
     public void pop() {
 
-        if (goBacks.size() > 1) {
+        if (goBacks.size() > 0) {
             GoBack goBack = goBacks.get(goBacks.size()-1);
             topTab = goBack.topTab;
             nowBible = goBack.bible;
