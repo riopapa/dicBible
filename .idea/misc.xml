@@ -37,12 +37,14 @@
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/book_mark.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/confirm_delete.xml" value="0.14266304347826086" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/custom_cookie.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/dialog_confirm.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/dialog_quit.xml" value="0.14266304347826086" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/history_table.xml" value="0.14266304347826086" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/layout_cookie.xml" value="0.115625" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_activity.xml" value="0.176" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/search_item.xml" value="0.264" />
-        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/snack_message.xml" value="0.14266304347826086" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/snack_message.xml" value="0.264" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/speak_or_not.xml" value="0.14266304347826086" />
       </map>
     </option>

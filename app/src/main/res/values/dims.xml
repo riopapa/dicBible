@@ -5,4 +5,6 @@
     <dimen name="set_left1">8sp</dimen>
     <dimen name="set_left2">24sp</dimen>
     <dimen name="set_left3">40sp</dimen>
+    <dimen name="cookie_padding">4sp</dimen>
+
 </resources>

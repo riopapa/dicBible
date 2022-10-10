@@ -3,6 +3,7 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.mActivity;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.Activity;
@@ -10,12 +11,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.urrecliner.dicbible.cookiebar.CookieBar;
+
+//import org.aviran.cookiebar2.CookieBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,29 +65,34 @@ public class Utils {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
     void showSnackBar(String title, String text) {
 
-        View mLayoutView = mActivity.findViewById(R.id.main);
+        CookieBar.build(mActivity)
+                .setTitle(title)
+//                .setTitleColor(menuColorFore)
+                .setMessage(text)
+//                .setMessageColor(menuSelectedBack)
+                .setCookiePosition(CookieBar.BOTTOM)
+                .setAnimationIn(android.R.anim.slide_in_left, android.R.anim.slide_in_left)
+                .setAnimationOut(android.R.anim.slide_out_right, android.R.anim.slide_out_right)
+                .show();
+
+    }
+    void sxx (String title, String text) {
+        View mLayoutView = mActivity.findViewById(R.id.fBody);
         Snackbar snackbar = Snackbar.make(mLayoutView, "", Snackbar.LENGTH_LONG);
         View sView = mActivity.getLayoutInflater().inflate(R.layout.snack_message, null);
-
         TextView tv1 = sView.findViewById(R.id.textView1);
         TextView tv2 = sView.findViewById(R.id.textView2);
 
         tv1.setText(title);
         tv2.setText(text);
 
-        // now change the layout of the snackbar
         Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
 //        snackbarLayout.setPadding(8, 8, 8, 8);
-//        snackbarLayout.setBackgroundColor(0x00FFFFFF);  // remove background
-//        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarLayout.getLayoutParams();
-//        params.gravity = Gravity.CENTER_VERTICAL;
-//        sView.setLayoutParams(params);
-        // register the button from the custom_snackbar_view layout file
-
-        // add the custom snack bar layout to snackbar layout
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarLayout.getLayoutParams();
+        params.gravity = Gravity.CENTER_VERTICAL;
+        sView.setLayoutParams(params);
         snackbarLayout.addView(sView, 0);
 
         snackbar.show();

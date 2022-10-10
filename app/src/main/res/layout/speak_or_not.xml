@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#054567"
+    android:background="#4682A1"
     android:orientation="horizontal">
 
     <ImageView
@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="#7CA0B3"
+            android:textColor="#081A59"
             android:textAllCaps="false"
             android:textSize="18sp" />
 

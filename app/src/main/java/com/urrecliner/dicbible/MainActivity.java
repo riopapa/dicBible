@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         return (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED);
     }
 
-    //    @TargetApi(Build.VERSION_CODES.M)
+//    //    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

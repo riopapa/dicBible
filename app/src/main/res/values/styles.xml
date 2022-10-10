@@ -1,5 +1,16 @@
 <resources>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="cookieTitleColor">@color/cookie_title_color</item>
+        <item name="cookieMessageColor">@color/cookie_message_color</item>
+        <item name="cookieActionColor">@color/cookie_action_color</item>
+        <item name="cookieBackgroundColor">@color/menuColorBack</item>
+        <item name="cookiePadding">24dp</item>
+        <item name="cookieTitleSize">24sp</item>
+        <item name="cookieMessageSize">16sp</item>
+        <item name="cookieActionSize">18sp</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.dicBible" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->

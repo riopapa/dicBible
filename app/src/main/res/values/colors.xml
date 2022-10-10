@@ -45,9 +45,6 @@
     <color name="markColorBackN">#7A1BDC21</color>
 
 
-
-
-
     <color name="setSolid">#34282C</color>
     <color name="setStroke">#8E35EF</color>
     <color name="setText">#8E35EF</color>
@@ -55,5 +52,19 @@
     <color name="quitBack">#FBBBB9</color>
     <color name="quitFore">#113388</color>
     <color name="markLight">#50FFB300</color>
+
+
+
+    <color name="fancyTitle">#ffff00</color>
+    <color name="fancyMessage">#ffffff</color>
+    <color name="fancyBackground">#4CAF50</color>
+    <color name="fancyAction">#ffff00</color>
+    <color name="orange">#FF8A65</color>
+    <color name="liteblue">#E1F5FE</color>
+
+    <color name="cookie_back_color">#80A3B3</color>
+    <color name="cookie_title_color">#1D234A</color>
+    <color name="cookie_message_color">#203A88</color>
+    <color name="cookie_action_color">#E11F61</color>
 
 </resources>
