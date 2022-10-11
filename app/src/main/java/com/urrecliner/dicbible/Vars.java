@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -73,8 +74,8 @@ public class Vars {
     static ImageView vSetting, vSearch;
     static TextView vAgpBible, vOldBible, vNewBible, vHymn, vCevBible;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
-
     static int textSizeHymnKeypad = 24;
+    static Drawable tabDrawable;
 
     // followings are from shared preference
     static SharedPreferences sharedPref;

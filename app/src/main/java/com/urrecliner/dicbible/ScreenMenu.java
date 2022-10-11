@@ -22,6 +22,7 @@ import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
+import static com.urrecliner.dicbible.Vars.tabDrawable;
 import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
@@ -45,8 +46,9 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 public class ScreenMenu {
 
-    Drawable d;
+    Drawable drawableSet;
     Drawable wrappedDrawable;
+
     public void build() {
 
         vOldBible.setBackgroundColor(menuColorBack);
@@ -78,8 +80,8 @@ public class ScreenMenu {
         fBody.setBackgroundColor(menuColorBack);
 
         vSetting.setBackgroundColor(menuColorBack);
-        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);
-        wrappedDrawable = DrawableCompat.wrap(d);
+        drawableSet = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);
+        wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, menuColorFore);
         vSetting.setImageDrawable(wrappedDrawable);
         vOldBible.setBackgroundColor(menuColorBack);
@@ -145,41 +147,39 @@ public class ScreenMenu {
     }
 
     private void buildAgpCev() {
+        vAgpBible.setBackgroundColor(menuColorBack);
+        vCevBible.setBackgroundColor(menuColorBack);
         if (nowBible > 0 && nowChapter > 0) {
-            vAgpBible.setText(R.string.agp);
-            vAgpBible.setTextColor(menuColorFore);
-            vAgpBible.setBackgroundColor((agpShow)? agpColorFore : menuColorBack);
-            vCevBible.setText(R.string.cev);
-            vCevBible.setTextColor(menuColorFore);
-            vCevBible.setBackgroundColor((cevShow)? cevColorFore : menuColorBack);
+            vAgpBible.setText((agpShow)? R.string.AGP:R.string.agp);
+            vAgpBible.setTextColor(agpColorFore);
+            vCevBible.setText((cevShow)? R.string.CEV:R.string.cev);
+            vCevBible.setTextColor(cevColorFore);
         } else {
             vAgpBible.setText(blank);
             vAgpBible.setBackgroundColor(menuColorBack);
             vCevBible.setText(blank);
-            vCevBible.setBackgroundColor(menuColorBack);
         }
     }
 
     private void buildOld() {
 
         buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        vOldBible.setBackgroundResource(R.drawable.top_tab_border);
+        vOldBible.setBackgroundDrawable(tabDrawable);
         buildAgpCev();
         buildBibleBottom();
-
     }
 
     private void buildNew() {
 
         buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        vNewBible.setBackgroundResource(R.drawable.top_tab_border);
+        vNewBible.setBackgroundDrawable(tabDrawable);
         buildAgpCev();
         buildBibleBottom();
     }
 
     void buildHymn() {
         buildSearch(menuColorBack);
-        vHymn.setBackgroundResource(R.drawable.top_tab_border);
+        vHymn.setBackgroundDrawable(tabDrawable);
         buildAgpCev();
         vAgpBible.setText(blank);
         vCevBible.setText(blank);
@@ -208,8 +208,8 @@ public class ScreenMenu {
     private void buildSearch(int color) {
         vSearch.setEnabled(color == menuColorFore);
         vSearch.setBackgroundColor(menuColorBack);
-        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
-        wrappedDrawable = DrawableCompat.wrap(d);
+        drawableSet = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
+        wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, color);
         vSearch.setImageDrawable(wrappedDrawable);
     }

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/agp_cev_border.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/apg_border.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/bible_border.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/button_bible.xml" value="0.1795" />
@@ -30,6 +31,8 @@
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_thumb.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_track_off.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/switch_track_on.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/tab_border_dark.xml" value="0.1795" />
+        <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/top_tab_border.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/drawable/value_increase.xml" value="0.1795" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/@ANDROID/dicbible/app/src/main/res/layout/activity_search.xml" value="0.14266304347826086" />

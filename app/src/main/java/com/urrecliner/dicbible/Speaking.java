@@ -30,11 +30,13 @@ public class Speaking {
             text2Speech.stopPlay();
         } else if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
             isReadingNow = true;
-            utils.showSnackBar(((bibleTTS)? "성경읽기":"성경낭독")+" 시작", fullBibleNames[nowBible]+ " "+nowChapter);
+            utils.showSnackBar( fullBibleNames[nowBible]+ " "+nowChapter,
+                    ((bibleTTS)? "성경읽기":"성경낭독")+" 시작");
             text2Speech.playBible();
         } else if (topTab == TAB_MODE_HYMN) {
             isReadingNow = true;
-            utils.showSnackBar(((hymnAccompany)? "반주":"찬양") + " 시작", hymnTitles[nowHymn]);
+            utils.showSnackBar(hymnTitles[nowHymn],
+                    ((hymnAccompany)? "반주":"찬양") + " 시작");
             text2Speech.playHymn();
         }
         setCenterColor();

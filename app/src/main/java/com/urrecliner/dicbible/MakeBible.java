@@ -646,7 +646,7 @@ class MakeBible {
             }
         } else
             nowChapter = prevChapter;
-        nowVerse = 0;
+        nowVerse = 1;
         showBibleBody();
     }
 
@@ -664,7 +664,7 @@ class MakeBible {
         } else {
             nowChapter = nextChapter;
         }
-        nowVerse = 0;
+        nowVerse = 1;
         showBibleBody();
     }
 

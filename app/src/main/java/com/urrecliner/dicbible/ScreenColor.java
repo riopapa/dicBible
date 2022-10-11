@@ -13,6 +13,7 @@ import static com.urrecliner.dicbible.Vars.menuSelectedBack;
 import static com.urrecliner.dicbible.Vars.numberColorFore;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.referColorFore;
+import static com.urrecliner.dicbible.Vars.tabDrawable;
 import static com.urrecliner.dicbible.Vars.textColorFore;
 
 import androidx.core.content.ContextCompat;
@@ -34,6 +35,7 @@ public class ScreenColor {
             agpColorFore = ContextCompat.getColor(mContext, R.color.agpColorForeN);
             dicColorFore = ContextCompat.getColor(mContext, R.color.dictColorForeN);
             hymnColorImage = ContextCompat.getColor(mContext, R.color.hymnImageBackN);
+            tabDrawable = ContextCompat.getDrawable(mContext, R.drawable.tab_border_dark);
         } else {
             menuColorFore = ContextCompat.getColor(mContext, R.color.menuColorFore);
             menuColorBack = ContextCompat.getColor(mContext, R.color.menuColorBack);
@@ -47,6 +49,7 @@ public class ScreenColor {
             agpColorFore = ContextCompat.getColor(mContext, R.color.agpColorFore);
             dicColorFore = ContextCompat.getColor(mContext, R.color.dictColorFore);
             hymnColorImage = ContextCompat.getColor(mContext, R.color.hymnImageBack);
+            tabDrawable = ContextCompat.getDrawable(mContext, R.drawable.tab_border);
         }
     }
 }

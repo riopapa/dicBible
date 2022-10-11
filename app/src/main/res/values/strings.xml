@@ -24,6 +24,8 @@
     <string name="about">이 성경찬송 앱 업데이트 이력 . .</string>
     <string name="agp">agp</string>
     <string name="cev">cev</string>
+    <string name="AGP">AGP</string>
+    <string name="CEV">CEV</string>
 
 
     <!-- Strings used for fragments for navigation -->
