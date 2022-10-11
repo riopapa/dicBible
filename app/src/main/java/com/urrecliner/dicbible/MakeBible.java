@@ -43,7 +43,6 @@ import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.xPixels;
-import static com.urrecliner.dicbible.Vars.zoomControl;
 import static java.lang.Integer.parseInt;
 
 import android.app.AlertDialog;
@@ -277,16 +276,13 @@ class MakeBible {
 
         textView.setText(ss);
         textView.setTextSize(textSizeScript);
-
-
-//        textView.setLineSpacing(0.1f, 1.0f);
+        textView.setLineSpacing(1.1f, 1.2f);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         linearLayout.addView(textView);
 
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
-        zoomControl.set();
         scrollView.post(() -> new Timer().schedule(new TimerTask() {
             public void run() {
                 mActivity.runOnUiThread(() -> scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody));

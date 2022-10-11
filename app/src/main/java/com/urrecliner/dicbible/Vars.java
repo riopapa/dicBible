@@ -42,7 +42,6 @@ public class Vars {
     static Utils utils = null;
     static FileRead fileRead = null;
 
-    static ZoomControl zoomControl;
     @SuppressLint("StaticFieldLeak")
     static ScrollView scrollView;
     static BookMarkAdapter bookMarkAdapter;
