@@ -64,21 +64,23 @@ public class ButtonAssign {
 
         vOldBible.setOnClickListener(v -> {
             topTab = TAB_MODE_OLD;
-            nowVerse = getNowTopVerse();
             nowBible = 0;
             nowChapter = 0;
+            nowVerse = 0;
             makeBible.showBibleList();
         });
         vNewBible.setOnClickListener(v -> {
             topTab = TAB_MODE_NEW;
-            nowVerse = getNowTopVerse();
             nowBible = 0;
             nowChapter = 0;
+            nowVerse = 0;
             makeBible.showBibleList();
         });
         vHymn.setOnClickListener(v -> {
             topTab = TAB_MODE_HYMN;
             nowBible = 0;
+            nowChapter = 0;
+            nowVerse = 0;
             nowHymn = 0;
             makeHymn.showNumberKey();
         });

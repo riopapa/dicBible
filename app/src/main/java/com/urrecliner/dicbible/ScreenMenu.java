@@ -21,7 +21,6 @@ import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowHymn;
-import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.topTab;
@@ -76,7 +75,7 @@ public class ScreenMenu {
 
         topLayout.setBackgroundColor(menuColorBack);
         btmLayout.setBackgroundColor(menuColorBack);
-        fBody.setBackgroundColor(screenColorBack);
+        fBody.setBackgroundColor(menuColorBack);
 
         vSetting.setBackgroundColor(menuColorBack);
         d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);

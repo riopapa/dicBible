@@ -6,10 +6,8 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
-import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarkView;
-import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
@@ -18,9 +16,10 @@ import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
-import static com.urrecliner.dicbible.Vars.screenColorBack;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
+import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.app.Activity;
@@ -37,6 +36,7 @@ public class SetActivity extends Activity {
     ScrollView scrollView;
     TextView tv;
     SwitchCompat switchCompat;
+    boolean showHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class SetActivity extends Activity {
     private void reshowAll() {
 
         View v = setActivity.findViewById(R.id.scrollLayout);
-        v.setBackgroundColor(screenColorBack);
+        v.setBackgroundColor(menuColorBack);
         setLayoutBackGround(setActivity.findViewById(R.id.set));
         setTextBackGround(setActivity.findViewById(R.id.goBack));
         setTextBackGround(setActivity.findViewById(R.id.head));
@@ -139,14 +139,14 @@ public class SetActivity extends Activity {
         view.setTextColor(menuColorFore);
     }
     static void setLayoutBackGround(View view) {
-        view.setBackgroundColor(screenColorBack);
+        view.setBackgroundColor(menuColorBack);
     }
 
     static void setTexts(TextView tV, TextView dN, TextView sZ, TextView uP, int textColor) {
-        tV.setBackgroundColor(screenColorBack); tV.setTextColor(bibleColorFore); tV.setTextSize(textColor);
-        dN.setBackgroundColor(screenColorBack); dN.setTextColor(bibleColorFore); dN.setTextSize(textColor);
-        sZ.setBackgroundColor(screenColorBack); sZ.setTextColor(bibleColorFore); sZ.setTextSize(textColor);
-        uP.setBackgroundColor(screenColorBack); uP.setTextColor(bibleColorFore); uP.setTextSize(textColor);
+        tV.setBackgroundColor(menuColorBack); tV.setTextColor(textColorFore); tV.setTextSize(textColor);
+        dN.setBackgroundColor(menuColorBack); dN.setTextColor(textColorFore); dN.setTextSize(textColor);
+        sZ.setBackgroundColor(menuColorBack); sZ.setTextColor(textColorFore); sZ.setTextSize(textColor);
+        uP.setBackgroundColor(menuColorBack); uP.setTextColor(textColorFore); uP.setTextSize(textColor);
     }
 
     @Override

@@ -5,15 +5,11 @@ import static com.urrecliner.dicbible.Vars.LYRIC_ONLY;
 import static com.urrecliner.dicbible.Vars.LYRIC_THEN_SHEET;
 import static com.urrecliner.dicbible.Vars.SHEET_ONLY;
 import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
-import static com.urrecliner.dicbible.Vars.bibleColorFore;
-import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
-import static com.urrecliner.dicbible.Vars.hymnColorFore;
 import static com.urrecliner.dicbible.Vars.hymnColorImage;
-import static com.urrecliner.dicbible.Vars.hymnColorTitle;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnSpeed;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
@@ -24,10 +20,11 @@ import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
-import static com.urrecliner.dicbible.Vars.screenColorBack;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.sortedNumbers;
 import static com.urrecliner.dicbible.Vars.speaking;
+import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
 import static com.urrecliner.dicbible.Vars.xPixels;
@@ -63,14 +60,14 @@ class MakeHymn {
         initScrollView();
 
         Button b;
-
+        int drawable = (darkMode)? R.drawable.button_bible_dark: R.drawable.button_number;
         if (nowHymn > 0)
             hymnTitle = nowHymn + " : " + hymnTitles[nowHymn];
         else
             hymnTitle = "";
         textView.setText(hymnTitle);
         textView.setTextSize(textSizeHymnKeypad);
-        textView.setTextColor(hymnColorTitle);
+        textView.setTextColor(textColorFore);
         textView.setGravity(Gravity.CENTER);
         linearLayout.addView(textView);
 
@@ -103,13 +100,13 @@ class MakeHymn {
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
-                b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark: R.drawable.button_number);
+                b.setBackgroundResource(drawable);
                 b.setTextSize(textSizeHymnKeypad);
                 b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
                 b.setWidth(buttonWidth);
                 b.setHeight(buttonHeight);
                 b.setText(buttonText);
-                b.setTextColor(hymnColorFore);
+                b.setTextColor(textColorFore);
                 columnLayout.addView(b);
                 b.setId(id);
                 if (id < 10) {
@@ -145,12 +142,12 @@ class MakeHymn {
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
-                b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark: R.drawable.button_number);
+                b.setBackgroundResource(drawable);
                 b.setTextSize((float)textSizeHymn *9/10);
                 b.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
-                b.setTextColor((darkMode)? mActivity.getColor(R.color.screenColorBack) : mActivity.getColor(R.color.hymnColorFore));
+                b.setTextColor(textColorFore);
                 columnLayout.addView(b);
                 b.setId((row+row+col)*41);    // 81
                 b.setOnClickListener(v -> {
@@ -213,7 +210,7 @@ class MakeHymn {
         textView.setTextSize(textSizeHymn);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         textView.setWidth(xPixels);
-        textView.setTextColor(hymnColorFore);
+        textView.setTextColor(textColorFore);
 
         StringBuilder bodyText = new StringBuilder();
         for (String hymnText : hymnTexts) {
@@ -265,7 +262,7 @@ class MakeHymn {
             textView = new TextView(mContext);
             textView.setText(hymnTitles[sortedNumbers[start]]);
             textView.setId(sortedNumbers[start]);
-            textView.setTextColor(bibleColorFore);
+            textView.setTextColor(textColorFore);
             textView.setTextSize(textSizeHymn);
             textView.setLineSpacing(1.2f, 1.2f);
             columnLayout.addView(textView);
@@ -304,7 +301,7 @@ class MakeHymn {
 
     private void initScrollView() {
         scrollView = new ScrollView(mContext);
-        scrollView.setBackgroundColor(screenColorBack);
+        scrollView.setBackgroundColor(menuColorBack);
         textView = new TextView(mContext);
         linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);

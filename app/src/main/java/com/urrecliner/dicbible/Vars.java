@@ -61,11 +61,11 @@ public class Vars {
     static boolean agpShow = false;
     static boolean cevShow = false;
 
-    static int menuSelectedBack;
-    static int bibleColorFore, scriptColorFore, referColorFore, paraColorFore, numberColorFore;
+    static int menuColorFore, menuColorBack, menuSelectedBack;
+    static int textColorFore, referColorFore, paraColorFore, numberColorFore;
     static int agpColorFore, cevColorFore, dicColorFore;
-    static int hymnColorFore, hymnColorTitle, hymnColorImage;
-    static int screenColorBack, markColorBack;
+    static int hymnColorImage;
+    static int markColorBack;
     static ViewGroup fBody;
 
     static String nowDic;
@@ -92,7 +92,6 @@ public class Vars {
     static int hymnShowWhat = 0;
     static boolean alwaysOn = true;
     static int textSizeSpace = 10;
-    static int menuColorFore = 0, menuColorBack = 0;
     static final int SHEET_THEN_LYRIC = 0;
     static final int LYRIC_THEN_SHEET = 1;
     static final int SHEET_ONLY = 2;

@@ -6,7 +6,6 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
-import static com.urrecliner.dicbible.Vars.bibleColorFore;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
@@ -22,6 +21,7 @@ import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.markColorBack;
 import static com.urrecliner.dicbible.Vars.maxVerse;
+import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -30,12 +30,11 @@ import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
-import static com.urrecliner.dicbible.Vars.screenColorBack;
 import static com.urrecliner.dicbible.Vars.screenMenu;
-import static com.urrecliner.dicbible.Vars.scriptColorFore;
 import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.speaking;
+import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.textSizeBible66;
 import static com.urrecliner.dicbible.Vars.textSizeDic;
 import static com.urrecliner.dicbible.Vars.textSizeRefer;
@@ -115,7 +114,7 @@ class MakeBible {
                 b.setId(start);
                 b.setWidth(buttonWidth);
                 b.setTextSize(textSizeBible66);
-                b.setTextColor(bibleColorFore);
+                b.setTextColor(textColorFore);
                 b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
                 columnLayout.addView(b);
                 b.setOnClickListener(v -> {
@@ -137,7 +136,7 @@ class MakeBible {
 
     private void initScrollView() {
         scrollView = new ScrollView(mContext);
-        scrollView.setBackgroundColor(screenColorBack);
+        scrollView.setBackgroundColor(menuColorBack);
         textView = new TextView(mContext);
         linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -277,6 +276,8 @@ class MakeBible {
 
         textView.setText(ss);
         textView.setTextSize(textSizeScript);
+
+
 //        textView.setLineSpacing(0.1f, 1.0f);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -300,7 +301,7 @@ class MakeBible {
 
         for (int i = 0; i < idxText; i++) {
             ss.setSpan(new AbsoluteSizeSpan(textSizeScript, true), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new ForegroundColorSpan(scriptColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(textColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxKeyword; i++) {
             ss.setSpan(new keywordClick(keywords[i], keywordV[i]), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -309,7 +310,7 @@ class MakeBible {
         }
         for (int i = 0; i < idxVerse; i++) {
             ss.setSpan(new verseSpan(nowBible, nowChapter, i+1), verseF[i], verseT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new ForegroundColorSpan(scriptColorFore), verseF[i], verseT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(textColorFore), verseF[i], verseT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxPara; i++) {
             ss.setSpan(new ForegroundColorSpan(paraColorFore), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -591,7 +592,7 @@ class MakeBible {
                     default: {
                         TextView tVLine = new TextView(mContext);
                         tVLine.setTextSize((float) textSizeScript*4/5);
-                        tVLine.setTextColor(scriptColorFore);
+                        tVLine.setTextColor(textColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
 //                        tVLine.setLineSpacing(0.1f, 1.1f);
