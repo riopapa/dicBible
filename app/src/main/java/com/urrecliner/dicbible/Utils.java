@@ -1,8 +1,11 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.goBacks;
+import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.mActivity;
+import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.Activity;
@@ -98,6 +101,8 @@ public class Utils {
 
     void confirmExit() {
 
+        if (topTab == TAB_MODE_DIC)
+            history.pop();
         HandlePrefs.saveArray("goBack", goBacks);
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_quit, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
@@ -112,6 +117,8 @@ public class Utils {
     }
 
     void exitApp() {
+        if (topTab == TAB_MODE_DIC)
+            history.pop();
         HandlePrefs.saveArray("goBack", goBacks);
         mActivity.finish();
         new Timer().schedule(new TimerTask() {

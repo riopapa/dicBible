@@ -79,6 +79,7 @@ import java.util.TimerTask;
 class MakeBible {
 
     private final String newLine = "\n";
+    final String spacing = "\u00A0"; // to prevent word wrap
     private TextView textView;
     LinearLayout linearLayout;
 
@@ -333,7 +334,6 @@ class MakeBible {
         return ss;
     }
 
-    final String spacing = "\u00A0"; // to prevent word wrap
     private void makeBibleAllVerses() {
         versePtr = 0;
         highLightF = 0;
@@ -345,7 +345,7 @@ class MakeBible {
             int lenWorkLine = workLine.length() - 1;
             int idx = workLine.indexOf("`a");
             int idx2nd = workLine.indexOf("`c");
-            String agpText = workLine.substring(idx + 2, idx2nd).replace(" ", spacing);
+            String agpText = workLine.substring(idx + 2, idx2nd);
             if (agpText.length() == 0)
                 agpText = " ";
             String cevText = workLine.substring(idx2nd + 2, lenWorkLine);
@@ -353,7 +353,7 @@ class MakeBible {
                 cevText = " ";
             workLine = workLine.substring(0, idx).replace(" ", spacing);
             // to prevent word wrap
-            String markChar = "†";
+            final String markChar = "†";
             String verseString = (line+1)+(marked[line+1] ? markChar :spacing);
             if (line < maxVerse-1) {
                 String nextLine = bibleTexts[line+1].substring(0, bibleTexts[line+1].indexOf("`a")).trim();
@@ -416,7 +416,7 @@ class MakeBible {
                     }
                 }
                 if (agpShow) {
-                    agpText = newLine + agpText;
+                    agpText = newLine + agpText.replace(" ", spacing);  // no word wrap
                     bodyText.append(agpText);
                     agpF[idxAgp] = ptrBody;
                     agpT[idxAgp] = ptrBody + agpText.length();
@@ -424,7 +424,7 @@ class MakeBible {
                     ptrBody += agpText.length();
                 }
                 if (cevShow) {
-                    cevText = newLine + cevText;
+                    cevText = newLine + cevText;    // cev allows word wrap
                     bodyText.append(cevText);
                     cevF[idxCev] = ptrBody;
                     cevT[idxCev] = ptrBody + cevText.length();
@@ -446,11 +446,13 @@ class MakeBible {
 
     private int checkDicWords(String workLine, int verse) {
         int ptr;
+        //   refer [_$44#17:26_]   dic  [_가나안 사람_] [_에덴~2_]
         ptr = workLine.indexOf("_]");
         String keyword = workLine.substring(2, ptr);
         if (keyword.charAt(0) == '$') {   // reference
             String bibShort = shortBibleNames[parseInt(keyword.substring(1, 3))];
-            String showWord = " (" + bibShort + keyword.substring(4) + ") ";      // $01#12:34 -> (창12:34) 로 표시
+            String showWord = " (" + bibShort + keyword.substring(4) + ") ";
+                            // $01#12:34 -> (창12:34) 로 표시
             bodyText.append(showWord);
             referF[idxRefer] = ptrBody;
             referT[idxRefer] = ptrBody + showWord.length();
@@ -526,7 +528,7 @@ class MakeBible {
 
         @Override
         public void onClick(@NonNull View widget) {
-            nowDic = key;
+            nowDic = key.replace(spacing," ");
             nowVerse = verse;
             showDicWord();
         }
@@ -591,7 +593,7 @@ class MakeBible {
                         tVLine.setTextColor(textColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
-//                        tVLine.setLineSpacing(0.1f, 1.1f);
+                        tVLine.setLineSpacing(1.2f, 1.2f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;

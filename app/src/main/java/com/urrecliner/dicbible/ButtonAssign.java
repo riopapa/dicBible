@@ -178,18 +178,9 @@ public class ButtonAssign {
             if (goBacks.size() > 1) {
                 history.pop();
                 if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
-//                    if (nowBible == 0)
-//                        makeBible.showBibleList();
-//                    else if (nowChapter == 0)
-//                        makeBible.showChapterList();
-//                    else
-                        makeBible.showBibleBody();
+                    makeBible.showBibleBody();
                 } else if (topTab == TAB_MODE_HYMN) {
-//                    if (nowHymn > 0)
-                        makeHymn.showHymnBody();
-//                    else {
-//                        makeHymn.showNumberKey();
-//                    }
+                    makeHymn.showHymnBody();
                 } else if (topTab == TAB_MODE_DIC) {
                     makeBible.showDicWord();
                 } else {
