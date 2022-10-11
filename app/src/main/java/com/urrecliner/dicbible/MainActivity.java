@@ -1,10 +1,10 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.ButtonAssign.goBackward;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarks;
-import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.handlePrefs;
@@ -17,6 +17,7 @@ import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
+import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.sharedPref;
 import static com.urrecliner.dicbible.Vars.speaking;
@@ -33,7 +34,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -113,12 +115,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFullScreen() {
         getSupportActionBar().hide();       // let Full Screen
-        final View decoView = getWindow().getDecorView();
-        final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decoView.setSystemUiVisibility(flags);
+        WindowInsetsController controller = getWindow().getInsetsController();
+        if(controller != null){
+            // 상태바와 네비게이션을 사라지게한다
+            controller.hide(WindowInsets.Type.statusBars() |
+                    WindowInsets.Type.navigationBars());
+            // 특정 행동(화면 끝을 스와이프하는 등)을 했을 때에만
+            // 시스템 바가 나타나도록 설정systemBarsBehavior
+            controller.setSystemBarsBehavior(
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+
+        }
     }
 
     @Override
@@ -126,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (isReadingNow)
             text2Speech.stopPlay();
-        utils.confirmExit();
+        if (goBacks.size() > 0)
+            goBackward();
+
     }
 
     // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓

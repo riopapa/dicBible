@@ -4,17 +4,12 @@
     <string name="oldBible">구약</string>
     <string name="newBible">신약</string>
     <string name="hymn">찬송가</string>
-    <string name="goBack">←</string>
     <string name="nowBible">데살로니가전서2장</string>
     <string name="nextBible">왕하12</string>
-    <string name="cevBible">CEV</string>
     <string name="prevBible">열왕33</string>
-    <string name="agpBible">AGP</string>
     <string name="setting">setting</string>
     <string name="riopapa_face">riopapa face</string>
-    <string name="wanna_quit">이젠 끝낼까요?</string>
     <string name="sure_to_quit">그래요\n 다음에 봅시다</string>
-    <string name="blank" />
     <string name="minus">"⊖"</string>  // ⊖          // \u27A4 비행기
     <string name="plus">"⊕"</string>    // ⊕ \u2A01
     <string name="number">12</string>
@@ -22,63 +17,16 @@
     <string name="script_size">본문</string>
     <string name="dic_size">사전</string>
     <string name="crossing_size">관주</string>
-    <string name="depth_size">검색장수</string>
-    <string name="verse_space_size">절간격</string>
-    <string name="show_hymn_sheetFirst">악보를위에</string>
-    <string name="show_hymn_sheet">찬송악보</string>
-    <string name="show_hymn_lyric">찬송가사</string>
-    <string name="hymn_lyric_size">가사</string>
-    <string name="keep_screen_on">화면 켜두기</string>
-    <string name="bookmark_saved">"저장된 성경 목록"</string>
-    <string name="bibleBookMark">성경 북마크</string>
     <string name="sheet_lyric">악보\n가사</string>
     <string name="lyric_sheet">가사\n악보</string>
     <string name="sheet_only">악보만</string>
     <string name="lyric_only">가사만</string>
-    <string name="speed_slowly">천천히</string>
-    <string name="speed_quickly">빨리</string>
-    <string name="pitch_down">낮게</string>
-    <string name="pitch_up">높게</string>
     <string name="about">이 성경찬송 앱 업데이트 이력 . .</string>
-    <string name="background_black">바탕을 검게</string>
     <string name="agp">agp</string>
     <string name="cev">cev</string>
 
 
-    <string name="cookie_title">CookieBar title</string>
-    <string name="cookie_message">Hey! I\'m cookie, delivering fancy interactive messages on Android since 2017.</string>
-    <string name="cookie_action">Action</string>
-    <string name="top_cookie_title">Top cookie with an icon!</string>
-    <string name="top_cookie_message">This is a top cookie with an icon (#%d)</string>
-    <string name="custom_anim_cookie_title">This cookie has custom in/out animations</string>
-    <string name="custom_anim_cookie_message">Did you notice it entered from the left?\nCan you guess how it will leave the screen?\nIf you guessed from the right, you\'re right!</string>
-    <string name="bottom_cookie_title">Bottom cookie with and icon</string>
-    <string name="bottom_cookie_message">This is a bottom cookie with an icon and an action. Nice right?</string>
-    <string name="fancy_cookie_title">Icons can be animated</string>
-    <string name="fancy_cookie_message">Fancy animations will make your cookies super exciting.</string>
-    <string name="plain_cookie_title">Title</string>
-    <string name="plain_cookie_message">This is the default plain cookie</string>
-    <string name="custom_view_cookie_title">Custom cookie view demo!</string>
-    <string name="custom_view_cookie_message">You can customize CookieBar2\nHere\'s an example of a simple dialog.</string>
-    <string name="save">Save</string>
-    <string name="open">Open</string>
-    <string name="newBtn">New</string>
-    <string name="clicked">Clicked!</string>
-    <string name="top_cookie">Top Cookie</string>
-    <string name="custom_animations">Custom Animations</string>
-    <string name="bottom_cookie">Bottom Cookie</string>
-    <string name="fancy_bottom_cookie">Fancy Bottom Cookie</string>
-    <string name="custom_view_cookie">Custom View Cookie</string>
-    <string name="custom_message">Custom message</string>
-    <string name="custom_title">Custom Title</string>
-    <string name="title_activity_main2">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="main_fragment_label">Main Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="action_engaged">Action engaged!</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

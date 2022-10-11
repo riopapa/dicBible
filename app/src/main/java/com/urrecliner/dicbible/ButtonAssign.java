@@ -5,8 +5,8 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpShow;
-import static com.urrecliner.dicbible.Vars.btmLayout;
 import static com.urrecliner.dicbible.Vars.blank;
+import static com.urrecliner.dicbible.Vars.btmLayout;
 import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.goBacks;
@@ -22,8 +22,8 @@ import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
-import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.text2Speech;
+import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
@@ -159,6 +159,10 @@ public class ButtonAssign {
             }
         });
 
+        vBackAction.setOnLongClickListener(view -> {
+            utils.exitApp();
+            return false;
+        });
     }
 
     private static int getNowTopVerse() {

@@ -1,16 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="cookieTitleColor">@color/cookie_title_color</item>
-        <item name="cookieMessageColor">@color/cookie_message_color</item>
-        <item name="cookieActionColor">@color/cookie_action_color</item>
-        <item name="cookieBackgroundColor">@color/menuColorBack</item>
-        <item name="cookiePadding">24dp</item>
-        <item name="cookieTitleSize">24sp</item>
-        <item name="cookieMessageSize">16sp</item>
-        <item name="cookieActionSize">18sp</item>
-    </style>
-
     <!-- Base application theme. -->
     <style name="Theme.dicBible" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
@@ -49,62 +38,6 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">48sp</item>
-        <item name="android:layout_marginTop">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-    </style>
-
-    <style name="SetStyle3" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:textColor">@color/menuColorFore</item>
-        <item name="android:background">@color/menuColorBack</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginStart">78sp</item>
-        <item name="android:layout_marginTop">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-    </style>
-
-    <style name="MenuStyleN" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/menuColorFore</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">0sp</item>
-        <item name="android:paddingRight">0sp</item>
-        <item name="android:paddingBottom">4sp</item>
-        <item name="android:paddingTop">4sp</item>
-        <item name="android:background">@color/menuColorBack</item>
-    </style>
-
-    <style name="SetStyle1N" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:textColor">@color/menuColorForeN</item>
-        <item name="android:background">@color/menuColorBackN</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginStart">16sp</item>
-        <item name="android:layout_marginEnd">8sp</item>
-        <item name="android:layout_marginTop">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-    </style>
-
-    <style name="SetStyle2N" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:textColor">@color/menuColorForeN</item>
-        <item name="android:background">@color/menuColorBackN</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginStart">48sp</item>
-        <item name="android:layout_marginTop">4sp</item>
-        <item name="android:layout_marginBottom">4sp</item>
-    </style>
-
-    <style name="SetStyle3N" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_gravity">left</item>
-        <item name="android:textColor">@color/menuColorForeN</item>
-        <item name="android:background">@color/menuColorBackN</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginStart">78sp</item>
         <item name="android:layout_marginTop">4sp</item>
         <item name="android:layout_marginBottom">4sp</item>
     </style>

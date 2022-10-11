@@ -3,7 +3,6 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.mActivity;
-import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.Activity;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.urrecliner.dicbible.cookiebar.CookieBar;
-
-//import org.aviran.cookiebar2.CookieBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -110,13 +107,17 @@ public class Utils {
         alertDialog.show();
         dialogView.findViewById(R.id.quitApp).setOnClickListener(v -> {
             alertDialog.dismiss();
-            mActivity.finish();
-            new Timer().schedule(new TimerTask() {
-                public void run() {
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
-            }, 500);
+            exitApp();
         });
+    }
+
+    void exitApp() {
+        mActivity.finish();
+        new Timer().schedule(new TimerTask() {
+            public void run() {
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        }, 500);
     }
 
 }
