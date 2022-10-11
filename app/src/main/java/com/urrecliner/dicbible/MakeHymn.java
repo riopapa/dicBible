@@ -37,10 +37,11 @@ import android.text.SpannableString;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 
@@ -232,11 +233,11 @@ class MakeHymn {
         if (imgFile.exists()) {
             Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
-            ImageView imV = new ImageView(mContext);
+            PhotoView imV = new PhotoView(mContext);
             imV.setBackgroundColor(hymnColorImage);
-            linearlayout.addView(imV);
             imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
             imV.requestLayout();
+            linearlayout.addView(imV);
         }
     }
 

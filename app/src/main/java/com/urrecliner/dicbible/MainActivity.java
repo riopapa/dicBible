@@ -18,12 +18,14 @@ import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.screenMenu;
+import static com.urrecliner.dicbible.Vars.scrollView;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.sharedPref;
 import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.text2Speech;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
+import static com.urrecliner.dicbible.Vars.zoomControl;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -34,6 +36,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.widget.Toast;
@@ -48,6 +53,9 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    ScaleGestureDetector scaleGestureDetector;
+    float mScaleFactor = 1.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         makeBible = new MakeBible();
         makeHymn = new MakeHymn();
         screenMenu = new ScreenMenu();
+        zoomControl = new ZoomControl();
+
         isReadingNow = false;
         screenMenu.buildButtonColor();
 
@@ -111,6 +121,26 @@ public class MainActivity extends AppCompatActivity {
                 makeHymn.showNumberKey();
         } else
             makeBible.showBibleList();
+
+        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        Log.w("onTouchEvent "+mScaleFactor, "touch="+motionEvent);
+        scaleGestureDetector.onTouchEvent(motionEvent);
+        return true;
+    }
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
+            Log.w("ScaleListener.onScale","f="+scaleGestureDetector.getScaleFactor());
+            mScaleFactor *= scaleGestureDetector.getScaleFactor();
+            mScaleFactor = Math.max(0.3f, Math.min(mScaleFactor, 10.0f));
+            scrollView.setScaleX(mScaleFactor);
+            scrollView.setScaleY(mScaleFactor);
+            return true;
+        }
     }
 
     private void setFullScreen() {

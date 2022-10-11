@@ -43,6 +43,7 @@ import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.xPixels;
+import static com.urrecliner.dicbible.Vars.zoomControl;
 import static java.lang.Integer.parseInt;
 
 import android.app.AlertDialog;
@@ -69,7 +70,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.otaliastudios.zoom.ZoomImageView;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.urrecliner.dicbible.model.BookMark;
 
 import java.io.File;
@@ -285,7 +286,7 @@ class MakeBible {
 
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
-//        zoomControl.set();
+        zoomControl.set();
         scrollView.post(() -> new Timer().schedule(new TimerTask() {
             public void run() {
                 mActivity.runOnUiThread(() -> scrollView.scrollTo(0, textView.getBottom() * versePtr / ptrBody));
@@ -570,11 +571,10 @@ class MakeBible {
                         if (imgFile.exists()) {
                             Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                             int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
-                            ZoomImageView imV = new ZoomImageView(mContext);
-                            imV.setMaxZoom(8f);
-                            linearLayout.addView(imV);
+                            PhotoView imV = new PhotoView(mContext);
                             imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
                             imV.requestLayout();
+                            linearLayout.addView(imV);
                         }
                         break;
                     case "~": { // contains subject name

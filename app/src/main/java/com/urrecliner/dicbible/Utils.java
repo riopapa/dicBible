@@ -112,6 +112,7 @@ public class Utils {
     }
 
     void exitApp() {
+        HandlePrefs.saveArray("goBack", goBacks);
         mActivity.finish();
         new Timer().schedule(new TimerTask() {
             public void run() {
