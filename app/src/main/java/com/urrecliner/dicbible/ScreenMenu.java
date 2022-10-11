@@ -200,7 +200,9 @@ public class ScreenMenu {
 
     private void buildDic() {
         buildSearch(menuColorBack);
+        vLeftAction.setText(blank);
         vCenterAction.setText(nowDic);
+        vRightAction.setText(blank);
     }
 
     private void buildSearch(int color) {
