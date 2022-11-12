@@ -106,17 +106,16 @@ public class ScreenMenu {
     private void buildBibleBottom() {
         String s;
 
-        if (nowBible == 0) {        // show bible list
-            vLeftAction.setText(blank);
-            vRightAction.setText(blank);
-            vCenterAction.setText(blank);
-        } else if (nowChapter == 0) {
+        vLeftAction.setText(blank);
+        vRightAction.setText(blank);
+        vCenterAction.setText(blank);
+        if (nowChapter == 0 && nowBible > 0) {
             // bible = 33, chapt = 0
             // 마, 막, 누
             vLeftAction.setText(shortBibleNames[nowBible-1]);
             vRightAction.setText((nowBible == 65) ? blank: shortBibleNames[nowBible+1]);
             vCenterAction.setText(fullBibleNames[nowBible]);
-        } else {
+        } else if (nowBible > 0){
             // bible = 33, chapt = 3
             // 마3 마태복음 마4
             if (nowChapter > 1) {
@@ -182,18 +181,17 @@ public class ScreenMenu {
     void buildHymn() {
         buildSearch(menuColorBack);
         vHymn.setBackgroundDrawable(tabDrawable);
-        buildAgpCev();
         vAgpBible.setText(blank);
         vCevBible.setText(blank);
 
-        if (nowHymn == 0) {     // show Hymn List
-            vLeftAction.setText(blank);
-            vRightAction.setText(blank);
-            vCenterAction.setText(blank);
-        } else {   // show Hymn
+        if (nowHymn != 0) {     // show Hymn List
             vLeftAction.setText((nowHymn > 1) ? "" + (nowHymn - 1):blank);
             vCenterAction.setText(hymnTitles[nowHymn]);
             vRightAction.setText((nowHymn < 645) ? "" + (nowHymn + 1):blank);
+        } else {
+            vLeftAction.setText(blank);
+            vRightAction.setText(blank);
+            vCenterAction.setText(blank);
         }
         vCenterAction.setSingleLine(true);
         vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
