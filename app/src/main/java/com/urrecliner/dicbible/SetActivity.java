@@ -21,6 +21,7 @@ import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
 import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.topTab;
+import static com.urrecliner.dicbible.Vars.utils;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class SetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         setActivity = this;
+        utils.setFullScreen();
         scrollView = findViewById(R.id.setScrollView);
         tv = findViewById(R.id.goBack);
         tv.setOnClickListener(v -> {

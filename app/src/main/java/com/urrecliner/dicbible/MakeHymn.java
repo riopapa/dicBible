@@ -178,7 +178,7 @@ class MakeHymn {
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
         tVBody.setText(txt);
-        tVBody.setTextSize(textSizeHymn + (float)textSizeHymn /5);
+        tVBody.setTextSize(textSizeHymn + (float)textSizeHymn /8);
         tVBody.setPadding(0,20,0,20);
         tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
         tVBody.setWidth(xPixels);

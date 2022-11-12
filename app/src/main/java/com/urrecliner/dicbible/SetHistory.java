@@ -42,46 +42,56 @@ public class SetHistory {
     static void showHistory() {
         show = true;
         TableLayout tableLayout = setActivity.findViewById(R.id.table);
-        TableRow.LayoutParams params = new TableRow.LayoutParams(
+        TableRow.LayoutParams tLparams = new TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT, 1f);
         TableRow tr;
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater faceInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout myFaceLayout = (LinearLayout) faceInflater.inflate(
+                R.layout.my_full_face, null);
+        LinearLayout.LayoutParams myFaceParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        myFaceParams.setMargins(20,20,20,20);
+        tableLayout.addView(myFaceLayout, myFaceParams);
+
+        LayoutInflater tLInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ArrayList<String> histories = fileRead.readRawTextFile(mContext, R.raw.history);
         TextView tvCell;
-        for (String s: histories) {
-            String [] oneLines = s.split(";");
+        for (String s : histories) {
+            String[] oneLines = s.split(";");
             tr = new TableRow(mContext);
+            tr.setOrientation(LinearLayout.VERTICAL);
             tr.setBackgroundColor(menuColorBack);
-            LinearLayout oneLine = (LinearLayout) inflater.inflate(
+            LinearLayout oneLine = (LinearLayout) tLInflater.inflate(
                     R.layout.history_table, null);
-            tvCell =  oneLine.findViewById(R.id.date);
+            tvCell = oneLine.findViewById(R.id.date);
             if (oneLines[1].equals("b"))
                 tvCell.setTypeface(null, Typeface.BOLD);
             else
                 tvCell.setTypeface(null, Typeface.NORMAL);
             tvCell.setText(oneLines[0]);
-            tvCell.setTextSize((float)textSizeScript*4/5);
+            tvCell.setTextSize((float) textSizeScript * 4 / 5);
             tvCell.setTextColor(menuColorFore);
             tvCell.setBackgroundColor(menuColorBack);
             tvCell.setBackgroundResource(R.drawable.cell_border);
-            tvCell =  oneLine.findViewById(R.id.updates);
+            tvCell = oneLine.findViewById(R.id.updates);
             if (oneLines[1].equals("b"))
                 tvCell.setTypeface(null, Typeface.BOLD);
             else
                 tvCell.setTypeface(null, Typeface.NORMAL);
             s = oneLines[2].replace("||", "\n");
             tvCell.setText(s);
-            tvCell.setTextSize((float)textSizeScript*3/4);
+            tvCell.setTextSize((float) textSizeScript * 3 / 4);
             tvCell.setTextColor(menuColorFore);
             tvCell.setBackgroundColor(menuColorBack);
             tvCell.setBackgroundResource(R.drawable.cell_border);
-            tr.addView(oneLine, params);
+            tr.addView(oneLine, tLparams);
             tableLayout.addView(tr);
         }
         ScrollView scrollView = setActivity.findViewById(R.id.setScrollView);
         scrollView.post(() ->
-                scrollView.scrollTo(0, scrollView.getHeight()-1));
+                scrollView.scrollTo(0, scrollView.getHeight() - 1));
 
     }
 }

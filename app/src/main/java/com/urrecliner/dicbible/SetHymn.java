@@ -69,15 +69,15 @@ public class SetHymn {
         txt = "" + textSizeHymn;
         sZSize.setText(txt);
         dNSize.setOnClickListener(v -> {
-            textSizeHymn -= 5;
-            String t = "" + textSizeHymn + "%";
+            textSizeHymn--;
+            String t = "" + textSizeHymn;
             sZSize.setText(t);
             setTexts(tVSize, dNSize, sZSize, uPSize, textSizeHymn);
             sharedEdit.putInt("textSizeHymn", textSizeHymn).apply();
         });
         uPSize.setOnClickListener(v -> {
-            textSizeHymn += 5;
-            String t = "" + textSizeHymn + "%";
+            textSizeHymn++;
+            String t = "" + textSizeHymn;
             sZSize.setText(t);
             setTexts(tVSize, dNSize, sZSize, uPSize, textSizeHymn);
             sharedEdit.putInt("textSizeHymn", textSizeHymn).apply();

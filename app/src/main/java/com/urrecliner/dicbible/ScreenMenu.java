@@ -25,6 +25,7 @@ import static com.urrecliner.dicbible.Vars.shortBibleNames;
 import static com.urrecliner.dicbible.Vars.tabDrawable;
 import static com.urrecliner.dicbible.Vars.topLayout;
 import static com.urrecliner.dicbible.Vars.topTab;
+import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vBackAction;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
@@ -71,6 +72,7 @@ public class ScreenMenu {
             default:
                 Toast.makeText(mContext, "topTab Case Error "+topTab, Toast.LENGTH_SHORT).show();
         }
+        utils.setFullScreen();
     }
 
     void buildButtonColor() {
