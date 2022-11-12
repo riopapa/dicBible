@@ -3,6 +3,7 @@ package com.urrecliner.dicbible;
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
@@ -17,6 +18,7 @@ import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
@@ -48,8 +50,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             super(itemView);
 
             setLayoutBackGround(itemView.findViewById(R.id.search_item));
-            tvVerse = (TextView) itemView.findViewById(R.id.result_Verse);
-            tvText = (TextView) itemView.findViewById(R.id.result_Text);
+            tvVerse = itemView.findViewById(R.id.result_Verse);
+            tvText = itemView.findViewById(R.id.result_Text);
             tvVerse.setTextSize(textSizeScript);
             tvVerse.setTextColor(menuColorFore);
             tvText.setTextSize((float)textSizeScript*9/10);
@@ -85,12 +87,20 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
         String sKey = keyText.replace(" ", "\u00A0");
         SpannableString ss = new SpannableString(s);
         String [] lines = s.split("\n");
-        int sPos = 0, foreColor = menuColorFore ^ 0x668888;
-        ss.setSpan(new ForegroundColorSpan(foreColor), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int sPos = 0;
+        ss.setSpan(new ForegroundColorSpan(agpColorFore), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         for (String l: lines) {
             int kPos = l.indexOf(sKey);
             while (kPos > 0) {
-                ss.setSpan(new UnderlineSpan(), sPos+kPos, sPos+kPos + keyText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                ss.setSpan(new UnderlineSpan(), sPos+kPos, sPos+kPos + keyText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+                UnderlineSpan us = new UnderlineSpan();
+                TextPaint tp = new TextPaint();
+                tp.setColor(0xFF0000);
+                us.updateDrawState(tp);
+                ss.setSpan(us, sPos+kPos, sPos+kPos + keyText.length(), 0);
+
                 kPos = l.indexOf(sKey, kPos+2);
                 ss.setSpan(new ForegroundColorSpan(menuColorFore), sPos, sPos+l.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
