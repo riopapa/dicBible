@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
         <ImageView
+            android:id="@+id/my_face"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/my_face_retouched"
-                />
+            android:src="@mipmap/my_face_by_ezgif_maker"
+        />
 </LinearLayout>

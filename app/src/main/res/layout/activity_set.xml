@@ -384,7 +384,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:textColor="@color/menuColorFore"
+                android:textColor="@color/cookie_action_color"
                 android:text="시스템"
                 android:textSize="20sp" />
             <RadioButton
@@ -393,7 +393,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:textColor="@color/menuColorFore"
+                android:textColor="@color/cookie_action_color"
                 android:text="성우"
                 android:textSize="20sp" />
         </RadioGroup>
@@ -793,11 +793,12 @@
         android:text="@string/about"
         />
     <!--app info-->
-    <TableLayout
+    <LinearLayout
         android:id="@+id/table"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </TableLayout>
+    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

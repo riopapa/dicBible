@@ -37,7 +37,6 @@ public class SetActivity extends Activity {
     ScrollView scrollView;
     TextView tv;
     SwitchCompat switchCompat;
-    boolean showHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,8 @@ public class SetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         setActivity = this;
+        ScrollView setScrollView = findViewById(R.id.setScrollView);
+        setScrollView.setBackgroundColor(menuColorBack);
         utils.setFullScreen();
         scrollView = findViewById(R.id.setScrollView);
         tv = findViewById(R.id.goBack);
@@ -78,6 +79,8 @@ public class SetActivity extends Activity {
 
         View v = setActivity.findViewById(R.id.scrollLayout);
         v.setBackgroundColor(menuColorBack);
+        ScrollView setScrollView = findViewById(R.id.setScrollView);
+        setScrollView.setBackgroundColor(menuColorBack);
         setLayoutBackGround(setActivity.findViewById(R.id.set));
         setTextBackGround(setActivity.findViewById(R.id.goBack));
         setTextBackGround(setActivity.findViewById(R.id.head));
@@ -95,7 +98,7 @@ public class SetActivity extends Activity {
         SetBible.set();
         SetHymn.set();
         showBookMark();
-        SetHistory.set();
+        SetHistory.set(this);
         scrollView.invalidate();
     }
 

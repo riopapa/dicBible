@@ -1,12 +1,12 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
@@ -14,7 +14,6 @@ import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.setActivity;
 import static com.urrecliner.dicbible.Vars.topTab;
 
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +71,7 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
         if (bookMark.verse > 0)
             s += " "+bookMark.verse+" 절";
         builder.setMessage(s);
+        builder.setIcon(R.mipmap.icon_riopapa_face);
         builder.setPositiveButton(s+" 로 이동",
             (dialog, which) -> {
                 nowBible = bookMark.bible;
@@ -106,10 +106,7 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
         holder.tvBibleChapter.setText(s);
         s = sdfDate.format(bookMark.when);
         holder.tvDateTime.setText(s);
-        holder.tvBibleChapter.setTypeface(null, Typeface.NORMAL);
-        holder.tvDateTime.setTypeface(null, Typeface.NORMAL);
-
-        setTextBackGround(holder.tvBibleChapter);
-        setTextBackGround(holder.tvDateTime);
+        holder.tvDateTime.setTextColor(menuColorFore);
+        holder.tvBibleChapter.setTextColor(menuColorFore);
     }
 }
