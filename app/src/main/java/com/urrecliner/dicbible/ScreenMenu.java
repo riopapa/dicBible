@@ -157,7 +157,6 @@ public class ScreenMenu {
             vCevBible.setTextColor(cevColorFore);
         } else {
             vAgpBible.setText(blank);
-            vAgpBible.setBackgroundColor(menuColorBack);
             vCevBible.setText(blank);
         }
     }
@@ -165,7 +164,7 @@ public class ScreenMenu {
     private void buildOld() {
 
         buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        vOldBible.setBackgroundDrawable(tabDrawable);
+        vOldBible.setBackground(tabDrawable);
         buildAgpCev();
         buildBibleBottom();
     }
@@ -173,16 +172,16 @@ public class ScreenMenu {
     private void buildNew() {
 
         buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
-        vNewBible.setBackgroundDrawable(tabDrawable);
+        vNewBible.setBackground(tabDrawable);
         buildAgpCev();
         buildBibleBottom();
     }
 
     void buildHymn() {
         buildSearch(menuColorBack);
-        vHymn.setBackgroundDrawable(tabDrawable);
-        vAgpBible.setText(blank);
-        vCevBible.setText(blank);
+        vHymn.setBackground(tabDrawable);
+        vAgpBible.setText(blank);   vAgpBible.setBackgroundColor(menuColorBack);
+        vCevBible.setText(blank);   vCevBible.setBackgroundColor(menuColorBack);
 
         if (nowHymn != 0) {     // show Hymn List
             vLeftAction.setText((nowHymn > 1) ? "" + (nowHymn - 1):blank);

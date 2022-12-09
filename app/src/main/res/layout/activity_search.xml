@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/search_scroll"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -31,20 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/searchNext"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:paddingLeft="4dp"
-                android:layout_height="32dp"
-                android:background="#00000000"
-                style="@style/exitButton"
-                android:src="@drawable/ic_search_next" />
-
             <TextView
                 android:id="@+id/searchStartVerse"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="7"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="고전12:31"
@@ -53,9 +44,19 @@
                 />
 
             <ImageView
+                android:id="@+id/searchNext"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:paddingLeft="4dp"
+                android:layout_height="32dp"
+                android:background="#00000000"
+                style="@style/exitButton"
+                android:src="@drawable/ic_search_next" />
+
+            <ImageView
                 android:id="@+id/text_clear"
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/clear_text"
@@ -64,7 +65,7 @@
             <EditText
                 android:id="@+id/txtSearch"
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="9"
                 android:inputType="text"
                 android:gravity="center"
                 android:selectAllOnFocus="true"
@@ -76,9 +77,9 @@
                 />
 
             <ImageView
-                android:id="@+id/quickSearch"
+                android:id="@+id/searchKey"
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:padding="4dp"
                 android:layout_height="32dp"
                 android:background="#00000000"

@@ -6,7 +6,6 @@ import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -41,7 +40,7 @@ public class SearchActivity extends Activity {
 
     RecyclerView recyclerView;
     TextView  tvFrom, tvSearchKey;
-    ImageView ivQuickSearch, ivTextClear, ivSearchNext;
+    ImageView ivSearch, ivTextClear, ivSearchNext;
 
 //    final String logID = "search";
 
@@ -52,6 +51,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         searchActivity = this;
+        setLayoutBackGround(this.findViewById(R.id.search_scroll));
         setLayoutBackGround(this.findViewById(R.id.lSearch));
         setTextBackGround(this.findViewById(R.id.tSearch));
 
@@ -75,15 +75,17 @@ public class SearchActivity extends Activity {
         };
         tvSearchKey.setOnKeyListener(keyListenerEnter);
 
-        ivQuickSearch = findViewById(R.id.quickSearch);
-        ivQuickSearch.setOnClickListener(v -> searchQuick());
-        Drawable d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
-        Drawable wrappedDrawable = DrawableCompat.wrap(d);
+        Drawable d;
+        Drawable wrappedDrawable;
+        ivSearch = findViewById(R.id.searchKey);
+        ivSearch.setOnClickListener(v -> searchQuick());
+        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
+        wrappedDrawable = DrawableCompat.wrap(d);
         DrawableCompat.setTint(wrappedDrawable, menuColorFore);
-        ivQuickSearch.setImageDrawable(wrappedDrawable);
+        ivSearch.setImageDrawable(wrappedDrawable);
 
         ivSearchNext = findViewById(R.id.searchNext);
-        ivSearchNext.setBackgroundColor(menuColorBack);
+//        ivSearchNext.setBackgroundColor(menuColorBack);
         d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search_next, null);
         wrappedDrawable = DrawableCompat.wrap(d);
         DrawableCompat.setTint(wrappedDrawable, menuColorFore);

@@ -45,7 +45,6 @@ import com.urrecliner.dicbible.model.GoBack;
 import java.io.File;
 import java.util.ArrayList;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
