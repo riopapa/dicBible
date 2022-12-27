@@ -248,7 +248,7 @@ class MakeBible {
         initScrollView();
         history.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
-        bibleTexts = FileRead.readBibleFile(file2read);
+        bibleTexts = FileRead.readBibleFile(file2read, false);
         if (bibleTexts == null) {
             utils.showSnackBar("성경 말씀 파일 없음 ", fullBibleNames[nowBible] + " " + nowChapter);
             return;
@@ -560,7 +560,7 @@ class MakeBible {
         history.push();
 
         String txt = "dict/" + nowDic + ".txt";
-        String [] dicTexts = FileRead.readBibleFile(txt);
+        String [] dicTexts = FileRead.readBibleFile(txt, true);
         if (dicTexts != null) {
             for (String line : dicTexts) {
                 switch (line.substring(0, 1)) {

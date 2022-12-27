@@ -171,7 +171,7 @@ class MakeHymn {
         history.push();
 
         String txt = "Hymn/" + nowHymn + ".txt";
-        String [] hymnTexts = FileRead.readBibleFile(txt);
+        String [] hymnTexts = FileRead.readBibleFile(txt, true);
         if (hymnTexts == null)
             return;
 

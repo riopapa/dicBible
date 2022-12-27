@@ -24,16 +24,14 @@ public class FileRead {
         this.packageFolder = packageFolder;
     }
 
-    static String[] readBibleFile(String filename) {
+    static String[] readBibleFile(String filename, boolean kr) {
 
         String file2read = packageFolder + "/" + filename;
         String[] lines;
         try {
-            lines = readLines(file2read);
+            lines = readLines(file2read, kr);
             return lines;
-        }
-        catch(IOException e)
-        {
+        } catch(IOException e) {
             String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
             new AlertDialog.Builder(mActivity)
                     .setMessage(message)
@@ -43,11 +41,11 @@ public class FileRead {
         return null;
     }
 
-    private static String[] readLines(String filename) throws IOException {
-        final String EUC_KR = "EUC-KR";
+    private static String[] readLines(String filename, boolean kr) throws IOException {
+        final String EUC_KR = "UTF-8";  // "EUC-KR";
         final int BUFFER_SIZE = 81920;
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), EUC_KR),BUFFER_SIZE);
+        String code = (kr) ? "EUC-KR": "UTF-8";
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), code),BUFFER_SIZE);
 
         List<String> lines = new ArrayList<>();
         String line;

@@ -142,7 +142,7 @@ public class SearchActivity extends Activity {
 
         while (depth > 0) {
             String file2read = "bible/" + bible + "/" + chapter + ".txt";
-            bibleVerses = FileRead.readBibleFile(file2read);
+            bibleVerses = FileRead.readBibleFile(file2read, false);
             for (int i = 0; i < bibleVerses.length; i++) {
                 String s = extractVerse(bibleVerses[i]);
                 if (s.contains(text)) {
