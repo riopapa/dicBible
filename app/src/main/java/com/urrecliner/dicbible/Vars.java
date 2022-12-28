@@ -19,6 +19,7 @@ import com.urrecliner.dicbible.model.Searched;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Vars {
     static File packageFolder = null;
@@ -106,6 +107,25 @@ public class Vars {
     static boolean hymnAccompany = true;
     static boolean searchNext = false;
 
+    static class KeyRef {
+        String key;
+        List<bcv> bcvs;
+        public KeyRef(String key, List<bcv> bcv) {
+            this.key = key;
+            this.bcvs = bcv;
+        }
+    }
+    static class bcv {
+        int b, c, v;
+        public bcv(int b, int c, int v) {
+            this.b = b;
+            this.c = c;
+            this.v = v;
+        }
+    }
+    static KeyTable keyTable;
+    static List<KeyRef> keyRefs;
+    static List<bcv> bcvs;
     static String [] bibleTexts;
 
     public static ArrayList<GoBack> goBacks = new ArrayList<>();

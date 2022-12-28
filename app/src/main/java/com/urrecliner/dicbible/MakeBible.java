@@ -6,6 +6,7 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
+import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
@@ -17,6 +18,7 @@ import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.history;
+import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.markColorBack;
@@ -43,8 +45,9 @@ import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.xPixels;
-import static java.lang.Integer.parseInt;
+import static com.urrecliner.dicbible.Vars.bcv;
 
+import static java.lang.Integer.parseInt;
 import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -600,6 +603,24 @@ class MakeBible {
                     }
                 }
             }
+            bcvs = keyTable.where(nowDic);
+            if (bcvs != null) {
+                StringBuilder sb = new StringBuilder("[관련 성경]\n");
+                for (int i = 0; i < bcvs.size(); i++) {
+                    bcv ref = bcvs.get(i);
+                    String refStr = shortBibleNames[ref.b]+ref.c+":"+ref.v+" ";
+                    sb.append(refStr);
+                }
+                TextView tVLine = new TextView(mContext);
+                tVLine.setTextSize((float) textSizeScript*4/5);
+                tVLine.setTextColor(textColorFore);
+                tVLine.setGravity(Gravity.START);
+                tVLine.setWidth(xPixels);
+                tVLine.setLineSpacing(1.2f, 1.2f);
+                linearLayout.addView(tVLine);
+                tVLine.setText(sb);
+            }
+
         } else {
             String errText = "[" + nowDic + "] not found";
             Toast.makeText(mContext,errText,Toast.LENGTH_LONG).show();

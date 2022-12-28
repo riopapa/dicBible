@@ -4,12 +4,14 @@ import static com.urrecliner.dicbible.ButtonAssign.goBackward;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.handlePrefs;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
+import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
@@ -111,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 makeHymn.showNumberKey();
         } else
             makeBible.showBibleList();
+
+        keyTable = new KeyTable(packageFolder);
 
     }
 
