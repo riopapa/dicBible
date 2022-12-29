@@ -1,6 +1,6 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.history;
@@ -124,7 +124,7 @@ public class Utils {
 
     void confirmExit() {
 
-        if (topTab == TAB_MODE_DIC)
+        if (topTab == TAB_MODE_KEY)
             history.pop();
         HandlePrefs.saveArray("goBack", goBacks);
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_quit, null);
@@ -140,7 +140,7 @@ public class Utils {
     }
 
     void exitApp() {
-        if (topTab == TAB_MODE_DIC)
+        if (topTab == TAB_MODE_KEY)
             history.pop();
         HandlePrefs.saveArray("goBack", goBacks);
         mActivity.finish();

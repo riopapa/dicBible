@@ -1,7 +1,7 @@
 package com.urrecliner.dicbible;
 
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
@@ -11,6 +11,7 @@ import static com.urrecliner.dicbible.Vars.bookMarkView;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
@@ -65,8 +66,8 @@ public class SetActivity extends Activity {
                 else
                     makeHymn.showHymnBody();
             }
-            else if (topTab == TAB_MODE_DIC) {
-                makeBible.showDicWord();
+            else if (topTab == TAB_MODE_KEY) {
+                makeDict.showDicWord();
             }
         });
 
@@ -172,8 +173,8 @@ public class SetActivity extends Activity {
                 makeHymn.showNumberKey();
             else
                 makeHymn.showHymnBody();
-        } else if (topTab == TAB_MODE_DIC) {
-            makeBible.showDicWord();
+        } else if (topTab == TAB_MODE_KEY) {
+            makeDict.showDicWord();
         }
     }
 

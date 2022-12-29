@@ -1,7 +1,6 @@
 package com.urrecliner.dicbible;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 
 import java.io.BufferedReader;
@@ -32,17 +31,17 @@ public class FileRead {
             lines = readLines(file2read, kr);
             return lines;
         } catch(IOException e) {
-            String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
-            new AlertDialog.Builder(mActivity)
-                    .setMessage(message)
-                    .setPositiveButton("OK", null)
-                    .create().show();
+//
+//            String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
+//            new AlertDialog.Builder(mActivity)
+//                    .setMessage(message)
+//                    .setPositiveButton("OK", null)
+//                    .create().show();
         }
         return null;
     }
 
     private static String[] readLines(String filename, boolean kr) throws IOException {
-        final String EUC_KR = "UTF-8";  // "EUC-KR";
         final int BUFFER_SIZE = 81920;
         String code = (kr) ? "EUC-KR": "UTF-8";
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), code),BUFFER_SIZE);

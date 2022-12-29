@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dict_layout"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/enterDict"
+        android:textSize="18sp"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:text="찾을 내용"
+        />
+    <EditText
+        android:id="@+id/edDict"
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:inputType="text"
+        android:gravity="center"
+        android:selectAllOnFocus="true"
+        android:layout_height="wrap_content"
+        android:hint="찾을 단어"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+
+    <ImageView
+        android:id="@+id/searchDict"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:padding="4dp"
+        android:layout_height="32dp"
+        android:background="#00000000"
+        style="@style/exitButton"
+        android:src="@drawable/ic_search" />
+
+</LinearLayout>

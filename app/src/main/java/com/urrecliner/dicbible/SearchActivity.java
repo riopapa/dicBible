@@ -3,7 +3,8 @@ package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
@@ -41,8 +42,6 @@ public class SearchActivity extends Activity {
     RecyclerView recyclerView;
     TextView  tvFrom, tvSearchKey;
     ImageView ivSearch, ivTextClear, ivSearchNext;
-
-//    final String logID = "search";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +91,7 @@ public class SearchActivity extends Activity {
         ivSearchNext.setImageDrawable(wrappedDrawable);
 
         ivSearchNext.setOnClickListener(v -> {
-            if (topTab < TAB_MODE_HYMN) {
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW)) {
                 keyText = tvSearchKey.getText().toString();
                 search_BibleNext();
                 recyclerView = findViewById(R.id.searchedList);
@@ -122,7 +121,7 @@ public class SearchActivity extends Activity {
     }
 
     void searchQuick() {
-        if (topTab < TAB_MODE_HYMN) {
+        if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW)) {
             keyText = tvSearchKey.getText().toString();
             search_Bible(keyText);
             recyclerView = findViewById(R.id.searchedList);

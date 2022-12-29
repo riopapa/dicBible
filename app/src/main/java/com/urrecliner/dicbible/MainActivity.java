@@ -4,7 +4,6 @@ import static com.urrecliner.dicbible.ButtonAssign.goBackward;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
-import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.goBacks;
@@ -15,6 +14,7 @@ import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         utils.setKeepScreen();
         makeBible = new MakeBible();
         makeHymn = new MakeHymn();
+        makeDict = new MakeDict();
         screenMenu = new ScreenMenu();
 
         isReadingNow = false;

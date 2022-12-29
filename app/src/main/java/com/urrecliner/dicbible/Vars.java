@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.urrecliner.dicbible.model.BookMark;
 import com.urrecliner.dicbible.model.GoBack;
+import com.urrecliner.dicbible.model.RecentDict;
 import com.urrecliner.dicbible.model.Searched;
 
 import java.io.File;
@@ -37,6 +38,8 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static MakeHymn makeHymn = null;
     @SuppressLint("StaticFieldLeak")
+    static MakeDict makeDict = null;
+    @SuppressLint("StaticFieldLeak")
     static ScreenMenu screenMenu = null;
     @SuppressLint("StaticFieldLeak")
     static Speaking speaking = null;
@@ -55,10 +58,11 @@ public class Vars {
 
     final static int TAB_MODE_OLD = 1;
     final static int TAB_MODE_NEW = 2;
-    final static int TAB_MODE_HYMN = 4;
-    final static int TAB_MODE_DIC = 8;
+    final static int TAB_MODE_HYMN = 3;
+    final static int TAB_MODE_KEY = 4;
+    final static int TAB_MODE_DICT = 5;
 
-    static int topTab = TAB_MODE_NEW;    // if topTab < TAB_MODE_HYMN then it means OLD or NEW
+    static int topTab = TAB_MODE_NEW;    // if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) then it means OLD or NEW
     static boolean agpShow = false;
     static boolean cevShow = false;
 
@@ -73,7 +77,7 @@ public class Vars {
 
     static View topLayout, btmLayout;
     static ImageView vSetting, vSearch;
-    static TextView vAgpBible, vOldBible, vNewBible, vHymn, vCevBible;
+    static TextView vAgpBible, vCevBible, vOldBible, vNewBible, vHymn, vDict;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
     static int textSizeHymnKeypad = 24;
     static Drawable tabDrawable;
@@ -131,6 +135,7 @@ public class Vars {
     public static ArrayList<GoBack> goBacks = new ArrayList<>();
     static ArrayList<BookMark> bookMarks = new ArrayList<>();
     static ArrayList<Searched> searcheds = new ArrayList<>();
+    static ArrayList<RecentDict> recentDicts = new ArrayList<>();
 
     static int [] nbrOfChapters = {0,50,40,27,36,34,24,21,4,31,24,22,25,29,36,10,13,10,42,150,31,12,8,66,52,5,48,12,14,3,9,1,4,7,3,3,3,2,14,4,28,16,24,21,28,16,16,13,6,6,4,4,5,3,6,4,3,1,13,5,5,3,5,1,1,1,22, 0 };
 

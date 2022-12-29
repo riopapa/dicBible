@@ -1,6 +1,7 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_DICT;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
@@ -30,6 +31,7 @@ import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vBackAction;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
 import static com.urrecliner.dicbible.Vars.vCevBible;
+import static com.urrecliner.dicbible.Vars.vDict;
 import static com.urrecliner.dicbible.Vars.vHymn;
 import static com.urrecliner.dicbible.Vars.vLeftAction;
 import static com.urrecliner.dicbible.Vars.vNewBible;
@@ -55,6 +57,7 @@ public class ScreenMenu {
         vOldBible.setBackgroundColor(menuColorBack);
         vNewBible.setBackgroundColor(menuColorBack);
         vHymn.setBackgroundColor(menuColorBack);
+        vDict.setBackgroundColor(menuColorBack);
 
         switch (topTab) {
             case TAB_MODE_OLD:
@@ -66,8 +69,11 @@ public class ScreenMenu {
             case TAB_MODE_HYMN:
                 buildHymn();
                 break;
-            case TAB_MODE_DIC:
-                buildDic();
+            case TAB_MODE_DICT:
+                buildDict();
+                break;
+            case TAB_MODE_KEY:
+                buildKey();
                 break;
             default:
                 Toast.makeText(mContext, "topTab Case Error "+topTab, Toast.LENGTH_SHORT).show();
@@ -92,6 +98,8 @@ public class ScreenMenu {
         vNewBible.setTextColor(menuColorFore);
         vHymn.setBackgroundColor(menuColorBack);
         vHymn.setTextColor(menuColorFore);
+        vDict.setBackgroundColor(menuColorBack);
+        vDict.setTextColor(menuColorFore);
 
         vLeftAction.setTextColor(menuColorFore);
         vCenterAction.setTextColor(menuColorFore);
@@ -150,7 +158,8 @@ public class ScreenMenu {
     private void buildAgpCev() {
         vAgpBible.setBackgroundColor(menuColorBack);
         vCevBible.setBackgroundColor(menuColorBack);
-        if (nowBible > 0 && nowChapter > 0) {
+        if (nowBible > 0 && nowChapter > 0 &&
+                (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD)) {
             vAgpBible.setText((agpShow)? R.string.AGP:R.string.agp);
             vAgpBible.setTextColor(agpColorFore);
             vCevBible.setText((cevShow)? R.string.CEV:R.string.cev);
@@ -197,7 +206,16 @@ public class ScreenMenu {
         vCenterAction.setSelected(true);
     }
 
-    private void buildDic() {
+    private void buildDict() {
+        buildAgpCev();
+        buildSearch(menuColorBack);
+        vDict.setBackground(tabDrawable);
+        vLeftAction.setText(blank);
+        vCenterAction.setText(blank);
+        vRightAction.setText(blank);
+    }
+
+    private void buildKey() {
         buildSearch(menuColorBack);
         vLeftAction.setText(blank);
         vCenterAction.setText(nowDic);
@@ -207,10 +225,10 @@ public class ScreenMenu {
     private void buildSearch(int color) {
         vSearch.setEnabled(color == menuColorFore);
         vSearch.setBackgroundColor(menuColorBack);
-        drawableSet = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
+        drawableSet = VectorDrawableCompat.create(
+                mContext.getResources(), R.drawable.ic_search, null);
         wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, color);
         vSearch.setImageDrawable(wrappedDrawable);
     }
-
 }

@@ -1,12 +1,10 @@
 package com.urrecliner.dicbible;
 
 import static android.graphics.Typeface.BOLD;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
-import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
@@ -18,9 +16,9 @@ import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.history;
-import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
+import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.markColorBack;
 import static com.urrecliner.dicbible.Vars.maxVerse;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
@@ -30,7 +28,6 @@ import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowVerse;
-import static com.urrecliner.dicbible.Vars.packageFolder;
 import static com.urrecliner.dicbible.Vars.paraColorFore;
 import static com.urrecliner.dicbible.Vars.screenMenu;
 import static com.urrecliner.dicbible.Vars.scrollView;
@@ -45,12 +42,9 @@ import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.xPixels;
-import static com.urrecliner.dicbible.Vars.bcv;
-
 import static java.lang.Integer.parseInt;
+
 import android.app.AlertDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -68,14 +62,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.github.chrisbanes.photoview.PhotoView;
 import com.urrecliner.dicbible.model.BookMark;
 
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -344,7 +335,7 @@ class MakeBible {
             if (line == (nowVerse-2))   // to show this verse no too top or above top
                 versePtr = ptrBody;
             String str;
-            String workLine = bibleTexts[line] + "~";// "~" is end character
+            String workLine = bibleTexts[line].trim() + "~";// "~" is end character
             int lenWorkLine = workLine.length() - 1;
             int idx = workLine.indexOf("`a");
             int idx2nd = workLine.indexOf("`c");
@@ -533,7 +524,7 @@ class MakeBible {
         public void onClick(@NonNull View widget) {
             nowDic = key.replace(spacing," ");
             nowVerse = verse;
-            showDicWord();
+            makeDict.showDicWord();
         }
     }
 
@@ -555,82 +546,6 @@ class MakeBible {
         }
     }
 
-    void showDicWord() {
-
-        topTab = TAB_MODE_DIC;
-        screenMenu.build();
-        initScrollView();
-        history.push();
-
-        String txt = "dict/" + nowDic + ".txt";
-        String [] dicTexts = FileRead.readBibleFile(txt, true);
-        if (dicTexts != null) {
-            for (String line : dicTexts) {
-                switch (line.substring(0, 1)) {
-                    case "@":       // contains image file name
-                        File imgFile = new File(packageFolder, "dict_img/" + line.substring(1));
-                        if (imgFile.exists()) {
-                            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                            int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
-                            PhotoView imV = new PhotoView(mContext);
-                            imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
-                            imV.requestLayout();
-                            linearLayout.addView(imV);
-                        }
-                        break;
-                    case "~": { // contains subject name
-                        TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize(textSizeDic);
-                        tVLine.setTextColor(dicColorFore);
-                        tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-                        tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
-                        tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.5f, 1.5f);
-                        linearLayout.addView(tVLine);
-                        tVLine.setText(line.substring(1));
-                        break;
-                    }
-                    default: {
-                        TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize((float) textSizeScript*4/5);
-                        tVLine.setTextColor(textColorFore);
-                        tVLine.setGravity(Gravity.START);
-                        tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.2f, 1.2f);
-                        linearLayout.addView(tVLine);
-                        tVLine.setText(line);
-                        break;
-                    }
-                }
-            }
-            bcvs = keyTable.where(nowDic);
-            if (bcvs != null) {
-                StringBuilder sb = new StringBuilder("[관련 성경]\n");
-                for (int i = 0; i < bcvs.size(); i++) {
-                    bcv ref = bcvs.get(i);
-                    String refStr = shortBibleNames[ref.b]+ref.c+":"+ref.v+" ";
-                    sb.append(refStr);
-                }
-                TextView tVLine = new TextView(mContext);
-                tVLine.setTextSize((float) textSizeScript*4/5);
-                tVLine.setTextColor(textColorFore);
-                tVLine.setGravity(Gravity.START);
-                tVLine.setWidth(xPixels);
-                tVLine.setLineSpacing(1.2f, 1.2f);
-                linearLayout.addView(tVLine);
-                tVLine.setText(sb);
-            }
-
-        } else {
-            String errText = "[" + nowDic + "] not found";
-            Toast.makeText(mContext,errText,Toast.LENGTH_LONG).show();
-//            utils.log(logFile, errText);
-        }
-
-        fBody.removeAllViewsInLayout();
-        fBody.addView(scrollView);
-
-    }
 
     private void makeRefer() {
 

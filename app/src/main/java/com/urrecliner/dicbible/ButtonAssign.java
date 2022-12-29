@@ -1,7 +1,8 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_DIC;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_DICT;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.agpShow;
@@ -15,6 +16,7 @@ import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.makeHymn;
 import static com.urrecliner.dicbible.Vars.maxVerse;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -30,6 +32,7 @@ import static com.urrecliner.dicbible.Vars.vAgpBible;
 import static com.urrecliner.dicbible.Vars.vBackAction;
 import static com.urrecliner.dicbible.Vars.vCenterAction;
 import static com.urrecliner.dicbible.Vars.vCevBible;
+import static com.urrecliner.dicbible.Vars.vDict;
 import static com.urrecliner.dicbible.Vars.vHymn;
 import static com.urrecliner.dicbible.Vars.vLeftAction;
 import static com.urrecliner.dicbible.Vars.vNewBible;
@@ -50,10 +53,11 @@ public class ButtonAssign {
 
         vSetting = mActivity.findViewById(R.id.setting);
         vAgpBible = mActivity.findViewById(R.id.agpBible);
+        vCevBible = mActivity.findViewById(R.id.cevBible);
         vOldBible = mActivity.findViewById(R.id.oldBible);
         vNewBible = mActivity.findViewById(R.id.newBible);
         vHymn = mActivity.findViewById(R.id.hymn);
-        vCevBible = mActivity.findViewById(R.id.cevBible);
+        vDict = mActivity.findViewById(R.id.dict);
         vSearch = mActivity.findViewById(R.id.search);
 
         vLeftAction = mActivity.findViewById(R.id.leftAction);
@@ -84,6 +88,14 @@ public class ButtonAssign {
             nowHymn = 0;
             makeHymn.showNumberKey();
         });
+        vDict.setOnClickListener(v -> {
+            topTab = TAB_MODE_DICT;
+            nowBible = 0;
+            nowChapter = 0;
+            nowVerse = 0;
+            nowHymn = 0;
+            makeDict.showDictMenu();
+        });
         vAgpBible.setOnClickListener(v -> {
             if (vAgpBible.getText().toString().equals(blank))
                 return;
@@ -100,7 +112,7 @@ public class ButtonAssign {
         });
 
         vSearch.setOnClickListener(v -> {
-            if (topTab < TAB_MODE_HYMN && nowBible > 0 && nowChapter > 0) {
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowBible > 0 && nowChapter > 0) {
                 Intent i = new Intent(mActivity, SearchActivity.class);
                 mActivity.startActivity(i);
                 mActivity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
@@ -119,7 +131,7 @@ public class ButtonAssign {
                 text2Speech.stopPlay();
             if (vLeftAction.getText().toString().equals(blank))
                 return;
-            if (topTab < TAB_MODE_HYMN)
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
                 makeBible.goBibleLeft();
             else if (topTab == TAB_MODE_HYMN)
                 makeHymn.goHymnLeft();
@@ -147,7 +159,7 @@ public class ButtonAssign {
                 text2Speech.stopPlay();
             if (vRightAction.getText().toString().equals(blank))
                 return;
-            if (topTab < TAB_MODE_HYMN)
+            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
                 makeBible.goBibleRight();
             else if (topTab == TAB_MODE_HYMN)
                 makeHymn.goHymnRight();
@@ -173,6 +185,7 @@ public class ButtonAssign {
         else
             return 0;
     }
+
     static void goBackward() {
             history.pop();
             if (goBacks.size() > 1) {
@@ -181,8 +194,10 @@ public class ButtonAssign {
                     makeBible.showBibleBody();
                 } else if (topTab == TAB_MODE_HYMN) {
                     makeHymn.showHymnBody();
-                } else if (topTab == TAB_MODE_DIC) {
-                    makeBible.showDicWord();
+                } else if (topTab == TAB_MODE_DICT) {
+                    makeDict.showDicWord();
+                } else if (topTab == TAB_MODE_KEY) {
+                    makeDict.showDicWord();
                 } else {
                     Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
                 }

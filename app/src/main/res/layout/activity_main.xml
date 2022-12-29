@@ -39,6 +39,16 @@
             />
 
         <TextView
+            android:id="@+id/cevBible"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="cev"
+            android:textSize="@dimen/menu_font_size_small"
+            />
+
+        <TextView
             android:id="@+id/oldBible"
             style="@style/MenuStyle"
             android:layout_width="0dp"
@@ -69,15 +79,14 @@
             />
 
         <TextView
-            android:id="@+id/cevBible"
+            android:id="@+id/dict"
             style="@style/MenuStyle"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent"
-            android:text="cev"
-            android:textSize="@dimen/menu_font_size_small"
+            android:text="@string/dict"
+            android:textSize="@dimen/menu_font_size"
             />
-
         <ImageView
             android:id="@+id/search"
             style="@style/MenuStyle"
