@@ -71,6 +71,7 @@
                 android:selectAllOnFocus="true"
                 android:layout_height="wrap_content"
                 android:hint="찾을 문장"
+                android:textColorHint="#ff888800"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/menuColorFore"

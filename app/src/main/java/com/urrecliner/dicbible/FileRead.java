@@ -41,6 +41,24 @@ public class FileRead {
         return null;
     }
 
+    static String[] readDicFile(String filename, boolean kr) {
+
+        String file2read = packageFolder + "/dict/" + filename+".txt";
+        String[] lines;
+        try {
+            lines = readLines(file2read, kr);
+            return lines;
+        } catch(IOException e) {
+//
+//            String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
+//            new AlertDialog.Builder(mActivity)
+//                    .setMessage(message)
+//                    .setPositiveButton("OK", null)
+//                    .create().show();
+        }
+        return null;
+    }
+
     private static String[] readLines(String filename, boolean kr) throws IOException {
         final int BUFFER_SIZE = 81920;
         String code = (kr) ? "EUC-KR": "UTF-8";

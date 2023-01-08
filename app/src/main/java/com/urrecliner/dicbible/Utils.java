@@ -14,16 +14,12 @@ import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.urrecliner.dicbible.cookiebar.CookieBar;
 
 import java.util.Timer;
@@ -81,26 +77,6 @@ public class Utils {
                 .show();
 
     }
-    void sxx (String title, String text) {
-        View mLayoutView = mActivity.findViewById(R.id.fBody);
-        Snackbar snackbar = Snackbar.make(mLayoutView, "", Snackbar.LENGTH_LONG);
-        View sView = mActivity.getLayoutInflater().inflate(R.layout.snack_message, null);
-        TextView tv1 = sView.findViewById(R.id.textView1);
-        TextView tv2 = sView.findViewById(R.id.textView2);
-
-        tv1.setText(title);
-        tv2.setText(text);
-
-        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-//        snackbarLayout.setPadding(8, 8, 8, 8);
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarLayout.getLayoutParams();
-        params.gravity = Gravity.CENTER_VERTICAL;
-        sView.setLayoutParams(params);
-        snackbarLayout.addView(sView, 0);
-
-        snackbar.show();
-    }
-
 
     void setFullScreen() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {   // >= android 11
@@ -112,13 +88,13 @@ public class Utils {
                 controller.setSystemBarsBehavior(
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
             }
-        } else {
-            mActivity.getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        } else {
+//            mActivity.getWindow().getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_IMMERSIVE
+//                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 

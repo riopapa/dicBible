@@ -18,7 +18,8 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.makeHymn;
-import static com.urrecliner.dicbible.Vars.maxVerse;
+import static com.urrecliner.dicbible.Vars.nowDic;
+import static com.urrecliner.dicbible.Vars.verMax;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowHymn;
@@ -181,7 +182,7 @@ public class ButtonAssign {
 
     private static int getNowTopVerse() {
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD)
-            return maxVerse *  fBody.getScrollY() / fBody.getChildAt(0).getHeight() + 2;
+            return verMax *  fBody.getScrollY() / fBody.getChildAt(0).getHeight() + 2;
         else
             return 0;
     }
@@ -191,13 +192,21 @@ public class ButtonAssign {
             if (goBacks.size() > 1) {
                 history.pop();
                 if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
-                    makeBible.showBibleBody();
+                    if (nowBible == 0)
+                        makeBible.showBibleList();
+                    else if (nowChapter > 0)
+                        makeBible.showBibleBody();
+                    else
+                        makeBible.showChapterList();
                 } else if (topTab == TAB_MODE_HYMN) {
                     makeHymn.showHymnBody();
                 } else if (topTab == TAB_MODE_DICT) {
-                    makeDict.showDicWord();
+                    if (nowDic.equals(""))
+                        makeDict.showDictMenu();
+                    else
+                        new DictKey().show();
                 } else if (topTab == TAB_MODE_KEY) {
-                    makeDict.showDicWord();
+                    new DictKey().show();
                 } else {
                     Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
                 }

@@ -1,7 +1,5 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.keyRefs;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,16 +13,14 @@ import java.util.List;
 
 public class KeyTable {
 
-    final File packageFolder;
-    public KeyTable(File packageFolder) {
-        this.packageFolder = packageFolder;
+    List<Vars.KeyRef> read(File packageFolder) {
         final String EUC_KR = "UTF-8";
         final int BUFFER_SIZE = 81920;
         final File jsonFile = new File(packageFolder, "dict/keyRef.json");
 
         BufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), EUC_KR),BUFFER_SIZE);
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), EUC_KR), BUFFER_SIZE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +35,7 @@ public class KeyTable {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Vars.KeyRef>>() {
         }.getType();
-        keyRefs = gson.fromJson(json, type);
+        return gson.fromJson(json, type);
     }
 
     List<Vars.bcv> where(String key) {

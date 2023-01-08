@@ -58,7 +58,7 @@ class MakeHymn {
     void showNumberKey() {
 
         screenMenu.build();
-        initScrollView();
+        new FrameScrollView();
 
         Button b;
         int drawable = (darkMode)? R.drawable.button_bible_dark: R.drawable.button_number;
@@ -167,7 +167,7 @@ class MakeHymn {
     void showHymnBody() {
 
         screenMenu.build();
-        initScrollView();
+        new FrameScrollView();
         history.push();
 
         String txt = "Hymn/" + nowHymn + ".txt";
@@ -244,7 +244,7 @@ class MakeHymn {
     private void showSortedHymnList(int start) {
 
         screenMenu.build();
-        initScrollView();
+        new FrameScrollView();
 
         nowHymn = -1 - start;
 
@@ -300,15 +300,6 @@ class MakeHymn {
         fBody.addView(scrollView);
     }
 
-    private void initScrollView() {
-        scrollView = new ScrollView(mContext);
-        scrollView.setBackgroundColor(menuColorBack);
-        textView = new TextView(mContext);
-        linearLayout = new LinearLayout(mContext);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        scrollView.addView(linearLayout);
-    }
 
     void confirmSpeak() {
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.speak_or_not, null);

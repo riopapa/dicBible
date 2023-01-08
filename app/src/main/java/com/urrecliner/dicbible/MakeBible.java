@@ -8,6 +8,7 @@ import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.biblePitch;
 import static com.urrecliner.dicbible.Vars.bibleSpeed;
 import static com.urrecliner.dicbible.Vars.bibleTexts;
+import static com.urrecliner.dicbible.Vars.bookMarkChar;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.cevColorFore;
 import static com.urrecliner.dicbible.Vars.cevShow;
@@ -18,10 +19,7 @@ import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.markColorBack;
-import static com.urrecliner.dicbible.Vars.maxVerse;
-import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nbrOfChapters;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -41,6 +39,7 @@ import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
+import static com.urrecliner.dicbible.Vars.verMax;
 import static com.urrecliner.dicbible.Vars.xPixels;
 import static java.lang.Integer.parseInt;
 
@@ -60,7 +59,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -80,10 +78,13 @@ class MakeBible {
     void showBibleList() {
 
         screenMenu.build();
-        initScrollView();
+        new FrameScrollView();
+        nowBible = 0;
+        nowChapter = 0;
+        nowVerse = 0;
 
         int loop = (topTab == TAB_MODE_OLD) ?  39: 27;
-        int start = (topTab == TAB_MODE_OLD) ? 1 : 40;
+        int bibNbr = (topTab == TAB_MODE_OLD) ? 1 : 40;
         int count = 1;
         final int nbrColumn = 3;
         int buttonWidth = xPixels / nbrColumn;
@@ -95,7 +96,7 @@ class MakeBible {
         textView.setGravity(Gravity.CENTER);
         linearLayout.addView(textView);
 
-        for(int i = 0; i<15;i++) {
+        for(int i = 0; i< 15 ; i++) {
             Button b;
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -105,8 +106,8 @@ class MakeBible {
                 columnLayout.setOrientation(LinearLayout.VERTICAL);
                 b = new Button(mContext);
                 b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark:R.drawable.button_bible);
-                b.setText(fullBibleNames[start]);
-                b.setId(start);
+                b.setText(fullBibleNames[bibNbr]);
+                b.setId(bibNbr);
                 b.setWidth(buttonWidth);
                 b.setTextSize(textSizeBible66);
                 b.setTextColor(textColorFore);
@@ -117,7 +118,7 @@ class MakeBible {
                     showChapterList();
                 });
                 rowLayout.addView(columnLayout);
-                start++;
+                bibNbr++;
                 count++;
                 if (count > loop)
                     break;
@@ -129,42 +130,40 @@ class MakeBible {
         fBody.addView(scrollView);
     }
 
-    private void initScrollView() {
-        scrollView = new ScrollView(mContext);
-        scrollView.setBackgroundColor(menuColorBack);
-        textView = new TextView(mContext);
-        linearLayout = new LinearLayout(mContext);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lParams.setMargins(20, 0, 30, 0);
-        scrollView.addView(linearLayout, lParams);
-    }
-
     void showChapterList() {
         screenMenu.build();
-        initScrollView();
-        textView.setText(fullBibleNames[nowBible]);
+        new FrameScrollView();
+        String bibleHead = fullBibleNames[nowBible]+" [?]";
+        textView.setText(bibleHead);
         textView.setTextColor(menuColorFore);
         textView.setTextSize(textSizeScript);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(""+(100+nowBible)).substring(1,3);
+                nowChapter = 0;
+                nowVerse = 0;
+                new DictKey().show();
+            }
+        });
+
         linearLayout.addView(textView);
 
-        int chapterMax = nbrOfChapters[nowBible];
-        int chapter = 1;
+        int chapMax = nbrOfChapters[nowBible];
+        int chapNbr = 1;
         TextView tVNbr;
         final int nbrColumn = 5;
         int buttonWidth = xPixels / nbrColumn;
 
-        for(int i = 0; i<50;i++) {
+        for(int i = 0; i < 40; i++) {   // max 40 * 5  psalms = 150
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.addView(rowLayout);
             for(int j = 0; j < nbrColumn; j++) {
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 tVNbr = new TextView(mContext);
-                String text = ""+chapter;
+                String text = ""+chapNbr;
                 tVNbr.setText(text);
                 tVNbr.setTextColor(menuColorFore);
                 tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
@@ -172,7 +171,7 @@ class MakeBible {
                 tVNbr.setWidth(buttonWidth);
                 tVNbr.setGravity(Gravity.CENTER_HORIZONTAL);
                 tVNbr.setPadding(0,16,0,16);
-                tVNbr.setId(chapter);
+                tVNbr.setId(chapNbr);
                 columnLayout.addView(tVNbr);
                 tVNbr.setOnClickListener(v -> {
                     nowChapter = v.getId();
@@ -180,11 +179,11 @@ class MakeBible {
                     showBibleBody();
                 });
                 rowLayout.addView(columnLayout);
-                chapter++;
-                if (chapter > chapterMax)
+                chapNbr++;
+                if (chapNbr > chapMax)
                     break;
             }
-            if (chapter > chapterMax)
+            if (chapNbr > chapMax)
                 break;
         }
 
@@ -192,7 +191,7 @@ class MakeBible {
         fBody.addView(scrollView);
     }
 
-    private final int TABLE_SIZE = 500;
+    private final int TABLE_SIZE = 600;
 
     private final int [] keywordF = new int[TABLE_SIZE];           // ..F from byte pointer
     private final int [] keywordT = new int[TABLE_SIZE];           // ..T to byte pointer
@@ -207,26 +206,26 @@ class MakeBible {
     private final int [] verseT = new int[VERSE_SIZE];
     private int idxText, idxVerse;
 
-    private final int [] referF = new int[TABLE_SIZE];
-    private final int [] referT = new int[TABLE_SIZE];
+    private final int [] refFrm = new int[TABLE_SIZE];
+    private final int [] refTo = new int[TABLE_SIZE];
     private final int [] referV = new int[TABLE_SIZE];
     private final String [] referS = new String[TABLE_SIZE];
     private int idxRefer;
 
-    private final int [] paraF = new int[30];
-    private final int [] paraT = new int[30];
+    private final int [] paraFrm = new int[30];
+    private final int [] paraTo = new int[30];
     private int idxPara;
 
-    private final int [] agpF = new int[VERSE_SIZE];
-    private final int [] agpT = new int[VERSE_SIZE];
+    private final int [] agpFrm = new int[VERSE_SIZE];
+    private final int [] agpTo = new int[VERSE_SIZE];
     private int idxAgp;
 
-    private final int [] cevF = new int[VERSE_SIZE];
-    private final int [] cevT = new int[VERSE_SIZE];
+    private final int [] cevFrm = new int[VERSE_SIZE];
+    private final int [] cevTo = new int[VERSE_SIZE];
     private int idxCev;
 
-    private final int [] spaceF = new int[VERSE_SIZE];
-    private final int [] spaceT = new int[VERSE_SIZE];
+    private final int [] spaceFrm = new int[VERSE_SIZE];
+    private final int [] spaceTo = new int[VERSE_SIZE];
     private int idxSpace;
     private boolean [] marked;
 
@@ -239,7 +238,7 @@ class MakeBible {
 
     void showBibleBody() {
         screenMenu.build();
-        initScrollView();
+        new FrameScrollView();
         history.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
         bibleTexts = FileRead.readBibleFile(file2read, false);
@@ -247,9 +246,9 @@ class MakeBible {
             utils.showSnackBar("성경 말씀 파일 없음 ", fullBibleNames[nowBible] + " " + nowChapter);
             return;
         }
-        maxVerse  = bibleTexts.length;
+        verMax = bibleTexts.length;
 
-        marked = new boolean[maxVerse+1];
+        marked = new boolean[verMax +1];
         for (BookMark bm: bookMarks) {
             if (bm.bible == nowBible && bm.chapter == nowChapter)
                 marked[bm.verse] = true;
@@ -288,7 +287,6 @@ class MakeBible {
     private SpannableString settleSpannableString(StringBuilder bodyText) {
 
         paraSize = textSizeScript * 11 / 10;
-
         SpannableString ss = new SpannableString(bodyText);
 
         for (int i = 0; i < idxText; i++) {
@@ -305,23 +303,23 @@ class MakeBible {
             ss.setSpan(new ForegroundColorSpan(textColorFore), verseF[i], verseT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxPara; i++) {
-            ss.setSpan(new ForegroundColorSpan(paraColorFore), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new AbsoluteSizeSpan(paraSize, true), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(paraColorFore), paraFrm[i], paraTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(paraSize, true), paraFrm[i], paraTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 //            ss.setSpan(new UnderlineSpan(), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new StyleSpan(BOLD), paraF[i], paraT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new StyleSpan(BOLD), paraFrm[i], paraTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxRefer; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(textSizeRefer, true), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new referSpan(referS[i], referV[i]), referF[i], referT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(textSizeRefer, true), refFrm[i], refTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new referSpan(referS[i], referV[i]), refFrm[i], refTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxCev; i++) {
-            ss.setSpan(new ForegroundColorSpan(cevColorFore), cevF[i], cevT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(cevColorFore), cevFrm[i], cevTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxAgp; i++) {
-            ss.setSpan(new ForegroundColorSpan(agpColorFore), agpF[i], agpT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new ForegroundColorSpan(agpColorFore), agpFrm[i], agpTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxSpace; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(textSizeSpace/2, true), spaceF[i], spaceT[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(textSizeSpace/2, true), spaceFrm[i], spaceTo[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (highLightF > 0)
             ss.setSpan(new BackgroundColorSpan(markColorBack), highLightF, highLightT, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -331,7 +329,7 @@ class MakeBible {
     private void makeBibleAllVerses() {
         versePtr = 0;
         highLightF = 0;
-        for (int line = 0; line < maxVerse; line++) {
+        for (int line = 0; line < verMax; line++) {
             if (line == (nowVerse-2))   // to show this verse no too top or above top
                 versePtr = ptrBody;
             String str;
@@ -347,9 +345,8 @@ class MakeBible {
                 cevText = " ";
             workLine = workLine.substring(0, idx).replace(" ", spacing);
             // to prevent word wrap
-            final String markChar = "†";
-            String verseString = (line+1)+(marked[line+1] ? markChar :spacing);
-            if (line < maxVerse-1) {
+            String verseString = (line+1)+(marked[line+1] ? bookMarkChar :spacing);
+            if (line < verMax -1) {
                 String nextLine = bibleTexts[line+1].substring(0, bibleTexts[line+1].indexOf("`a")).trim();
                 if (nextLine.length() == 0)
                     verseString += "-" +(line+2);
@@ -369,13 +366,13 @@ class MakeBible {
                     lenWorkLine = workLine.length();
                     bodyText.append(str);
                     bodyText.append(newLine);
-                    paraF[idxPara] = ptrBody;
-                    paraT[idxPara] = ptrBody + str.length() + 1;
+                    paraFrm[idxPara] = ptrBody;
+                    paraTo[idxPara] = ptrBody + str.length() + 1;
                     idxPara++;
                     ptrBody += str.length() + 1;
-                    spaceF[idxSpace] = ptrBody-1;
+                    spaceFrm[idxSpace] = ptrBody-1;
                     bodyText.append(" " + newLine);
-                    spaceT[idxSpace] = ptrBody + 3;
+                    spaceTo[idxSpace] = ptrBody + 3;
                     ptrBody += 2;
                     idxSpace++;
                 }
@@ -412,16 +409,16 @@ class MakeBible {
                 if (agpShow) {
                     agpText = newLine + agpText.replace(" ", spacing);  // no word wrap
                     bodyText.append(agpText);
-                    agpF[idxAgp] = ptrBody;
-                    agpT[idxAgp] = ptrBody + agpText.length();
+                    agpFrm[idxAgp] = ptrBody;
+                    agpTo[idxAgp] = ptrBody + agpText.length();
                     idxAgp++;
                     ptrBody += agpText.length();
                 }
                 if (cevShow) {
                     cevText = newLine + cevText;    // cev allows word wrap
                     bodyText.append(cevText);
-                    cevF[idxCev] = ptrBody;
-                    cevT[idxCev] = ptrBody + cevText.length();
+                    cevFrm[idxCev] = ptrBody;
+                    cevTo[idxCev] = ptrBody + cevText.length();
                     idxCev++;
                     ptrBody += cevText.length();
                 }
@@ -429,9 +426,9 @@ class MakeBible {
                 idxText++;
                 ptrBody++;
                 bodyText.append(newLine);
-                spaceF[idxSpace] = ptrBody;
+                spaceFrm[idxSpace] = ptrBody;
                 bodyText.append(" " + newLine);
-                spaceT[idxSpace] = ptrBody + 2;
+                spaceTo[idxSpace] = ptrBody + 2;
                 ptrBody += 2;
                 idxSpace++;
             }
@@ -448,8 +445,8 @@ class MakeBible {
             String showWord = " (" + bibShort + keyword.substring(4) + ") ";
                             // $01#12:34 -> (창12:34) 로 표시
             bodyText.append(showWord);
-            referF[idxRefer] = ptrBody;
-            referT[idxRefer] = ptrBody + showWord.length();
+            refFrm[idxRefer] = ptrBody;
+            refTo[idxRefer] = ptrBody + showWord.length();
             referV[idxRefer] = verse;
             referS[idxRefer] = keyword.substring(1);  // save 01#12:34
             idxRefer++;
@@ -524,7 +521,7 @@ class MakeBible {
         public void onClick(@NonNull View widget) {
             nowDic = key.replace(spacing," ");
             nowVerse = verse;
-            makeDict.showDicWord();
+            new DictKey().show();
         }
     }
 

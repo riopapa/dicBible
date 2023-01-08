@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeHymn;
-import static com.urrecliner.dicbible.Vars.maxVerse;
+import static com.urrecliner.dicbible.Vars.verMax;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -51,7 +51,7 @@ class Text2Speech {
             @Override
             public void onDone(String utteranceId) {
                 ttsVerseNow++;
-                if (isReadingNow && ttsVerseNow < maxVerse)
+                if (isReadingNow && ttsVerseNow < verMax)
                     readBibleTTS(ttsVerseNow);
                 else if (isReadingNow) {
                     makeBible.goBibleRight();

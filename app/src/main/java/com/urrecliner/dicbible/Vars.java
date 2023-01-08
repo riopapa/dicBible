@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -49,10 +50,13 @@ public class Vars {
 
     @SuppressLint("StaticFieldLeak")
     static ScrollView scrollView;
+    static TextView textView;
+    static LinearLayout linearLayout;
     static BookMarkAdapter bookMarkAdapter;
     static RecyclerView bookMarkView;
+    final static String bookMarkChar = "♡";
 
-    static int nowBible = 0, nowChapter = 1, nowVerse = 0, nowHymn = 0, maxVerse = 0;
+    static int nowBible = 0, nowChapter = 1, nowVerse = 0, nowHymn = 0, verMax = 0;
     static int xPixels;
     static boolean darkMode;
 
@@ -131,6 +135,7 @@ public class Vars {
     static List<KeyRef> keyRefs;
     static List<bcv> bcvs;
     static String [] bibleTexts;
+    static List<String> dicts = null;
 
     public static ArrayList<GoBack> goBacks = new ArrayList<>();
     static ArrayList<BookMark> bookMarks = new ArrayList<>();

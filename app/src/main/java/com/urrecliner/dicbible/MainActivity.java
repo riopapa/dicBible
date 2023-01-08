@@ -10,6 +10,7 @@ import static com.urrecliner.dicbible.Vars.goBacks;
 import static com.urrecliner.dicbible.Vars.handlePrefs;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
+import static com.urrecliner.dicbible.Vars.keyRefs;
 import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
@@ -115,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
         } else
             makeBible.showBibleList();
 
-        keyTable = new KeyTable(packageFolder);
-
+        keyTable = new KeyTable();
+        keyRefs = keyTable.read(packageFolder);
     }
 
     @Override
