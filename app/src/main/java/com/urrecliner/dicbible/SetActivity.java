@@ -133,7 +133,9 @@ public class SetActivity extends Activity {
     }
 
     private void showBookMark() {
+        setLayoutBackGround(setActivity.findViewById(R.id.lBookMark));
         setTextBackGround(setActivity.findViewById(R.id.tBookMark));
+        setTextBackGround(setActivity.findViewById(R.id.tBookMarkDesc));
         bookMarkView = findViewById(R.id.book_marks);
         bookMarkAdapter = new BookMarkAdapter();
         bookMarkView.setAdapter(bookMarkAdapter);

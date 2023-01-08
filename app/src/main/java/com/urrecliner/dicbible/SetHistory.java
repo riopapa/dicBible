@@ -98,7 +98,7 @@ public class SetHistory {
         }
         ScrollView scrollView = setActivity.findViewById(R.id.setScrollView);
         scrollView.post(() ->
-                scrollView.scrollTo(0, scrollView.getHeight() - 1));
+                scrollView.scrollTo(0, scrollView.getHeight() - 300));
 
     }
 }

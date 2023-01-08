@@ -55,8 +55,7 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
         });
         String key = shortList.get(position);
         if (key.startsWith("[")) {  // 성경 해설
-            int pos = key.indexOf("#");
-            String s = key.substring(0,pos) + " 요약";
+            String s = key + " 요약";
             holder.textView.setText(s);
         } else {
             String [] dicTexts = fileRead.readDicFile(key, true);
@@ -89,7 +88,6 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
                 String charString = constraint.toString();
                 if(charString.isEmpty()) {
                     shortList = new ArrayList<>();
-//                    shortList = fullList;
                 } else {
                     ArrayList<String> filteringList = new ArrayList<>();
                     for(String name : fullList) {
