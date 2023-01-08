@@ -1,8 +1,8 @@
 package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
@@ -181,7 +181,7 @@ public class DictKey {
             nowBible = b;
             nowChapter = c;
             nowVerse = v;
-            topTab =  (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
+            topTab =  (nowBible < 40) ? TAB_OLD : TAB_NEW;
             bibleMake.showBibleBody();
         }
     }

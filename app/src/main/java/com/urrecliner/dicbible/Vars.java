@@ -60,13 +60,13 @@ public class Vars {
     static int xPixels;
     static boolean darkMode;
 
-    final static int TAB_MODE_OLD = 1;
-    final static int TAB_MODE_NEW = 2;
-    final static int TAB_MODE_HYMN = 3;
+    final static int TAB_OLD = 1;
+    final static int TAB_NEW = 2;
+    final static int TAB_HYMN = 3;
     final static int TAB_MODE_KEY = 4;
     final static int TAB_MODE_DICT = 5;
 
-    static int topTab = TAB_MODE_NEW;    // if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) then it means OLD or NEW
+    static int topTab = TAB_NEW;    // if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) then it means OLD or NEW
     static boolean agpShow = false;
     static boolean cevShow = false;
 
@@ -80,10 +80,10 @@ public class Vars {
     static String nowDic;
 
     static View topLayout, btmLayout;
-    static ImageView vSetting, vSearch;
+    static ImageView vSetting, vSearch, vTalk;
     static TextView vAgpBible, vCevBible, vOldBible, vNewBible, vHymn, vDict;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
-    static int textSizeHymnKeypad = 24;
+    static int textSizeHymnKeypad = 20;
     static Drawable tabDrawable;
 
     // followings are from shared preference

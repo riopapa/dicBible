@@ -1,8 +1,8 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.bibleTTS;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
@@ -28,12 +28,12 @@ public class Speaking {
         if (isReadingNow) {
             isReadingNow = false;
             text2Speech.stopPlay();
-        } else if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
+        } else if (topTab == TAB_OLD || topTab == TAB_NEW) {
             isReadingNow = true;
             utils.showSnackBar( fullBibleNames[nowBible]+ " "+nowChapter,
                     ((bibleTTS)? "성경읽기":"성경낭독")+" 시작");
             text2Speech.playBible();
-        } else if (topTab == TAB_MODE_HYMN) {
+        } else if (topTab == TAB_HYMN) {
             isReadingNow = true;
             utils.showSnackBar(hymnTitles[nowHymn],
                     ((hymnAccompany)? "반주":"찬양") + " 시작");

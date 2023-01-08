@@ -30,6 +30,7 @@ import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
 import static com.urrecliner.dicbible.Vars.textView;
+import static com.urrecliner.dicbible.Vars.vCenterAction;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.AlertDialog;
@@ -37,6 +38,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -62,10 +64,7 @@ class HymnMake {
 
         Button b;
         int drawable = (darkMode)? R.drawable.button_bible_dark: R.drawable.button_number;
-        if (nowHymn > 0)
-            hymnTitle = nowHymn + " : " + hymnTitles[nowHymn];
-        else
-            hymnTitle = "";
+        hymnTitle = "";
         textView.setText(hymnTitle);
         textView.setTextSize(textSizeHymnKeypad);
         textView.setTextColor(textColorFore);
@@ -82,11 +81,11 @@ class HymnMake {
                 if (id == -1)
                     break;
                 String buttonText;
-                int buttonHeight = 140;
+                int buttonHeight = 80;
                 int buttonWidth;
                 switch (id) {
                     case BTN_CLEAR:
-                        buttonWidth = 420;
+                        buttonWidth = 320;
                         buttonText = "Clear";
                         break;
                     case BTN_GO:
@@ -95,7 +94,7 @@ class HymnMake {
                         break;
                     default:
                         buttonText = "" + id;
-                        buttonWidth = 80;
+                        buttonWidth = 50;
                 }
 
                 LinearLayout columnLayout = new LinearLayout(mContext);
@@ -133,13 +132,16 @@ class HymnMake {
             }
         }
 
-        for(int row = 0; row<8;row++) {   // 4
+        for(int row = 0; row < 10; row++) {   // 4
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.addView(rowLayout);
             for(int col = 0; col < 2; col++) {
-                String text = hymnTitles[sortedNumbers[(row+row+col)*41]].substring(0,8)+" ~";     // 81
+                int nbr = (row+row+col)*32;
+                String text = hymnTitles[sortedNumbers[nbr]];
+//                if (text.length())
+//                String text = hymnTitles[sortedNumbers[(row+row+col)*32]].substring(0,8)+" ~";     // 32 = 645 / 10 / 2
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
@@ -149,11 +151,13 @@ class HymnMake {
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
                 b.setTextColor(textColorFore);
+                b.setSingleLine(true);
+                b.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                b.setSelected(true);
                 columnLayout.addView(b);
-                b.setId((row+row+col)*41);    // 81
+                b.setId(nbr);
                 b.setOnClickListener(v -> {
-                int nbr = v.getId();
-                showSortedHymnList(nbr);
+                    showSortedHymnList(v.getId());
                 });
                 rowLayout.addView(columnLayout);
             }
@@ -253,7 +257,7 @@ class HymnMake {
 
         linearLayout.addView(textView);
 
-        for(int row = 0; row < 41;row++) {  // 81
+        for(int row = 0; row < 200;row++) {  // 40 list for one block
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER_HORIZONTAL);

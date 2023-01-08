@@ -1,7 +1,7 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
@@ -78,7 +78,7 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
                 nowChapter = bookMark.chapter;
                 nowVerse = bookMark.verse;
                 nowHymn = 0;
-                topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
+                topTab = (nowBible < 40) ? TAB_OLD : TAB_NEW;
                 if (bibleMake == null)
                     bibleMake = new BibleMake();
                 bibleMake.showBibleBody();

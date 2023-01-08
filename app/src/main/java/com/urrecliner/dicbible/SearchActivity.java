@@ -3,8 +3,8 @@ package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.mContext;
@@ -90,7 +90,7 @@ public class SearchActivity extends Activity {
         ivSearchNext.setImageDrawable(wrappedDrawable);
 
         ivSearchNext.setOnClickListener(v -> {
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW)) {
+            if ((topTab == TAB_OLD || topTab == TAB_NEW)) {
                 keyText = tvSearchKey.getText().toString();
                 search_BibleNext();
                 recyclerView = findViewById(R.id.searchedList);
@@ -116,11 +116,10 @@ public class SearchActivity extends Activity {
             recyclerView.setAdapter(searchAdapter);
             utils.hideKeyboard(searchActivity);
         }
-
     }
 
     void searchQuick() {
-        if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW)) {
+        if ((topTab == TAB_OLD || topTab == TAB_NEW)) {
             keyText = tvSearchKey.getText().toString();
             search_Bible(keyText);
             recyclerView = findViewById(R.id.searchedList);
@@ -137,18 +136,24 @@ public class SearchActivity extends Activity {
         int chapter = nowChapter;
         int depth = searchDepth;
         searcheds = new ArrayList<>();
+        String [] kwd = text.trim().split(" ");
 
         while (depth > 0) {
             String file2read = "bible/" + bible + "/" + chapter + ".txt";
             bibleVerses = fileRead.readBibleFile(file2read, false);
             for (int i = 0; i < bibleVerses.length; i++) {
                 String s = extractVerse(bibleVerses[i]);
-                if (s.contains(text)) {
-                    String result = (i>1) ? (i)+")"+extractVerse(bibleVerses[i-1]) + "\n" + (i+1)+")"+s : (i+1)+")"+s;
-                    if (i < bibleVerses.length-1)
-                        result += "\n" + (i+2)+")"+extractVerse(bibleVerses[i+1]);
-                    Searched searchResult = new Searched(bible, chapter, i+1, result);
-                    searcheds.add(searchResult);
+                if (s.contains(kwd[0])) {
+                    if (kwd.length == 1 || s.contains(kwd[1])) {
+                        String result = "";
+                        if (i > 0)
+                            result = i + ") " + extractVerse(bibleVerses[i - 1]);
+                        result += (result.equals("") ? "":"\n") + "["+(i+1)+"] "+s;
+                        if (i < bibleVerses.length - 1)
+                            result += "\n" + (i + 2) + ")" + extractVerse(bibleVerses[i + 1]);
+                        Searched searchResult = new Searched(bible, chapter, i + 1, result);
+                        searcheds.add(searchResult);
+                    }
                 }
             }
             depth--;

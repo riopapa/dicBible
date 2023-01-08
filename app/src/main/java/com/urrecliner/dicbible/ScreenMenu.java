@@ -2,9 +2,9 @@ package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.TAB_MODE_DICT;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.blank;
@@ -39,6 +39,7 @@ import static com.urrecliner.dicbible.Vars.vOldBible;
 import static com.urrecliner.dicbible.Vars.vRightAction;
 import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.vSetting;
+import static com.urrecliner.dicbible.Vars.vTalk;
 
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -60,13 +61,13 @@ public class ScreenMenu {
         vDict.setBackgroundColor(menuColorBack);
 
         switch (topTab) {
-            case TAB_MODE_OLD:
+            case TAB_OLD:
                 buildOld();
                 break;
-            case TAB_MODE_NEW:
+            case TAB_NEW:
                 buildNew();
                 break;
-            case TAB_MODE_HYMN:
+            case TAB_HYMN:
                 buildHymn();
                 break;
             case TAB_MODE_DICT:
@@ -78,6 +79,16 @@ public class ScreenMenu {
             default:
                 Toast.makeText(mContext, "topTab Case Error "+topTab, Toast.LENGTH_SHORT).show();
         }
+        if ((topTab == TAB_NEW || topTab == TAB_OLD) && (nowBible > 0 && nowChapter > 0))
+            buildSearch( menuColorFore);
+        else
+            buildSearch(0);
+        if ((topTab == TAB_NEW || topTab == TAB_OLD) && (nowBible > 0 && nowChapter > 0))
+            buildTalk(menuColorFore);
+        else if (topTab == TAB_HYMN && nowHymn > 0)
+            buildTalk(menuColorFore);
+        else
+            buildTalk(0);
         utils.setFullScreen();
     }
 
@@ -159,7 +170,7 @@ public class ScreenMenu {
         vAgpBible.setBackgroundColor(menuColorBack);
         vCevBible.setBackgroundColor(menuColorBack);
         if (nowBible > 0 && nowChapter > 0 &&
-                (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD)) {
+                (topTab == TAB_NEW || topTab == TAB_OLD)) {
             vAgpBible.setText((agpShow)? R.string.AGP:R.string.agp);
             vAgpBible.setTextColor(agpColorFore);
             vCevBible.setText((cevShow)? R.string.CEV:R.string.cev);
@@ -180,7 +191,6 @@ public class ScreenMenu {
 
     private void buildNew() {
 
-        buildSearch((nowBible > 0 && nowChapter > 0)? menuColorFore:menuColorBack);
         vNewBible.setBackground(tabDrawable);
         buildAgpCev();
         buildBibleBottom();
@@ -230,5 +240,15 @@ public class ScreenMenu {
         wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, color);
         vSearch.setImageDrawable(wrappedDrawable);
+    }
+
+    private void buildTalk(int color) {
+        vTalk.setEnabled(color == menuColorFore);
+        vTalk.setBackgroundColor(menuColorBack);
+        drawableSet = VectorDrawableCompat.create(
+                mContext.getResources(), R.drawable.talk, null);
+        wrappedDrawable = DrawableCompat.wrap(drawableSet);
+        DrawableCompat.setTint(wrappedDrawable, color);
+        vTalk.setImageDrawable(wrappedDrawable);
     }
 }

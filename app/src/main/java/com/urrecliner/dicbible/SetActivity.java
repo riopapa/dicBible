@@ -1,10 +1,10 @@
 package com.urrecliner.dicbible;
 
 
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.alwaysOn;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarkView;
@@ -51,13 +51,13 @@ public class SetActivity extends Activity {
         tv = findViewById(R.id.goBack);
         tv.setOnClickListener(v -> {
             finish();
-            if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
+            if (topTab == TAB_OLD || topTab == TAB_NEW) {
                 if (nowBible != 0)
                     bibleMake.showBibleBody();
                 else
                     bibleMake.showBibleList();
             }
-            else if (topTab == TAB_MODE_HYMN) {
+            else if (topTab == TAB_HYMN) {
                 if (hymnMake == null)
                     hymnMake = new HymnMake();
                 if (nowHymn <= 0)
@@ -161,13 +161,13 @@ public class SetActivity extends Activity {
 
         finish();
         overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+        if (topTab == TAB_NEW || topTab == TAB_OLD) {
             if (nowBible != 0)
                 bibleMake.showBibleBody();
             else
                 bibleMake.showBibleList();
         }
-        else if (topTab == TAB_MODE_HYMN) {
+        else if (topTab == TAB_HYMN) {
             if (hymnMake == null)
                 hymnMake = new HymnMake();
             if (nowHymn <= 0)

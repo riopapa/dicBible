@@ -1,9 +1,9 @@
 package com.urrecliner.dicbible;
 
-import static com.urrecliner.dicbible.ButtonAssign.goBackward;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Buttons.goBackward;
+import static com.urrecliner.dicbible.Vars.TAB_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.goBacks;
@@ -90,9 +90,8 @@ public class MainActivity extends AppCompatActivity {
         text2Speech = new Text2Speech();
         text2Speech.setReady(getApplicationContext());
 
-        utils.setFullScreen();
         ScreenColor.apply();
-        ButtonAssign.init();
+        Buttons.assign();
 
         utils.setKeepScreen();
         bibleMake = new BibleMake();
@@ -103,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
         isReadingNow = false;
         screenMenu.buildButtonColor();
 
-        if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+        if (topTab == TAB_NEW || topTab == TAB_OLD) {
             if (nowBible > 0)
                 bibleMake.showBibleBody();
             else
                 bibleMake.showBibleList();
-        } else if (topTab == TAB_MODE_HYMN) {
+        } else if (topTab == TAB_HYMN) {
             if (nowHymn > 0)
                 hymnMake.showHymnBody();
             else
@@ -120,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
         keyRefs = keyTable.read(packageFolder);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        utils.setFullScreen();
+    }
     @Override
     public void onBackPressed() {
 

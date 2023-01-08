@@ -1,10 +1,10 @@
 package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.Vars.TAB_MODE_DICT;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_HYMN;
+import static com.urrecliner.dicbible.Vars.TAB_HYMN;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_KEY;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.blank;
 import static com.urrecliner.dicbible.Vars.btmLayout;
@@ -40,13 +40,14 @@ import static com.urrecliner.dicbible.Vars.vOldBible;
 import static com.urrecliner.dicbible.Vars.vRightAction;
 import static com.urrecliner.dicbible.Vars.vSearch;
 import static com.urrecliner.dicbible.Vars.vSetting;
+import static com.urrecliner.dicbible.Vars.vTalk;
 
 import android.content.Intent;
 import android.widget.Toast;
 
-public class ButtonAssign {
+public class Buttons {
 
-    public static void init() {
+    public static void assign() {
 
         topLayout = mActivity.findViewById(R.id.lTop);
         btmLayout = mActivity.findViewById(R.id.lBtm);
@@ -60,6 +61,7 @@ public class ButtonAssign {
         vDict = mActivity.findViewById(R.id.dict);
         vSearch = mActivity.findViewById(R.id.search);
 
+        vTalk = mActivity.findViewById(R.id.talk);
         vLeftAction = mActivity.findViewById(R.id.leftAction);
         vCenterAction = mActivity.findViewById(R.id.centerAction);
         vRightAction = mActivity.findViewById(R.id.rightAction);
@@ -67,21 +69,21 @@ public class ButtonAssign {
         fBody = mActivity.findViewById(R.id.fBody);
 
         vOldBible.setOnClickListener(v -> {
-            topTab = TAB_MODE_OLD;
+            topTab = TAB_OLD;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
             bibleMake.showBibleList();
         });
         vNewBible.setOnClickListener(v -> {
-            topTab = TAB_MODE_NEW;
+            topTab = TAB_NEW;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
             bibleMake.showBibleList();
         });
         vHymn.setOnClickListener(v -> {
-            topTab = TAB_MODE_HYMN;
+            topTab = TAB_HYMN;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
@@ -96,6 +98,7 @@ public class ButtonAssign {
             nowHymn = 0;
             dictMake.showDictMenu();
         });
+
         vAgpBible.setOnClickListener(v -> {
             if (vAgpBible.getText().toString().equals(blank))
                 return;
@@ -103,6 +106,7 @@ public class ButtonAssign {
             sharedEdit.putBoolean("agpShow", agpShow).apply();
             bibleMake.showBibleBody();
         });
+
         vCevBible.setOnClickListener(v -> {
             if (vCevBible.getText().toString().equals(blank))
                 return;
@@ -112,7 +116,7 @@ public class ButtonAssign {
         });
 
         vSearch.setOnClickListener(v -> {
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowBible > 0 && nowChapter > 0) {
+            if ((topTab == TAB_OLD || topTab == TAB_NEW) && nowBible > 0 && nowChapter > 0) {
                 Intent i = new Intent(mActivity, SearchActivity.class);
                 mActivity.startActivity(i);
                 mActivity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
@@ -131,22 +135,22 @@ public class ButtonAssign {
                 text2Speech.stopPlay();
             if (vLeftAction.getText().toString().equals(blank))
                 return;
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
+            if ((topTab == TAB_OLD || topTab == TAB_NEW))
                 bibleMake.goBibleLeft();
-            else if (topTab == TAB_MODE_HYMN)
+            else if (topTab == TAB_HYMN)
                 hymnMake.goHymnLeft();
         });
 
-        vCenterAction.setOnClickListener(v -> {
+        vTalk.setOnClickListener(v -> {
             if (vCenterAction.getText().toString().equals(blank))
                 return;
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) && nowChapter > 0) {
+            if ((topTab == TAB_OLD || topTab == TAB_NEW) && nowChapter > 0) {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
                     bibleMake.confirmSpeak();
             }
-            else if (topTab == TAB_MODE_HYMN) {
+            else if (topTab == TAB_HYMN) {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
@@ -159,9 +163,9 @@ public class ButtonAssign {
                 text2Speech.stopPlay();
             if (vRightAction.getText().toString().equals(blank))
                 return;
-            if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
+            if ((topTab == TAB_OLD || topTab == TAB_NEW))
                 bibleMake.goBibleRight();
-            else if (topTab == TAB_MODE_HYMN)
+            else if (topTab == TAB_HYMN)
                 hymnMake.goHymnRight();
         });
 
@@ -183,14 +187,14 @@ public class ButtonAssign {
             history.pop();
             if (goBacks.size() > 1) {
                 history.pop();
-                if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
+                if (topTab == TAB_NEW || topTab == TAB_OLD) {
                     if (nowBible == 0)
                         bibleMake.showBibleList();
                     else if (nowChapter > 0)
                         bibleMake.showBibleBody();
                     else
                         bibleMake.showChapterList();
-                } else if (topTab == TAB_MODE_HYMN) {
+                } else if (topTab == TAB_HYMN) {
                     hymnMake.showHymnBody();
                 } else if (topTab == TAB_MODE_DICT) {
                     if (nowDic.equals(""))

@@ -1,8 +1,8 @@
 package com.urrecliner.dicbible;
 
 import static android.graphics.Typeface.BOLD;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
 import static com.urrecliner.dicbible.Vars.agpShow;
 import static com.urrecliner.dicbible.Vars.biblePitch;
@@ -84,8 +84,8 @@ class BibleMake {
         nowChapter = 0;
         nowVerse = 0;
 
-        int loop = (topTab == TAB_MODE_OLD) ?  39: 27;
-        int bibNbr = (topTab == TAB_MODE_OLD) ? 1 : 40;
+        int loop = (topTab == TAB_OLD) ?  39: 27;
+        int bibNbr = (topTab == TAB_OLD) ? 1 : 40;
         int count = 1;
         final int nbrColumn = 3;
         int buttonWidth = xPixels / nbrColumn;
@@ -545,7 +545,7 @@ class BibleMake {
 
         String refer = nowDic; // 41#4:18
         nowBible = parseInt(refer.substring(0,2));
-        topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
+        topTab = (nowBible < 40) ? TAB_OLD : TAB_NEW;
         refer = refer.substring(3) + "z";
         char[] chars  = refer.toCharArray();
         int ptr = getNumberPtr(chars,0);

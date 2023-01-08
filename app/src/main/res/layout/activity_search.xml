@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/searchStartVerse"
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="고전12:31"
@@ -56,7 +56,7 @@
             <ImageView
                 android:id="@+id/text_clear"
                 android:layout_width="0dp"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/clear_text"
@@ -65,7 +65,7 @@
             <EditText
                 android:id="@+id/txtSearch"
                 android:layout_width="0dp"
-                android:layout_weight="9"
+                android:layout_weight="12"
                 android:inputType="text"
                 android:gravity="center"
                 android:selectAllOnFocus="true"

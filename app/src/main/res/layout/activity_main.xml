@@ -117,11 +117,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fBody">
 
+        <ImageView
+            android:id="@+id/talk"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:src="@drawable/talk"
+            />
+
         <TextView
             android:id="@+id/leftAction"
             style="@style/MenuStyle"
             android:layout_width="0dp"
-            android:layout_weight="7"
+            android:layout_weight="4"
             android:layout_height="match_parent"
             android:text="@string/prevBible"
             android:textSize="@dimen/menu_font_size"
@@ -141,7 +150,7 @@
             android:id="@+id/rightAction"
             style="@style/MenuStyle"
             android:layout_width="0dp"
-            android:layout_weight="7"
+            android:layout_weight="4"
             android:layout_height="match_parent"
             android:text="@string/nextBible"
             android:textSize="@dimen/menu_font_size"

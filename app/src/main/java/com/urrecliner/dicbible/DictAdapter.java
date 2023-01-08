@@ -46,6 +46,8 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        if (shortList.size() == 0)
+            return;
         holder.textView.setTextColor(menuColorFore);
         holder.textView.setTextSize(textSizeScript);
         holder.textView.setTag(shortList.get(position));
@@ -70,7 +72,7 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
         return shortList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textView;
 

@@ -1,11 +1,11 @@
 package com.urrecliner.dicbible;
 
 import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
-import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.TAB_NEW;
+import static com.urrecliner.dicbible.Vars.TAB_OLD;
 import static com.urrecliner.dicbible.Vars.agpColorFore;
-import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.bibleMake;
+import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -18,9 +18,7 @@ import static com.urrecliner.dicbible.Vars.topTab;
 
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +67,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             nowBible = searchResult.bible;
             nowChapter = searchResult.chapter;
             nowVerse = searchResult.verse;
-            topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
+            topTab = (nowBible < 40) ? TAB_OLD : TAB_NEW;
             searchActivity.finish();
             searchActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             bibleMake.showBibleBody();
@@ -84,32 +82,26 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
         holder.tvVerse.setText(s);
 
         s = searched.text.replace(" ", "\u00A0"); // to prevent word wrap
-        String sKey = keyText.replace(" ", "\u00A0");
+        String [] kwd = keyText.trim().split(" ");
+//        String sKey = keyText.replace(" ", "\u00A0");
         SpannableString ss = new SpannableString(s);
-        String [] lines = s.split("\n");
-        int sPos = 0;
-        ss.setSpan(new ForegroundColorSpan(agpColorFore), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        for (String l: lines) {
-            int kPos = l.indexOf(sKey);
-            while (kPos > 0) {
-//                ss.setSpan(new UnderlineSpan(), sPos+kPos, sPos+kPos + keyText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-                UnderlineSpan us = new UnderlineSpan();
-                TextPaint tp = new TextPaint();
-                tp.setColor(0xFF0000);
-                us.updateDrawState(tp);
-                ss.setSpan(us, sPos+kPos, sPos+kPos + keyText.length(), 0);
-
-                kPos = l.indexOf(sKey, kPos+2);
-                ss.setSpan(new ForegroundColorSpan(menuColorFore), sPos, sPos+l.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-             sPos += l.length() + 1;
+//        String [] lines = s.split("\n");
+        ss.setSpan(new ForegroundColorSpan(menuColorFore), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss = markUp(ss, s, kwd[0]);
+        if (kwd.length > 1) {
+            ss = markUp(ss, s, kwd[1]);
         }
-
         holder.tvText.setText(ss);
         holder.tvText.setBackgroundResource(R.drawable.cell_border);
+    }
 
+    private SpannableString markUp(SpannableString ss, String l, String sKey) {
+        int sPos = l.indexOf(sKey);
+        while (sPos > 0) {
+            ss.setSpan(new ForegroundColorSpan(agpColorFore), sPos, sPos + sKey.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sPos = l.indexOf(sKey, sPos+2);
+        }
+        return ss;
     }
 
 }
