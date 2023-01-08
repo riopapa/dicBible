@@ -47,7 +47,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 
-class MakeHymn {
+class HymnMake {
 
     private String hymnTitle = "";
     final static int BTN_CLEAR = 100, BTN_GO = 200;

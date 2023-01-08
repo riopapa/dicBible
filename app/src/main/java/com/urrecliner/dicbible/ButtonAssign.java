@@ -15,9 +15,9 @@ import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.makeBible;
-import static com.urrecliner.dicbible.Vars.makeDict;
-import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.bibleMake;
+import static com.urrecliner.dicbible.Vars.dictMake;
+import static com.urrecliner.dicbible.Vars.hymnMake;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
@@ -71,14 +71,14 @@ public class ButtonAssign {
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
-            makeBible.showBibleList();
+            bibleMake.showBibleList();
         });
         vNewBible.setOnClickListener(v -> {
             topTab = TAB_MODE_NEW;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
-            makeBible.showBibleList();
+            bibleMake.showBibleList();
         });
         vHymn.setOnClickListener(v -> {
             topTab = TAB_MODE_HYMN;
@@ -86,7 +86,7 @@ public class ButtonAssign {
             nowChapter = 0;
             nowVerse = 0;
             nowHymn = 0;
-            makeHymn.showNumberKey();
+            hymnMake.showNumberKey();
         });
         vDict.setOnClickListener(v -> {
             topTab = TAB_MODE_DICT;
@@ -94,21 +94,21 @@ public class ButtonAssign {
             nowChapter = 0;
             nowVerse = 0;
             nowHymn = 0;
-            makeDict.showDictMenu();
+            dictMake.showDictMenu();
         });
         vAgpBible.setOnClickListener(v -> {
             if (vAgpBible.getText().toString().equals(blank))
                 return;
             agpShow = !agpShow;
             sharedEdit.putBoolean("agpShow", agpShow).apply();
-            makeBible.showBibleBody();
+            bibleMake.showBibleBody();
         });
         vCevBible.setOnClickListener(v -> {
             if (vCevBible.getText().toString().equals(blank))
                 return;
             cevShow = !cevShow;
             sharedEdit.putBoolean("cevShow", cevShow).apply();
-            makeBible.showBibleBody();
+            bibleMake.showBibleBody();
         });
 
         vSearch.setOnClickListener(v -> {
@@ -132,9 +132,9 @@ public class ButtonAssign {
             if (vLeftAction.getText().toString().equals(blank))
                 return;
             if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
-                makeBible.goBibleLeft();
+                bibleMake.goBibleLeft();
             else if (topTab == TAB_MODE_HYMN)
-                makeHymn.goHymnLeft();
+                hymnMake.goHymnLeft();
         });
 
         vCenterAction.setOnClickListener(v -> {
@@ -144,13 +144,13 @@ public class ButtonAssign {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
-                    makeBible.confirmSpeak();
+                    bibleMake.confirmSpeak();
             }
             else if (topTab == TAB_MODE_HYMN) {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
-                    makeHymn.confirmSpeak();
+                    hymnMake.confirmSpeak();
             }
         });
 
@@ -160,9 +160,9 @@ public class ButtonAssign {
             if (vRightAction.getText().toString().equals(blank))
                 return;
             if ((topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW))
-                makeBible.goBibleRight();
+                bibleMake.goBibleRight();
             else if (topTab == TAB_MODE_HYMN)
-                makeHymn.goHymnRight();
+                hymnMake.goHymnRight();
         });
 
         vBackAction.setOnClickListener(v -> {
@@ -185,16 +185,16 @@ public class ButtonAssign {
                 history.pop();
                 if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
                     if (nowBible == 0)
-                        makeBible.showBibleList();
+                        bibleMake.showBibleList();
                     else if (nowChapter > 0)
-                        makeBible.showBibleBody();
+                        bibleMake.showBibleBody();
                     else
-                        makeBible.showChapterList();
+                        bibleMake.showChapterList();
                 } else if (topTab == TAB_MODE_HYMN) {
-                    makeHymn.showHymnBody();
+                    hymnMake.showHymnBody();
                 } else if (topTab == TAB_MODE_DICT) {
                     if (nowDic.equals(""))
-                        makeDict.showDictMenu();
+                        dictMake.showDictMenu();
                     else
                         new DictKey().show();
                 } else if (topTab == TAB_MODE_KEY) {

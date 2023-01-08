@@ -10,8 +10,8 @@ import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarkView;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.mActivity;
-import static com.urrecliner.dicbible.Vars.makeBible;
-import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.bibleMake;
+import static com.urrecliner.dicbible.Vars.hymnMake;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -53,17 +53,17 @@ public class SetActivity extends Activity {
             finish();
             if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) {
                 if (nowBible != 0)
-                    makeBible.showBibleBody();
+                    bibleMake.showBibleBody();
                 else
-                    makeBible.showBibleList();
+                    bibleMake.showBibleList();
             }
             else if (topTab == TAB_MODE_HYMN) {
-                if (makeHymn == null)
-                    makeHymn = new MakeHymn();
+                if (hymnMake == null)
+                    hymnMake = new HymnMake();
                 if (nowHymn <= 0)
-                    makeHymn.showNumberKey();
+                    hymnMake.showNumberKey();
                 else
-                    makeHymn.showHymnBody();
+                    hymnMake.showHymnBody();
             }
             else if (topTab == TAB_MODE_KEY) {
                 new DictKey().show();
@@ -161,17 +161,17 @@ public class SetActivity extends Activity {
         overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible != 0)
-                makeBible.showBibleBody();
+                bibleMake.showBibleBody();
             else
-                makeBible.showBibleList();
+                bibleMake.showBibleList();
         }
         else if (topTab == TAB_MODE_HYMN) {
-            if (makeHymn == null)
-                makeHymn = new MakeHymn();
+            if (hymnMake == null)
+                hymnMake = new HymnMake();
             if (nowHymn <= 0)
-                makeHymn.showNumberKey();
+                hymnMake.showNumberKey();
             else
-                makeHymn.showHymnBody();
+                hymnMake.showHymnBody();
         } else if (topTab == TAB_MODE_KEY) {
             new DictKey().show();
         }

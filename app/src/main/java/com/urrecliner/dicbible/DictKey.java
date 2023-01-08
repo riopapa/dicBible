@@ -11,7 +11,7 @@ import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.linearLayout;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.bibleMake;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
 import static com.urrecliner.dicbible.Vars.nowDic;
@@ -182,7 +182,7 @@ public class DictKey {
             nowChapter = c;
             nowVerse = v;
             topTab =  (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
-            makeBible.showBibleBody();
+            bibleMake.showBibleBody();
         }
     }
 

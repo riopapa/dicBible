@@ -35,11 +35,11 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static SearchActivity searchActivity = null;
     @SuppressLint("StaticFieldLeak")
-    static MakeBible makeBible = null;
+    static BibleMake bibleMake = null;
     @SuppressLint("StaticFieldLeak")
-    static MakeHymn makeHymn = null;
+    static HymnMake hymnMake = null;
     @SuppressLint("StaticFieldLeak")
-    static MakeDict makeDict = null;
+    static DictMake dictMake = null;
     @SuppressLint("StaticFieldLeak")
     static ScreenMenu screenMenu = null;
     @SuppressLint("StaticFieldLeak")

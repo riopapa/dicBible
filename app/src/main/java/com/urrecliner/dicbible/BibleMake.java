@@ -71,7 +71,7 @@ import com.urrecliner.dicbible.model.BookMark;
 import java.util.Timer;
 import java.util.TimerTask;
 
-class MakeBible {
+class BibleMake {
 
     private final String newLine = "\n";
     final String spacing = "\u00A0"; // to prevent word wrap

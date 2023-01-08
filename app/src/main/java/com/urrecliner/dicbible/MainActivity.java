@@ -14,9 +14,9 @@ import static com.urrecliner.dicbible.Vars.keyRefs;
 import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.makeBible;
-import static com.urrecliner.dicbible.Vars.makeDict;
-import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.bibleMake;
+import static com.urrecliner.dicbible.Vars.dictMake;
+import static com.urrecliner.dicbible.Vars.hymnMake;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.packageFolder;
@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         ButtonAssign.init();
 
         utils.setKeepScreen();
-        makeBible = new MakeBible();
-        makeHymn = new MakeHymn();
-        makeDict = new MakeDict();
+        bibleMake = new BibleMake();
+        hymnMake = new HymnMake();
+        dictMake = new DictMake();
         screenMenu = new ScreenMenu();
 
         isReadingNow = false;
@@ -105,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD) {
             if (nowBible > 0)
-                makeBible.showBibleBody();
+                bibleMake.showBibleBody();
             else
-                makeBible.showBibleList();
+                bibleMake.showBibleList();
         } else if (topTab == TAB_MODE_HYMN) {
             if (nowHymn > 0)
-                makeHymn.showHymnBody();
+                hymnMake.showHymnBody();
             else
-                makeHymn.showNumberKey();
+                hymnMake.showNumberKey();
         } else
-            makeBible.showBibleList();
+            bibleMake.showBibleList();
 
         keyTable = new KeyTable();
         keyRefs = keyTable.read(packageFolder);

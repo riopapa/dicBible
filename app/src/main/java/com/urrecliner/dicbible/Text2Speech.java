@@ -9,8 +9,8 @@ import static com.urrecliner.dicbible.Vars.hymnAccompany;
 import static com.urrecliner.dicbible.Vars.hymnSpeed;
 import static com.urrecliner.dicbible.Vars.isReadingNow;
 import static com.urrecliner.dicbible.Vars.mContext;
-import static com.urrecliner.dicbible.Vars.makeBible;
-import static com.urrecliner.dicbible.Vars.makeHymn;
+import static com.urrecliner.dicbible.Vars.bibleMake;
+import static com.urrecliner.dicbible.Vars.hymnMake;
 import static com.urrecliner.dicbible.Vars.verMax;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
 import static com.urrecliner.dicbible.Vars.nowBible;
@@ -54,7 +54,7 @@ class Text2Speech {
                 if (isReadingNow && ttsVerseNow < verMax)
                     readBibleTTS(ttsVerseNow);
                 else if (isReadingNow) {
-                    makeBible.goBibleRight();
+                    bibleMake.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             ttsVerseNow = 0;
@@ -107,7 +107,7 @@ class Text2Speech {
                 mediaPlayer.release();
                 mediaPlayer = null;
                 if (isReadingNow) {
-                    makeBible.goBibleRight();
+                    bibleMake.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             playBible();
@@ -172,7 +172,7 @@ class Text2Speech {
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 if (isReadingNow) {
-                    makeHymn.goHymnRight();
+                    hymnMake.goHymnRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             playHymn();

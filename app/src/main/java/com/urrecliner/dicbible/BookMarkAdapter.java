@@ -5,7 +5,7 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bookMarkAdapter;
 import static com.urrecliner.dicbible.Vars.bookMarks;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
-import static com.urrecliner.dicbible.Vars.makeBible;
+import static com.urrecliner.dicbible.Vars.bibleMake;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
@@ -79,9 +79,9 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
                 nowVerse = bookMark.verse;
                 nowHymn = 0;
                 topTab = (nowBible < 40) ? TAB_MODE_OLD : TAB_MODE_NEW;
-                if (makeBible == null)
-                    makeBible = new MakeBible();
-                makeBible.showBibleBody();
+                if (bibleMake == null)
+                    bibleMake = new BibleMake();
+                bibleMake.showBibleBody();
                 setActivity.finish();
                 setActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 });

@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 
-class MakeDict {
+class DictMake {
 
     void showDictMenu() {
 
