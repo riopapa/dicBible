@@ -8,12 +8,13 @@ import static com.urrecliner.dicbible.Vars.textView;
 
 import android.view.Gravity;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.core.widget.NestedScrollView;
 
 public class FrameScrollView {
     public FrameScrollView() {
-        scrollView = new ScrollView(mContext);
+        scrollView = new NestedScrollView(mContext);
         scrollView.setBackgroundColor(menuColorBack);
         textView = new TextView(mContext);
         linearLayout = new LinearLayout(mContext);

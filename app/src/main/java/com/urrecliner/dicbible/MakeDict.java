@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
@@ -29,6 +30,7 @@ class MakeDict {
 
     void showDictMenu() {
 
+        DictAdapter adapter;
         File dicFile = new File(packageFolder,"dict");
         screenMenu.build();
         new FrameScrollView();
@@ -42,9 +44,15 @@ class MakeDict {
         TextView viewTxt = layout_inp.findViewById(R.id.enterDict);
         viewTxt.setBackgroundColor(menuColorBack);
         viewTxt.setTextColor(menuColorFore);
-        DictAdapter adapter = new DictAdapter(mContext, dicts, dicFile);
-        RecyclerView recyclerView = layout_inp.findViewById(R.id.dictRecycle);
+
+        NestedScrollView dict_scroll = (NestedScrollView) inflater.inflate(R.layout.dict_scroll, null);
+        dict_scroll.setBackgroundColor(menuColorBack);
+        adapter = new DictAdapter(mContext, dicts, dicFile);
+        RecyclerView recyclerView = dict_scroll.findViewById(R.id.dictRecycle);
         recyclerView.setAdapter(adapter);
+
+        linearLayout.addView(layout_inp);
+        linearLayout.addView(dict_scroll);
         EditText tvDicKey = layout_inp.findViewById(R.id.dict_key);
         tvDicKey.setBackgroundColor(menuColorBack);
         tvDicKey.setTextColor(menuColorFore);
@@ -57,8 +65,6 @@ class MakeDict {
         });
         if (nowDic != null)
             tvDicKey.setText(nowDic);
-
-        linearLayout.addView(layout_inp);
 
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);

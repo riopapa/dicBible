@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.urrecliner.dicbible.model.BookMark;
@@ -49,7 +49,7 @@ public class Vars {
     static FileRead fileRead = null;
 
     @SuppressLint("StaticFieldLeak")
-    static ScrollView scrollView;
+    static NestedScrollView scrollView;
     static TextView textView;
     static LinearLayout linearLayout;
     static BookMarkAdapter bookMarkAdapter;

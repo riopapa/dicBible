@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class SetHistory {
 
-    final Activity hActivity;
+    static Activity hActivity;
 
     public SetHistory(Activity hActivity) {
         this.hActivity = hActivity;

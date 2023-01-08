@@ -88,7 +88,8 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString();
                 if(charString.isEmpty()) {
-                    shortList = fullList;
+                    shortList = new ArrayList<>();
+//                    shortList = fullList;
                 } else {
                     ArrayList<String> filteringList = new ArrayList<>();
                     for(String name : fullList) {
