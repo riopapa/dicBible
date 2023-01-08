@@ -18,10 +18,9 @@ import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.makeBible;
 import static com.urrecliner.dicbible.Vars.makeDict;
 import static com.urrecliner.dicbible.Vars.makeHymn;
-import static com.urrecliner.dicbible.Vars.nowDic;
-import static com.urrecliner.dicbible.Vars.verMax;
 import static com.urrecliner.dicbible.Vars.nowBible;
 import static com.urrecliner.dicbible.Vars.nowChapter;
+import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.nowHymn;
 import static com.urrecliner.dicbible.Vars.nowVerse;
 import static com.urrecliner.dicbible.Vars.sharedEdit;
@@ -178,13 +177,6 @@ public class ButtonAssign {
             utils.exitApp();
             return false;
         });
-    }
-
-    private static int getNowTopVerse() {
-        if (topTab == TAB_MODE_NEW || topTab == TAB_MODE_OLD)
-            return verMax *  fBody.getScrollY() / fBody.getChildAt(0).getHeight() + 2;
-        else
-            return 0;
     }
 
     static void goBackward() {

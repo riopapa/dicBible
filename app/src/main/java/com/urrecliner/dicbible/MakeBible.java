@@ -15,8 +15,10 @@ import static com.urrecliner.dicbible.Vars.cevShow;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.fullBibleNames;
 import static com.urrecliner.dicbible.Vars.history;
+import static com.urrecliner.dicbible.Vars.linearLayout;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.markColorBack;
@@ -37,6 +39,7 @@ import static com.urrecliner.dicbible.Vars.textSizeDic;
 import static com.urrecliner.dicbible.Vars.textSizeRefer;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
 import static com.urrecliner.dicbible.Vars.textSizeSpace;
+import static com.urrecliner.dicbible.Vars.textView;
 import static com.urrecliner.dicbible.Vars.topTab;
 import static com.urrecliner.dicbible.Vars.utils;
 import static com.urrecliner.dicbible.Vars.verMax;
@@ -72,8 +75,6 @@ class MakeBible {
 
     private final String newLine = "\n";
     final String spacing = "\u00A0"; // to prevent word wrap
-    private TextView textView;
-    LinearLayout linearLayout;
 
     void showBibleList() {
 
@@ -138,14 +139,11 @@ class MakeBible {
         textView.setTextColor(menuColorFore);
         textView.setTextSize(textSizeScript);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(""+(100+nowBible)).substring(1,3);
-                nowChapter = 0;
-                nowVerse = 0;
-                new DictKey().show();
-            }
+        textView.setOnClickListener(view -> {
+            nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(""+(100+nowBible)).substring(1,3);
+            nowChapter = 0;
+            nowVerse = 0;
+            new DictKey().show();
         });
 
         linearLayout.addView(textView);
@@ -241,7 +239,7 @@ class MakeBible {
         new FrameScrollView();
         history.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
-        bibleTexts = FileRead.readBibleFile(file2read, false);
+        bibleTexts = fileRead.readBibleFile(file2read, false);
         if (bibleTexts == null) {
             utils.showSnackBar("성경 말씀 파일 없음 ", fullBibleNames[nowBible] + " " + nowChapter);
             return;
@@ -542,7 +540,6 @@ class MakeBible {
             makeRefer();
         }
     }
-
 
     private void makeRefer() {
 

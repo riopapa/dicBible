@@ -5,6 +5,7 @@ import static com.urrecliner.dicbible.SetActivity.setLayoutBackGround;
 import static com.urrecliner.dicbible.SetActivity.setTextBackGround;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_NEW;
 import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
+import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.keyText;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
@@ -74,12 +75,10 @@ public class SearchActivity extends Activity {
         };
         tvSearchKey.setOnKeyListener(keyListenerEnter);
 
-        Drawable d;
-        Drawable wrappedDrawable;
         ivSearch = findViewById(R.id.searchKey);
         ivSearch.setOnClickListener(v -> searchQuick());
-        d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
-        wrappedDrawable = DrawableCompat.wrap(d);
+        Drawable d = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_search, null);
+        Drawable wrappedDrawable = DrawableCompat.wrap(d);
         DrawableCompat.setTint(wrappedDrawable, menuColorFore);
         ivSearch.setImageDrawable(wrappedDrawable);
 
@@ -141,7 +140,7 @@ public class SearchActivity extends Activity {
 
         while (depth > 0) {
             String file2read = "bible/" + bible + "/" + chapter + ".txt";
-            bibleVerses = FileRead.readBibleFile(file2read, false);
+            bibleVerses = fileRead.readBibleFile(file2read, false);
             for (int i = 0; i < bibleVerses.length; i++) {
                 String s = extractVerse(bibleVerses[i]);
                 if (s.contains(text)) {

@@ -33,7 +33,7 @@ class MakeDict {
         screenMenu.build();
         new FrameScrollView();
         if (dicts == null)
-            dicts = new DictLoad(dicFile).get();
+            dicts = new DictLoad().get(dicFile);
         history.push();
 
         linearLayout.addView(textView);
@@ -49,10 +49,8 @@ class MakeDict {
         tvDicKey.setBackgroundColor(menuColorBack);
         tvDicKey.setTextColor(menuColorFore);
         tvDicKey.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) {}
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
             }
@@ -60,19 +58,10 @@ class MakeDict {
         if (nowDic != null)
             tvDicKey.setText(nowDic);
 
-        //        InputMethodManager imm = (InputMethodManager)
-//                mContext.getSystemService(INPUT_METHOD_SERVICE);
-//        imm.showSoftInput(tvDicKey, InputMethodManager.SHOW_IMPLICIT);
         linearLayout.addView(layout_inp);
 
-//        showRecent(linearLayout);
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
-
-//        viewDict.setOnClickListener(v -> {
-//            nowDic = tvDicKey.getText().toString();
-//            showDicWord();
-//        });
     }
 
 }

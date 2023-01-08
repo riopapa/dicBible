@@ -98,7 +98,7 @@ public class SetActivity extends Activity {
         SetBible.set();
         SetHymn.set();
         showBookMark();
-        SetHistory.set(this);
+        new SetHistory(mActivity).set();
         scrollView.invalidate();
     }
 

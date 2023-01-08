@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             history.push();
         }
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
-        fileRead = new FileRead(mActivity, packageFolder);
+        fileRead = new FileRead(packageFolder);
 
         speaking = new Speaking();
         text2Speech = new Text2Speech();

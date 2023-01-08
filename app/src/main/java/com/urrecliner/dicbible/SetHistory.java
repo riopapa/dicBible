@@ -26,10 +26,14 @@ import java.util.Locale;
 
 public class SetHistory {
 
-    static Activity hActivity;
-    public static void set(Activity activity) {
+    final Activity hActivity;
 
-        hActivity = activity;
+    public SetHistory(Activity hActivity) {
+        this.hActivity = hActivity;
+    }
+
+    public static void set() {
+
         TextView tv;
 
         tv = setActivity.findViewById(R.id.build_time);

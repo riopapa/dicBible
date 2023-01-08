@@ -1,5 +1,6 @@
 package com.urrecliner.dicbible;
 
+import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.menuColorFore;
 import static com.urrecliner.dicbible.Vars.nowDic;
 import static com.urrecliner.dicbible.Vars.textSizeScript;
@@ -12,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
@@ -21,20 +23,21 @@ import java.util.List;
 public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder> implements Filterable {
 
     Context context;
-    List<String> unFilteredlist;
-    List<String> filteredList;
+    List<String> fullList;
+    List<String> shortList;
     final File dicFolder;
 
     public DictAdapter(Context context, List<String> list, File dicFolder) {
         super();
         this.context = context;
-        unFilteredlist = new ArrayList<>();
-        unFilteredlist.addAll(list);
-        filteredList = new ArrayList<>();
-        filteredList.addAll(list);
+        fullList = new ArrayList<>();
+        fullList.addAll(list);
+        shortList = new ArrayList<>();
+        shortList.addAll(list);
         this.dicFolder = dicFolder;
     }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.dict_item, parent, false);
@@ -45,18 +48,18 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.textView.setTextColor(menuColorFore);
         holder.textView.setTextSize(textSizeScript);
-        holder.textView.setTag(filteredList.get(position));
+        holder.textView.setTag(shortList.get(position));
         holder.textView.setOnClickListener(v -> {
             nowDic = v.getTag().toString();
             new DictKey().show();
         });
-        String key = filteredList.get(position);
+        String key = shortList.get(position);
         if (key.startsWith("[")) {  // 성경 해설
             int pos = key.indexOf("#");
-            String bible = key.substring(0,pos);
-            holder.textView.setText(bible+" 요약");
+            String s = key.substring(0,pos) + " 요약";
+            holder.textView.setText(s);
         } else {
-            String [] dicTexts = FileRead.readDicFile(key, true);
+            String [] dicTexts = fileRead.readDicFile(key, true);
             String s = dicTexts[0].substring(1);
             holder.textView.setText(s);
         }
@@ -65,7 +68,7 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
 
     @Override
     public int getItemCount() {
-        return filteredList.size();
+        return shortList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -85,24 +88,24 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString();
                 if(charString.isEmpty()) {
-                    filteredList = unFilteredlist;
+                    shortList = fullList;
                 } else {
                     ArrayList<String> filteringList = new ArrayList<>();
-                    for(String name : unFilteredlist) {
+                    for(String name : fullList) {
                         if(name.toLowerCase().contains(charString.toLowerCase())) {
                             filteringList.add(name);
                         }
                     }
-                    filteredList = filteringList;
+                    shortList = filteringList;
                 }
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
+                filterResults.values = shortList;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredList = (ArrayList<String>)results.values;
+                shortList = (List<String>)results.values;
                 notifyDataSetChanged();
             }
         };

@@ -6,6 +6,7 @@ import static com.urrecliner.dicbible.Vars.TAB_MODE_OLD;
 import static com.urrecliner.dicbible.Vars.bcvs;
 import static com.urrecliner.dicbible.Vars.dicColorFore;
 import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.keyTable;
 import static com.urrecliner.dicbible.Vars.linearLayout;
@@ -57,7 +58,7 @@ public class DictKey {
         history.push();
 
 //        String txt = "dict/" + nowDic + ".txt";
-        String [] dicTexts = FileRead.readDicFile(nowDic, true);
+        String [] dicTexts = fileRead.readDicFile(nowDic, true);
         if (dicTexts != null) {
             for (String line : dicTexts) {
                 if (line.length() == 0) {
@@ -111,7 +112,7 @@ public class DictKey {
             }
             bcvs = keyTable.where(nowDic);
             if (bcvs != null) {
-                addText("\n[이 단어가 등장는 구절들]\n");
+                addHeader();
                 StringBuilder sb = new StringBuilder();
                 int [] sFrm = new int[bcvs.size()];
                 int [] sTo = new int[bcvs.size()];
@@ -153,7 +154,8 @@ public class DictKey {
 
     }
 
-    void addText(String text) {
+    void addHeader() {
+        String text = "\n[이 단어가 등장는 구절들]\n";
         TextView tVLine = new TextView(mContext);
         tVLine.setTextSize((float) textSizeScript*4/5);
         tVLine.setTextColor(textColorFore);
@@ -164,7 +166,7 @@ public class DictKey {
         tVLine.setText(text);
     }
 
-    class referSpan extends ClickableSpan {
+    static class referSpan extends ClickableSpan {
 
         int b, c, v;
         referSpan(Vars.bcv bcv) { this.b = bcv.b; this.c = bcv.c; this.v = bcv.v;}

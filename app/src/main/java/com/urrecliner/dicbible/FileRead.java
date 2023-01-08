@@ -1,6 +1,5 @@
 package com.urrecliner.dicbible;
 
-import android.app.Activity;
 import android.content.Context;
 
 import java.io.BufferedReader;
@@ -15,15 +14,13 @@ import java.util.List;
 
 public class FileRead {
 
-    private static Activity mActivity;
-    private static File packageFolder;
+    private final File packageFolder;
 
-    FileRead(Activity mActivity, File packageFolder) {
-        this.mActivity = mActivity;
+    FileRead(File packageFolder) {
         this.packageFolder = packageFolder;
     }
 
-    static String[] readBibleFile(String filename, boolean kr) {
+    String[] readBibleFile(String filename, boolean kr) {
 
         String file2read = packageFolder + "/" + filename;
         String[] lines;
@@ -41,7 +38,7 @@ public class FileRead {
         return null;
     }
 
-    static String[] readDicFile(String filename, boolean kr) {
+    String[] readDicFile(String filename, boolean kr) {
 
         String file2read = packageFolder + "/dict/" + filename+".txt";
         String[] lines;

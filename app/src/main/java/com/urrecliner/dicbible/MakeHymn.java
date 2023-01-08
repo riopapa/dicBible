@@ -7,12 +7,14 @@ import static com.urrecliner.dicbible.Vars.SHEET_ONLY;
 import static com.urrecliner.dicbible.Vars.SHEET_THEN_LYRIC;
 import static com.urrecliner.dicbible.Vars.darkMode;
 import static com.urrecliner.dicbible.Vars.fBody;
+import static com.urrecliner.dicbible.Vars.fileRead;
 import static com.urrecliner.dicbible.Vars.history;
 import static com.urrecliner.dicbible.Vars.hymnAccompany;
 import static com.urrecliner.dicbible.Vars.hymnColorImage;
 import static com.urrecliner.dicbible.Vars.hymnShowWhat;
 import static com.urrecliner.dicbible.Vars.hymnSpeed;
 import static com.urrecliner.dicbible.Vars.hymnTitles;
+import static com.urrecliner.dicbible.Vars.linearLayout;
 import static com.urrecliner.dicbible.Vars.mActivity;
 import static com.urrecliner.dicbible.Vars.mContext;
 import static com.urrecliner.dicbible.Vars.menuColorBack;
@@ -27,6 +29,7 @@ import static com.urrecliner.dicbible.Vars.speaking;
 import static com.urrecliner.dicbible.Vars.textColorFore;
 import static com.urrecliner.dicbible.Vars.textSizeHymn;
 import static com.urrecliner.dicbible.Vars.textSizeHymnKeypad;
+import static com.urrecliner.dicbible.Vars.textView;
 import static com.urrecliner.dicbible.Vars.xPixels;
 
 import android.app.AlertDialog;
@@ -38,7 +41,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
@@ -52,8 +54,6 @@ class MakeHymn {
     private final int [] ids = {7,8,9,4,5,6,1,2,3,0,BTN_CLEAR,-1,BTN_GO,-1,-1};
 
     private final String newLine = "\n";
-    private TextView textView;
-    private LinearLayout linearLayout;
 
     void showNumberKey() {
 
@@ -171,7 +171,7 @@ class MakeHymn {
         history.push();
 
         String txt = "Hymn/" + nowHymn + ".txt";
-        String [] hymnTexts = FileRead.readBibleFile(txt, true);
+        String [] hymnTexts = fileRead.readBibleFile(txt, true);
         if (hymnTexts == null)
             return;
 
