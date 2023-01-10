@@ -85,7 +85,7 @@ public class DictKey {
                         Integer.parseInt(ref[3])));
             }
             SpannableString ss = new SpannableString(sb);
-            for (int i = 1; i < bcvs1.size()-1 ; i++) {
+            for (int i = 1; i < bcvs1.size() ; i++) {
                 ss.setSpan(new referSpan(bcvs1.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ss.setSpan(new ForegroundColorSpan(dicColorFore), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
