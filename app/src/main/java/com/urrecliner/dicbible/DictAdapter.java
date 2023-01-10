@@ -56,18 +56,16 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
             new DictKey().show();
         });
         String key = shortList.get(position);
+        String s;
         if (key.startsWith("[")) {  // 성경 해설
-            String s = key + " 요약";
-            holder.textView.setText(s);
+            s = key + " 요약";
+        } else if (key.startsWith("_인용")) {
+            s = key;
         } else {
             String [] dicTexts = fileRead.readDicFile(key, true);
-            String s;
-            if (key.startsWith("_인용"))
-                s = key;
-            else
-                s = dicTexts[0].substring(1);
-            holder.textView.setText(s);
+            s = dicTexts[0].substring(1);
         }
+        holder.textView.setText(s);
     }
 
     @Override
