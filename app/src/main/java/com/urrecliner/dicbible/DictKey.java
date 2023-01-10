@@ -46,6 +46,8 @@ import androidx.annotation.NonNull;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DictKey {
     final String markChar = "†";    // Dagger char
@@ -59,47 +61,59 @@ public class DictKey {
 
 //        String txt = "dict/" + nowDic + ".txt";
         String [] dicTexts = fileRead.readDicFile(nowDic, true);
-        if (dicTexts != null) {
+        if (dicTexts == null) {
+            String errText = "[" + nowDic + "] not found";
+            Toast.makeText(mContext,errText,Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (nowDic.startsWith("_인")) {   //
+            String [] refs = dicTexts[0].split(";");
+            addLine(nowDic, true);
+            StringBuilder sb = new StringBuilder();
+            int[] sFrm = new int[refs.length];
+            int[] sTo = new int[refs.length];
+            List<Vars.bcv> bcvs1 = new ArrayList<>();
+            bcvs1.add (new Vars.bcv(0,0,0));
+            int ptr = 0;
+            for (int i = 1; i < refs.length; i++) {
+                String [] ref = refs[i].split(",");
+                sb.append(" ").append(ref[0]).append(" ");
+                sFrm[i] = ptr;
+                ptr += ref[0].length()+2;
+                sTo[i] = ptr;
+                bcvs1.add(new Vars.bcv(Integer.parseInt(ref[1]),Integer.parseInt(ref[2]),
+                        Integer.parseInt(ref[3])));
+            }
+            SpannableString ss = new SpannableString(sb);
+            for (int i = 1; i < bcvs1.size()-1 ; i++) {
+                ss.setSpan(new referSpan(bcvs1.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new ForegroundColorSpan(dicColorFore), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            TextView tVLine = new TextView(mContext);
+            tVLine.setTextSize((float) textSizeScript * 4 / 5);
+            tVLine.setTextColor(textColorFore);
+            tVLine.setText(ss);
+            tVLine.setLineSpacing(1.2f, 1.2f);
+            tVLine.setMovementMethod(LinkMovementMethod.getInstance());
+            linearLayout.addView(tVLine);
+
+
+        } else {
             for (String line : dicTexts) {
                 if (line.length() == 0) {
-                    TextView tVLine = new TextView(mContext);
-                    tVLine.setTextSize(textSizeDic);
-                    tVLine.setTextColor(dicColorFore);
-                    tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-                    tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
-                    tVLine.setWidth(xPixels);
-                    tVLine.setLineSpacing(1.5f, 1.5f);
-                    linearLayout.addView(tVLine);
-                    tVLine.setText("");
+                    addLine("", false);
                     continue;
                 }
                 switch (line.substring(0, 1)) {
                     case "@":       // contains image file name
-                        File imgFile = new File(packageFolder, "dict_img/" + line.substring(1));
-                        if (imgFile.exists()) {
-                            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                            int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
-                            PhotoView imV = new PhotoView(mContext);
-                            imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
-                            imV.requestLayout();
-                            linearLayout.addView(imV);
-                        }
+                        addImage(line);
                         break;
-                    case "~": { // contains subject name
-                        TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize(textSizeDic);
-                        tVLine.setTextColor(dicColorFore);
-                        tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-                        tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
-                        tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.5f, 1.5f);
-                        linearLayout.addView(tVLine);
-                        tVLine.setText(line.substring(1));
+                    case "~":
+                        addLine(line.substring(1), true);
                         break;
-                    }
-                    default: {
+                    default:
                         TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize((float) textSizeScript*4/5);
+                        tVLine.setTextSize((float) textSizeScript * 4 / 5);
                         tVLine.setTextColor(textColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
@@ -107,15 +121,14 @@ public class DictKey {
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;
-                    }
                 }
             }
             bcvs = keyTable.where(nowDic);
             if (bcvs != null) {
                 addHeader();
                 StringBuilder sb = new StringBuilder();
-                int [] sFrm = new int[bcvs.size()];
-                int [] sTo = new int[bcvs.size()];
+                int[] sFrm = new int[bcvs.size()];
+                int[] sTo = new int[bcvs.size()];
                 int sIdx = 0;
                 int ptr = 0;
                 for (int i = 0; i < bcvs.size(); i++) {
@@ -134,24 +147,41 @@ public class DictKey {
                     ss.setSpan(new ForegroundColorSpan(dicColorFore), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 TextView tVLine = new TextView(mContext);
-                tVLine.setTextSize((float) textSizeScript*4/5);
+                tVLine.setTextSize((float) textSizeScript * 4 / 5);
                 tVLine.setTextColor(textColorFore);
                 tVLine.setText(ss);
                 tVLine.setLineSpacing(1.2f, 1.2f);
                 tVLine.setMovementMethod(LinkMovementMethod.getInstance());
-//                columnLayout.addView(tVLine);
                 linearLayout.addView(tVLine);
             }
-
-        } else {
-            String errText = "[" + nowDic + "] not found";
-            Toast.makeText(mContext,errText,Toast.LENGTH_LONG).show();
-//            utils.log(logFile, errText);
         }
-
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
 
+    }
+
+    private void addLine(String text, boolean bigger) {
+        TextView tVLine = new TextView(mContext);
+        tVLine.setTextSize((bigger) ? (textSizeDic*10f/8):textSizeDic);
+        tVLine.setTextColor(dicColorFore);
+        tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
+        tVLine.setWidth(xPixels);
+        tVLine.setLineSpacing(1.5f, 1.5f);
+        linearLayout.addView(tVLine);
+        tVLine.setText(text);
+    }
+
+    private void addImage(String line) {
+        File imgFile = new File(packageFolder, "dict_img/" + line.substring(1));
+        if (imgFile.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            int height = xPixels * bitmap.getHeight() / bitmap.getWidth();
+            PhotoView imV = new PhotoView(mContext);
+            imV.setImageBitmap(Bitmap.createScaledBitmap(bitmap, xPixels, height, false));
+            imV.requestLayout();
+            linearLayout.addView(imV);
+        }
     }
 
     void addHeader() {

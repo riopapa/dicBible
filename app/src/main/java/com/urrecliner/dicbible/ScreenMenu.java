@@ -120,6 +120,9 @@ public class ScreenMenu {
         vCenterAction.setBackgroundColor(menuColorBack);
         vRightAction.setBackgroundColor(menuColorBack);
         vBackAction.setBackgroundColor(menuColorBack);
+        vCenterAction.setSingleLine(true);
+        vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        vCenterAction.setSelected(true);
     }
 
     private void buildBibleBottom() {
@@ -149,9 +152,9 @@ public class ScreenMenu {
             vLeftAction.setText(s);
             s = fullBibleNames[nowBible]+nowChapter;
             vCenterAction.setText(s);
-            vCenterAction.setSingleLine(true);
-            vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            vCenterAction.setSelected(true);
+//            vCenterAction.setSingleLine(true);
+//            vCenterAction.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//            vCenterAction.setSelected(true);
 
             if (nowChapter < nbrOfChapters[nowBible]) {
                 s = shortBibleNames[nowBible]+(nowChapter+1);

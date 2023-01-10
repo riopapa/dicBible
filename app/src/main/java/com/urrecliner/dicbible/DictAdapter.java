@@ -46,7 +46,7 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (shortList.size() == 0)
+        if (shortList.size() < position)
             return;
         holder.textView.setTextColor(menuColorFore);
         holder.textView.setTextSize(textSizeScript);
@@ -61,10 +61,13 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
             holder.textView.setText(s);
         } else {
             String [] dicTexts = fileRead.readDicFile(key, true);
-            String s = dicTexts[0].substring(1);
+            String s;
+            if (key.startsWith("_인용"))
+                s = key;
+            else
+                s = dicTexts[0].substring(1);
             holder.textView.setText(s);
         }
-
     }
 
     @Override
@@ -84,6 +87,7 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
 
     @Override
     public Filter getFilter() {
+        shortList = new ArrayList<>();
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
