@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/Theme.dicBible"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/lTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/fBody"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/setting"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0sp"
+            android:contentDescription="@string/setting"
+            android:src="@drawable/ic_settings"
+            />
+
+        <TextView
+            android:id="@+id/agpBible"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="agp"
+            android:textSize="@dimen/menu_font_size_small"
+            />
+
+        <TextView
+            android:id="@+id/cevBible"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="cev"
+            android:textSize="@dimen/menu_font_size_small"
+            />
+
+        <TextView
+            android:id="@+id/oldBible"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:text="@string/oldBible"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/newBible"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:text="@string/newBible"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/hymn"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:text="@string/hymn"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/dict"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:text="@string/dict"
+            android:textSize="@dimen/menu_font_size"
+            />
+        <ImageView
+            android:id="@+id/search"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:id="@+id/fBody"
+        app:layout_constraintVertical_weight="18"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/lTop"
+        app:layout_constraintBottom_toTopOf="@id/lBtm"
+        />
+
+    <LinearLayout
+        android:id="@+id/lBtm"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fBody">
+
+        <ImageView
+            android:id="@+id/talk"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:src="@drawable/talk"
+            />
+
+        <TextView
+            android:id="@+id/leftAction"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:text="@string/prevBible"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/centerAction"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="12"
+            android:layout_height="match_parent"
+            android:text="@string/nowBible"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/rightAction"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:text="@string/nextBible"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+        <TextView
+            android:id="@+id/backAction"
+            style="@style/MenuStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="◁"
+            android:textSize="@dimen/menu_font_size"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

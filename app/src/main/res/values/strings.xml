@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">dic Bible</string>
+    <string name="bible">성경</string>
+    <string name="oldBible">구약</string>
+    <string name="newBible">신약</string>
+    <string name="hymn">찬송가</string>
+    <string name="dict">사전</string>
+    <string name="nowBible">데살로니가전서2장</string>
+    <string name="nextBible">왕하12</string>
+    <string name="prevBible">열왕33</string>
+    <string name="setting">setting</string>
+    <string name="riopapa_face">riopapa face</string>
+    <string name="sure_to_quit">그래요\n 다음에 봅시다</string>
+    <string name="minus">"⊖"</string>  // ⊖          // \u27A4 비행기
+    <string name="plus">"⊕"</string>    // ⊕ \u2A01
+    <string name="number">12</string>
+    <string name="bibleName_size">성경이름</string>
+    <string name="script_size">본문</string>
+    <string name="dic_size">사전</string>
+    <string name="crossing_size">관주</string>
+    <string name="sheet_lyric">악보\n가사</string>
+    <string name="lyric_sheet">가사\n악보</string>
+    <string name="sheet_only">악보만</string>
+    <string name="lyric_only">가사만</string>
+    <string name="about">제작 정보 및 이력 </string>
+    <string name="agp">agp</string>
+    <string name="cev">cev</string>
+    <string name="AGP">AGP</string>
+    <string name="CEV">CEV</string>
+
+
+    <!-- Strings used for fragments for navigation -->
+
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>

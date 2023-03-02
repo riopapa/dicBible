@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="switchOn">#3333FF</color>
+    <color name="switchOff">#C3C0C0</color>
+
+<!--  Day Color  darkMode Off -->
+    <color name="menuColorBack">#C5CAE9</color>
+    <color name="menuColorFore">#081A57</color>
+
+    <color name="scriptColorFore">#222222</color>
+    <color name="paraColorFore">#330753</color>
+    <color name="referColorFore">#112B78</color>
+    <color name="numberColorFore">#191970</color>
+    <color name="cevColorFore">#C4092771</color>
+    <color name="agpColorFore">#C46F0F9E</color>
+    <color name="dictColorFore">#2424BC</color>
+    <color name="markColorBack">#7A75DC7A</color>
+
+    <color name="hymnImageBack">#E3EFE8</color>
+
+    <!--  Night Color  darkMode On -->
+    <color name="menuColorBackN">#081A57</color>
+    <color name="menuColorForeN">#EEEEEE</color>
+
+    <color name="scriptColorForeN">#EEEEEE</color>
+    <color name="paraColorForeN">#B38CCF</color>
+    <color name="referColorForeN">#6F85C6</color>
+    <color name="numberColorForeN">#7E7EAC</color>
+    <color name="agpColorForeN">#73AA8E</color>
+    <color name="cevColorForeN">#AAAA71</color>
+    <color name="dictColorForeN">#F6F622</color>
+    <color name="markColorBackN">#7A476347</color>
+
+    <color name="hymnImageBackN">#F6F0F0</color>
+    <color name="quitFore">#113388</color>
+
+    <color name="cookie_back_color">#80A3B3</color>
+    <color name="cookie_title_color">#1D234A</color>
+    <color name="cookie_message_color">#203A88</color>
+    <color name="cookie_action_color">#E11F61</color>
+
+</resources>
