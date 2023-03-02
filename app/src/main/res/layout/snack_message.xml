@@ -38,6 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="8dp"
-        android:src="@mipmap/ic_dic_bible" />
+        android:src="@mipmap/dic_bible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
