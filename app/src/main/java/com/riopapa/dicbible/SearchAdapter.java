@@ -21,6 +21,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
         }
         s = searched.text;
         SpannableString ss = new SpannableString(s);
-        ss.setSpan(new ForegroundColorSpan(agpColorFore), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(agpColorFore & 0x80FFFFFF), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss = markVerse(ss, s);
         ss = markColored(ss, s, kwd[0]);
         if (kwd.length > 1) {
@@ -111,9 +112,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
     private SpannableString markColored(SpannableString ss, String l, String sKey) {
         int sPos = l.indexOf(sKey);
         while (sPos > 0) {
-            ss.setSpan(new ForegroundColorSpan(cevColorFore), sPos, sPos + sKey.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), sPos, sPos + sKey.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            sPos = l.indexOf(sKey, sPos+2);
+            int ePos = sPos + sKey.length();
+            ss.setSpan(new ForegroundColorSpan(cevColorFore), sPos, ePos, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), sPos, ePos, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new UnderlineSpan(), sPos, ePos, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sPos = l.indexOf(sKey, ePos);
         }
         return ss;
     }

@@ -185,7 +185,7 @@ public class DictKey {
     }
 
     void addHeader() {
-        String text = "\n[이 단어가 등장는 구절들]\n";
+        String text = "\n[이 단어가 나오는 구절들]\n";
         TextView tVLine = new TextView(mContext);
         tVLine.setTextSize((float) textSizeScript*4/5);
         tVLine.setTextColor(textColorFore);

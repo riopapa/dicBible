@@ -12,10 +12,10 @@
     <color name="paraColorFore">#330753</color>
     <color name="referColorFore">#112B78</color>
     <color name="numberColorFore">#191970</color>
-    <color name="cevColorFore">#C4092771</color>
-    <color name="agpColorFore">#C46F0F9E</color>
-    <color name="dictColorFore">#2424BC</color>
-    <color name="markColorBack">#7A75DC7A</color>
+    <color name="cevColorFore">#044406</color>
+    <color name="agpColorFore">#C43B0456</color>
+    <color name="dictColorFore">#121258</color>
+    <color name="markColorBack">#7A51A255</color>
 
     <color name="hymnImageBack">#E3EFE8</color>
 
@@ -27,10 +27,10 @@
     <color name="paraColorForeN">#B38CCF</color>
     <color name="referColorForeN">#6F85C6</color>
     <color name="numberColorForeN">#7E7EAC</color>
-    <color name="agpColorForeN">#73AA8E</color>
-    <color name="cevColorForeN">#AAAA71</color>
+    <color name="agpColorForeN">#94E7BC</color>
+    <color name="cevColorForeN">#DCDC92</color>
     <color name="dictColorForeN">#F6F622</color>
-    <color name="markColorBackN">#7A476347</color>
+    <color name="markColorBackN">#7A78A378</color>
 
     <color name="hymnImageBackN">#F6F0F0</color>
     <color name="quitFore">#113388</color>
