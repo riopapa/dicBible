@@ -47,6 +47,7 @@ import static com.riopapa.dicbible.Vars.xPixels;
 import static java.lang.Integer.parseInt;
 
 import android.app.AlertDialog;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -57,6 +58,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.LineHeightSpan;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -268,11 +270,7 @@ class BibleMake {
         SpannableString ss = settleSpannableString(bodyText);
 
         textView.setText(ss);
-        textView.setTextSize(textSizeScript);
-        textView.setLineSpacing(.2f, 1.1f);
-//        textView.setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f,  mContext.getResources().getDisplayMetrics()), 1.2f);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
-
         linearLayout.addView(textView);
 
         fBody.removeAllViewsInLayout();
@@ -288,10 +286,10 @@ class BibleMake {
 
         paraSize = textSizeScript * 11 / 10;
         SpannableString ss = new SpannableString(bodyText);
-
         for (int i = 0; i < idxText; i++) {
             ss.setSpan(new AbsoluteSizeSpan(textSizeScript, true), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new ForegroundColorSpan(textColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            ss.setSpan(new LineSpan(0), textF[i], textT[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxKeyword; i++) {
             ss.setSpan(new keywordClick(keywords[i], keywordV[i]), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -471,6 +469,21 @@ class BibleMake {
                 idxKeyword++;
         }
         return ptr;
+    }
+
+    class LineSpan implements LineHeightSpan {
+        private final int height;
+
+        LineSpan(int height) {
+            this.height = height;
+        }
+
+        @Override
+        public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v,
+                                 Paint.FontMetricsInt fm) {
+            fm.bottom += height;
+            fm.descent += height;
+        }
     }
 
     public class verseSpan extends ClickableSpan {
