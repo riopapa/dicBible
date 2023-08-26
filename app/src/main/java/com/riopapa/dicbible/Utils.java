@@ -79,22 +79,22 @@ public class Utils {
     }
 
     void setFullScreen() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {   // >= android 11
-            WindowInsetsController controller = mActivity.getWindow().getInsetsController();
-            if (controller != null) {
-                controller.hide(WindowInsets.Type.statusBars() |
-                        WindowInsets.Type.navigationBars());
-                controller.setSystemBarsBehavior(
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-            }
-        } else {
-            mActivity.getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_IMMERSIVE
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {   // >= android 11
+//            WindowInsetsController controller = mActivity.getWindow().getInsetsController();
+//            if (controller != null) {
+//                controller.hide(WindowInsets.Type.statusBars() |
+//                        WindowInsets.Type.navigationBars());
+//                controller.setSystemBarsBehavior(
+//                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+//            }
+//        } else {
+//            mActivity.getWindow().getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_IMMERSIVE
+//                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//        }
     }
 
     void confirmExit() {

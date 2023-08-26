@@ -72,6 +72,8 @@ class HymnMake {
         textView.setGravity(Gravity.CENTER);
         linearLayout.addView(textView);
 
+        int buttonHeight = 10 * textSizeHymnKeypad;
+
         for(int row = 0; row<5;row++) {
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -82,7 +84,6 @@ class HymnMake {
                 if (id == -1)
                     break;
                 String buttonText;
-                int buttonHeight = 80;
                 int buttonWidth;
                 switch (id) {
                     case BTN_CLEAR:
@@ -97,7 +98,6 @@ class HymnMake {
                         buttonText = "" + id;
                         buttonWidth = 50;
                 }
-
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);

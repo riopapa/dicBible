@@ -58,6 +58,7 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -268,7 +269,8 @@ class BibleMake {
 
         textView.setText(ss);
         textView.setTextSize(textSizeScript);
-        textView.setLineSpacing(1.1f, 1.2f);
+        textView.setLineSpacing(.2f, 1.1f);
+//        textView.setLineSpacing(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.0f,  mContext.getResources().getDisplayMetrics()), 1.2f);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         linearLayout.addView(textView);

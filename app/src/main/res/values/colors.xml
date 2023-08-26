@@ -10,11 +10,11 @@
 
     <color name="scriptColorFore">#222222</color>
     <color name="paraColorFore">#330753</color>
-    <color name="referColorFore">#112B78</color>
+    <color name="referColorFore">#0F6551</color>
     <color name="numberColorFore">#191970</color>
     <color name="cevColorFore">#044406</color>
     <color name="agpColorFore">#C43B0456</color>
-    <color name="dictColorFore">#121258</color>
+    <color name="dictColorFore">#094738</color>
     <color name="markColorBack">#7A51A255</color>
 
     <color name="hymnImageBack">#E3EFE8</color>

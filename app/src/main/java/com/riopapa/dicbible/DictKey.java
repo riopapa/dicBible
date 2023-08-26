@@ -68,7 +68,7 @@ public class DictKey {
         }
         if (nowDic.startsWith("_인")) {   //
             String [] refs = dicTexts[0].split(";");
-            addLine(nowDic, true);
+            addHeader(nowDic, true);
             StringBuilder sb = new StringBuilder();
             int[] sFrm = new int[refs.length];
             int[] sTo = new int[refs.length];
@@ -97,11 +97,10 @@ public class DictKey {
             tVLine.setMovementMethod(LinkMovementMethod.getInstance());
             linearLayout.addView(tVLine);
 
-
         } else {
             for (String line : dicTexts) {
                 if (line.length() == 0) {
-                    addLine("", false);
+                    addHeader("", false);
                     continue;
                 }
                 switch (line.substring(0, 1)) {
@@ -109,7 +108,7 @@ public class DictKey {
                         addImage(line);
                         break;
                     case "~":
-                        addLine(line.substring(1), true);
+                        addHeader(line.substring(1), true);
                         break;
                     default:
                         TextView tVLine = new TextView(mContext);
@@ -117,7 +116,7 @@ public class DictKey {
                         tVLine.setTextColor(textColorFore);
                         tVLine.setGravity(Gravity.START);
                         tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(1.2f, 1.2f);
+                        tVLine.setLineSpacing(0.3f, 1.0f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;
@@ -125,7 +124,7 @@ public class DictKey {
             }
             bcvs = keyTable.where(nowDic);
             if (bcvs != null) {
-                addHeader();
+                addReferHeader();
                 StringBuilder sb = new StringBuilder();
                 int[] sFrm = new int[bcvs.size()];
                 int[] sTo = new int[bcvs.size()];
@@ -150,7 +149,7 @@ public class DictKey {
                 tVLine.setTextSize((float) textSizeScript * 4 / 5);
                 tVLine.setTextColor(textColorFore);
                 tVLine.setText(ss);
-                tVLine.setLineSpacing(1.2f, 1.2f);
+                tVLine.setLineSpacing(0.2f, 1.2f);
                 tVLine.setMovementMethod(LinkMovementMethod.getInstance());
                 linearLayout.addView(tVLine);
             }
@@ -160,14 +159,14 @@ public class DictKey {
 
     }
 
-    private void addLine(String text, boolean bigger) {
+    private void addHeader(String text, boolean bigger) {
         TextView tVLine = new TextView(mContext);
-        tVLine.setTextSize((bigger) ? (textSizeDic*10f/8):textSizeDic);
+        tVLine.setTextSize((bigger) ? (textSizeDic*5f/8):textSizeDic*2f/8);
         tVLine.setTextColor(dicColorFore);
         tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
         tVLine.setWidth(xPixels);
-        tVLine.setLineSpacing(1.5f, 1.5f);
+        tVLine.setLineSpacing(0.5f, 0.5f);
         linearLayout.addView(tVLine);
         tVLine.setText(text);
     }
@@ -184,14 +183,14 @@ public class DictKey {
         }
     }
 
-    void addHeader() {
+    void addReferHeader() {
         String text = "\n[이 단어가 나오는 구절들]\n";
         TextView tVLine = new TextView(mContext);
         tVLine.setTextSize((float) textSizeScript*4/5);
         tVLine.setTextColor(textColorFore);
         tVLine.setGravity(Gravity.START);
         tVLine.setWidth(xPixels);
-        tVLine.setLineSpacing(1.2f, 1.2f);
+        tVLine.setLineSpacing(0.2f, 0.3f);
         linearLayout.addView(tVLine);
         tVLine.setText(text);
     }

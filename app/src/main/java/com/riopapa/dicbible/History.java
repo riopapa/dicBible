@@ -14,17 +14,18 @@ class History {
 
     public void push() {
 
-        if (goBacks.size() > 40) {
+        if (goBacks.size() > 80) {
             goBacks.remove(0); goBacks.remove(0); goBacks.remove(0);
             goBacks.remove(0); goBacks.remove(0); goBacks.remove(0);
         }
         GoBack goBack = new GoBack(topTab,nowBible, nowChapter, nowVerse, nowHymn, nowDic);
         goBacks.add(goBack);
+        HandlePrefs.saveArray("goBack", goBacks);
     }
 
     public void pop() {
 
-        if (goBacks.size() > 0) {
+        if (goBacks.size() > 1) {
             GoBack goBack = goBacks.get(goBacks.size()-1);
             topTab = goBack.topTab;
             nowBible = goBack.bible;
@@ -33,6 +34,7 @@ class History {
             nowHymn = goBack.hymn;
             nowDic = goBack.dic;
             goBacks.remove(goBacks.size()-1);
+            HandlePrefs.saveArray("goBack", goBacks);
         }
     }
 
