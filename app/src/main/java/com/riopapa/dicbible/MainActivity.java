@@ -14,7 +14,7 @@ import static com.riopapa.dicbible.Vars.history;
 import static com.riopapa.dicbible.Vars.hymnMake;
 import static com.riopapa.dicbible.Vars.isReadingNow;
 import static com.riopapa.dicbible.Vars.keyRefs;
-import static com.riopapa.dicbible.Vars.keyTable;
+import static com.riopapa.dicbible.Vars.dictTable;
 import static com.riopapa.dicbible.Vars.mActivity;
 import static com.riopapa.dicbible.Vars.mContext;
 import static com.riopapa.dicbible.Vars.nowBible;
@@ -41,6 +41,7 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.riopapa.dicbible.model.BookMark;
@@ -116,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
         } else
             bibleMake.showBibleList();
 
-        keyTable = new KeyTable();
-        keyRefs = keyTable.read(packageFolder);
+        dictTable = new DictTable();
+        keyRefs = dictTable.read(packageFolder);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
 
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    //    @TargetApi(Build.VERSION_CODES.M)
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == ALL_PERMISSIONS_RESULT) {
             for (String perms : permissionsToRequest) {

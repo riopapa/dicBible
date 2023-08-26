@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class KeyTable {
+public class DictTable {
 
     List<Vars.KeyRef> read(File packageFolder) {
         final String EUC_KR = "UTF-8";

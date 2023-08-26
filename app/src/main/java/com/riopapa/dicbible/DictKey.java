@@ -9,7 +9,7 @@ import static com.riopapa.dicbible.Vars.dicColorFore;
 import static com.riopapa.dicbible.Vars.fBody;
 import static com.riopapa.dicbible.Vars.fileRead;
 import static com.riopapa.dicbible.Vars.history;
-import static com.riopapa.dicbible.Vars.keyTable;
+import static com.riopapa.dicbible.Vars.dictTable;
 import static com.riopapa.dicbible.Vars.linearLayout;
 import static com.riopapa.dicbible.Vars.mContext;
 import static com.riopapa.dicbible.Vars.nowBible;
@@ -122,7 +122,7 @@ public class DictKey {
                         break;
                 }
             }
-            bcvs = keyTable.where(nowDic);
+            bcvs = dictTable.where(nowDic);
             if (bcvs != null) {
                 addReferHeader();
                 StringBuilder sb = new StringBuilder();

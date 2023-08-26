@@ -131,7 +131,7 @@ public class Vars {
             this.v = v;
         }
     }
-    static KeyTable keyTable;
+    static DictTable dictTable;
     static List<KeyRef> keyRefs;
     static List<bcv> bcvs;
     static String [] bibleTexts;
