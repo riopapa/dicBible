@@ -1,13 +1,13 @@
 package com.riopapa.dicbible;
 
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.biblePitch;
 import static com.riopapa.dicbible.Vars.bibleSpeed;
 import static com.riopapa.dicbible.Vars.bibleTTS;
 import static com.riopapa.dicbible.Vars.bibleTexts;
 import static com.riopapa.dicbible.Vars.fullBibleNames;
 import static com.riopapa.dicbible.Vars.hymnAccompany;
-import static com.riopapa.dicbible.Vars.hymnMake;
+import static com.riopapa.dicbible.Vars.tabHymn;
 import static com.riopapa.dicbible.Vars.hymnSpeed;
 import static com.riopapa.dicbible.Vars.isReadingNow;
 import static com.riopapa.dicbible.Vars.mContext;
@@ -54,7 +54,7 @@ class Text2Speech {
                 if (isReadingNow && ttsVerseNow < verMax)
                     readBibleTTS(ttsVerseNow);
                 else if (isReadingNow) {
-                    bibleMake.goBibleRight();
+                    tabBible.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             ttsVerseNow = 0;
@@ -107,7 +107,7 @@ class Text2Speech {
                 mediaPlayer.release();
                 mediaPlayer = null;
                 if (isReadingNow) {
-                    bibleMake.goBibleRight();
+                    tabBible.goBibleRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             playBible();
@@ -172,7 +172,7 @@ class Text2Speech {
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 if (isReadingNow) {
-                    hymnMake.goHymnRight();
+                    tabHymn.goHymnRight();
                     new Timer().schedule(new TimerTask() {
                         public void run() {
                             playHymn();

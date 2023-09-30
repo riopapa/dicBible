@@ -36,7 +36,6 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     private TextView messageTextView;
     private ImageView iconImageView;
     private TextView actionButton;
-    private long duration = 2000;
     private int layoutGravity = Gravity.BOTTOM;
     private float initialDragX;
     private float dismissOffsetThreshold;
@@ -46,13 +45,12 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     private int animationInBottom;
     private int animationOutTop;
     private int animationOutBottom;
-    private boolean isAutoDismissEnabled;
     private boolean isSwipeable;
     private CookieBarDismissListener dismissListener;
     private boolean actionClickDismiss;
     private boolean timeOutDismiss;
     private boolean isCookieRemovalInProgress;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
     public Cookie(@NonNull final Context context) {
         this(context, null);
@@ -143,14 +141,14 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     public void setParams(final CookieBar.Params params) {
         initViews(params.customViewResource, params.viewInitializer);
 
-        duration = params.duration;
+        long duration = params.duration;
         layoutGravity = params.cookiePosition;
         animationInTop = params.animationInTop;
         animationInBottom = params.animationInBottom;
         animationOutTop = params.animationOutTop;
         animationOutBottom = params.animationOutBottom;
         isSwipeable = params.enableSwipeToDismiss;
-        isAutoDismissEnabled = params.enableAutoDismiss;
+        boolean isAutoDismissEnabled = params.enableAutoDismiss;
         dismissListener = params.dismissListener;
         final OnActionClickListener actionClickListener = params.onActionClickListener;
 
@@ -217,12 +215,9 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
 
 //        Log.i("Cookiebar", "Dismiss delay activated for " + cookieId);
         if (isAutoDismissEnabled) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    timeOutDismiss = true;
-                    dismiss();
-                }
+            handler.postDelayed(() -> {
+                timeOutDismiss = true;
+                dismiss();
             }, duration);
         }
     }

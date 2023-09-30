@@ -1,9 +1,9 @@
 package com.riopapa.dicbible;
 
-import static com.riopapa.dicbible.Vars.TAB_MODE_KEY;
+import static com.riopapa.dicbible.Vars.SHOW_DICT;
 import static com.riopapa.dicbible.Vars.alwaysOn;
-import static com.riopapa.dicbible.Vars.goBacks;
-import static com.riopapa.dicbible.Vars.history;
+import static com.riopapa.dicbible.Vars.goBacksStacks;
+import static com.riopapa.dicbible.Vars.goBackProcs;
 import static com.riopapa.dicbible.Vars.mActivity;
 import static com.riopapa.dicbible.Vars.topTab;
 import static com.riopapa.dicbible.Vars.xPixels;
@@ -11,12 +11,9 @@ import static com.riopapa.dicbible.Vars.xPixels;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -99,9 +96,9 @@ public class Utils {
 
     void confirmExit() {
 
-        if (topTab == TAB_MODE_KEY)
-            history.pop();
-        HandlePrefs.saveArray("goBack", goBacks);
+        if (topTab == SHOW_DICT)
+            goBackProcs.pop();
+        HandlePrefs.saveArray("goBack", goBacksStacks);
         View dialogView = mActivity.getLayoutInflater().inflate(R.layout.dialog_quit, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
         builder.setView(dialogView);
@@ -115,9 +112,9 @@ public class Utils {
     }
 
     void exitApp() {
-        if (topTab == TAB_MODE_KEY)
-            history.pop();
-        HandlePrefs.saveArray("goBack", goBacks);
+        if (topTab == SHOW_DICT)
+            goBackProcs.pop();
+        HandlePrefs.saveArray("goBack", goBacksStacks);
         mActivity.finish();
         new Timer().schedule(new TimerTask() {
             public void run() {

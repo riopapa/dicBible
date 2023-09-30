@@ -13,12 +13,12 @@ import static com.riopapa.dicbible.Vars.hymnSpeed;
 import static com.riopapa.dicbible.Vars.searchDepth;
 import static com.riopapa.dicbible.Vars.sharedEdit;
 import static com.riopapa.dicbible.Vars.sharedPref;
-import static com.riopapa.dicbible.Vars.textSizeBible66;
-import static com.riopapa.dicbible.Vars.textSizeDic;
-import static com.riopapa.dicbible.Vars.textSizeHymn;
-import static com.riopapa.dicbible.Vars.textSizeRefer;
-import static com.riopapa.dicbible.Vars.textSizeScript;
-import static com.riopapa.dicbible.Vars.textSizeSpace;
+import static com.riopapa.dicbible.Vars.BibleNameSize;
+import static com.riopapa.dicbible.Vars.DictShowSize;
+import static com.riopapa.dicbible.Vars.HymnSize;
+import static com.riopapa.dicbible.Vars.DictSize;
+import static com.riopapa.dicbible.Vars.BibleSize;
+import static com.riopapa.dicbible.Vars.BibleLineSize;
 
 import com.google.gson.Gson;
 
@@ -31,17 +31,17 @@ class HandlePrefs {
         darkMode = sharedPref.getBoolean("darkMode", true);
         alwaysOn = sharedPref.getBoolean("alwaysOn",true);
 
-        textSizeBible66 = sharedPref.getInt("textSizeBible66", 18);
-        textSizeScript = sharedPref.getInt("textSizeScript", 22);
-        textSizeDic = sharedPref.getInt("textSizeDic", 23);
-        textSizeRefer = sharedPref.getInt("textSizeRefer", 19);
-        textSizeSpace = sharedPref.getInt("textSizeSpace", 9);
+        BibleNameSize = sharedPref.getInt("BibleNameSize", 18);
+        BibleSize = sharedPref.getInt("BibleSize", 22);
+        DictShowSize = sharedPref.getInt("DictShowSize", 23);
+        DictSize = sharedPref.getInt("DictSize", 19);
+        BibleLineSize = sharedPref.getInt("BibleLineSize", 9);
         bibleSpeed = sharedPref.getInt("bibleSpeed", 90);
         biblePitch = sharedPref.getInt("biblePitch",100);
         bibleTTS = sharedPref.getBoolean("bibleTTS", true);
         searchDepth = sharedPref.getInt("searchDepth", 30);
 
-        textSizeHymn = sharedPref.getInt("textSizeHymn", 20);
+        HymnSize = sharedPref.getInt("HymnSize", 20);
         hymnShowWhat = sharedPref.getInt("hymnShowWhat", 0);
         hymnAccompany = sharedPref.getBoolean("hymnAccompany",true);
         hymnSpeed = sharedPref.getInt("hymnSpeed", 90);

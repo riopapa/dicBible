@@ -22,7 +22,7 @@
         <EditText
             android:id="@+id/dict_key"
             android:layout_width="0dp"
-            android:layout_weight="8"
+            android:layout_weight="9"
             android:layout_height="wrap_content"
             android:hint="용어를 입력하세요"
             android:textColorHint="#ff888800"

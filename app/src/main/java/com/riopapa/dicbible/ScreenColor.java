@@ -1,6 +1,7 @@
 package com.riopapa.dicbible;
 
 import static com.riopapa.dicbible.Vars.agpColorFore;
+import static com.riopapa.dicbible.Vars.agpDrawable;
 import static com.riopapa.dicbible.Vars.cevColorFore;
 import static com.riopapa.dicbible.Vars.darkMode;
 import static com.riopapa.dicbible.Vars.dicColorFore;
@@ -36,6 +37,7 @@ public class ScreenColor {
             dicColorFore = ContextCompat.getColor(mContext, R.color.dictColorForeN);
             hymnColorImage = ContextCompat.getColor(mContext, R.color.hymnImageBackN);
             tabDrawable = ContextCompat.getDrawable(mContext, R.drawable.tab_border_dark);
+            agpDrawable = ContextCompat.getDrawable(mContext, R.drawable.agp_border_dark);
         } else {
             menuColorFore = ContextCompat.getColor(mContext, R.color.menuColorFore);
             menuColorBack = ContextCompat.getColor(mContext, R.color.menuColorBack);
@@ -50,6 +52,7 @@ public class ScreenColor {
             dicColorFore = ContextCompat.getColor(mContext, R.color.dictColorFore);
             hymnColorImage = ContextCompat.getColor(mContext, R.color.hymnImageBack);
             tabDrawable = ContextCompat.getDrawable(mContext, R.drawable.tab_border);
+            agpDrawable = ContextCompat.getDrawable(mContext, R.drawable.agp_border);
         }
     }
 }

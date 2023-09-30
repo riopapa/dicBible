@@ -17,7 +17,7 @@ import static com.riopapa.dicbible.Vars.dicColorFore;
 import static com.riopapa.dicbible.Vars.fBody;
 import static com.riopapa.dicbible.Vars.fileRead;
 import static com.riopapa.dicbible.Vars.fullBibleNames;
-import static com.riopapa.dicbible.Vars.history;
+import static com.riopapa.dicbible.Vars.goBackProcs;
 import static com.riopapa.dicbible.Vars.linearLayout;
 import static com.riopapa.dicbible.Vars.mActivity;
 import static com.riopapa.dicbible.Vars.mContext;
@@ -34,11 +34,11 @@ import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.shortBibleNames;
 import static com.riopapa.dicbible.Vars.speaking;
 import static com.riopapa.dicbible.Vars.textColorFore;
-import static com.riopapa.dicbible.Vars.textSizeBible66;
-import static com.riopapa.dicbible.Vars.textSizeDic;
-import static com.riopapa.dicbible.Vars.textSizeRefer;
-import static com.riopapa.dicbible.Vars.textSizeScript;
-import static com.riopapa.dicbible.Vars.textSizeSpace;
+import static com.riopapa.dicbible.Vars.BibleNameSize;
+import static com.riopapa.dicbible.Vars.DictShowSize;
+import static com.riopapa.dicbible.Vars.DictSize;
+import static com.riopapa.dicbible.Vars.BibleSize;
+import static com.riopapa.dicbible.Vars.BibleLineSize;
 import static com.riopapa.dicbible.Vars.textView;
 import static com.riopapa.dicbible.Vars.topTab;
 import static com.riopapa.dicbible.Vars.utils;
@@ -60,7 +60,6 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LineHeightSpan;
 import android.text.style.StyleSpan;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -74,7 +73,7 @@ import com.riopapa.dicbible.model.BookMark;
 import java.util.Timer;
 import java.util.TimerTask;
 
-class BibleMake {
+class TabBible {
 
     private final String newLine = "\n";
     final String spacing = "\u00A0"; // to prevent word wrap
@@ -113,7 +112,7 @@ class BibleMake {
                 b.setText(fullBibleNames[bibNbr]);
                 b.setId(bibNbr);
                 b.setWidth(buttonWidth);
-                b.setTextSize(textSizeBible66);
+                b.setTextSize(BibleNameSize);
                 b.setTextColor(textColorFore);
                 b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
                 columnLayout.addView(b);
@@ -140,13 +139,13 @@ class BibleMake {
         String bibleHead = fullBibleNames[nowBible]+" [?]";
         textView.setText(bibleHead);
         textView.setTextColor(menuColorFore);
-        textView.setTextSize(textSizeScript);
+        textView.setTextSize(BibleSize);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         textView.setOnClickListener(view -> {
             nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(""+(100+nowBible)).substring(1,3);
             nowChapter = 0;
             nowVerse = 0;
-            new DictKey().show();
+            new DictShow().show();
         });
 
         linearLayout.addView(textView);
@@ -168,7 +167,7 @@ class BibleMake {
                 tVNbr.setText(text);
                 tVNbr.setTextColor(menuColorFore);
                 tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-                tVNbr.setTextSize(textSizeScript);
+                tVNbr.setTextSize(BibleSize);
                 tVNbr.setWidth(buttonWidth);
                 tVNbr.setGravity(Gravity.CENTER_HORIZONTAL);
                 tVNbr.setPadding(0,16,0,16);
@@ -240,7 +239,7 @@ class BibleMake {
     void showBibleBody() {
         screenMenu.build();
         new FrameScrollView();
-        history.push();
+        goBackProcs.push();
         String file2read = "bible/" + nowBible + "/" + nowChapter + ".txt";
         bibleTexts = fileRead.readBibleFile(file2read, false);
         if (bibleTexts == null) {
@@ -284,16 +283,16 @@ class BibleMake {
 
     private SpannableString settleSpannableString(StringBuilder bodyText) {
 
-        paraSize = textSizeScript * 11 / 10;
+        paraSize = BibleSize * 11 / 10;
         SpannableString ss = new SpannableString(bodyText);
         for (int i = 0; i < idxText; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(textSizeScript, true), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(BibleSize, true), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new ForegroundColorSpan(textColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 //            ss.setSpan(new LineSpan(0), textF[i], textT[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxKeyword; i++) {
             ss.setSpan(new keywordClick(keywords[i], keywordV[i]), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ss.setSpan(new AbsoluteSizeSpan(textSizeDic, true), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(DictShowSize, true), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new ForegroundColorSpan(dicColorFore), keywordF[i], keywordT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxVerse; i++) {
@@ -307,7 +306,7 @@ class BibleMake {
             ss.setSpan(new StyleSpan(BOLD), paraFrm[i], paraTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxRefer; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(textSizeRefer, true), refFrm[i], refTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(DictSize, true), refFrm[i], refTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new referSpan(referS[i], referV[i]), refFrm[i], refTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxCev; i++) {
@@ -317,7 +316,7 @@ class BibleMake {
             ss.setSpan(new ForegroundColorSpan(agpColorFore), agpFrm[i], agpTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         for (int i = 0; i < idxSpace; i++) {
-            ss.setSpan(new AbsoluteSizeSpan(textSizeSpace/2, true), spaceFrm[i], spaceTo[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new AbsoluteSizeSpan(BibleLineSize /2, true), spaceFrm[i], spaceTo[i], Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (highLightF > 0)
             ss.setSpan(new BackgroundColorSpan(markColorBack), highLightF, highLightT, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -534,7 +533,7 @@ class BibleMake {
         public void onClick(@NonNull View widget) {
             nowDic = key.replace(spacing," ");
             nowVerse = verse;
-            new DictKey().show();
+            new DictShow().show();
         }
     }
 

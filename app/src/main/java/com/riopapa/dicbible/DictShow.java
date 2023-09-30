@@ -1,14 +1,14 @@
 package com.riopapa.dicbible;
 
-import static com.riopapa.dicbible.Vars.TAB_MODE_KEY;
+import static com.riopapa.dicbible.Vars.SHOW_DICT;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.bcvs;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.dicColorFore;
 import static com.riopapa.dicbible.Vars.fBody;
 import static com.riopapa.dicbible.Vars.fileRead;
-import static com.riopapa.dicbible.Vars.history;
+import static com.riopapa.dicbible.Vars.goBackProcs;
 import static com.riopapa.dicbible.Vars.dictTable;
 import static com.riopapa.dicbible.Vars.linearLayout;
 import static com.riopapa.dicbible.Vars.mContext;
@@ -21,8 +21,8 @@ import static com.riopapa.dicbible.Vars.screenMenu;
 import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.shortBibleNames;
 import static com.riopapa.dicbible.Vars.textColorFore;
-import static com.riopapa.dicbible.Vars.textSizeDic;
-import static com.riopapa.dicbible.Vars.textSizeScript;
+import static com.riopapa.dicbible.Vars.DictShowSize;
+import static com.riopapa.dicbible.Vars.BibleSize;
 import static com.riopapa.dicbible.Vars.topTab;
 import static com.riopapa.dicbible.Vars.xPixels;
 
@@ -49,15 +49,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DictKey {
+public class DictShow {
     final String markChar = "†";    // Dagger char
 
     public void show() {
 
-        topTab = TAB_MODE_KEY;
+        topTab = SHOW_DICT;
         screenMenu.build();
         new FrameScrollView();
-        history.push();
+        goBackProcs.push();
 
 //        String txt = "dict/" + nowDic + ".txt";
         String [] dicTexts = fileRead.readDicFile(nowDic, true);
@@ -86,14 +86,12 @@ public class DictKey {
             }
             SpannableString ss = new SpannableString(sb);
             for (int i = 1; i < bcvs1.size() ; i++) {
-                ss.setSpan(new referSpan(bcvs1.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new dictSpan(bcvs1.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ss.setSpan(new ForegroundColorSpan(dicColorFore), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             TextView tVLine = new TextView(mContext);
-            tVLine.setTextSize((float) textSizeScript * 4 / 5);
-            tVLine.setTextColor(textColorFore);
+            tVLine.setLineSpacing(1.3f, 1.3f);
             tVLine.setText(ss);
-            tVLine.setLineSpacing(1.2f, 1.2f);
             tVLine.setMovementMethod(LinkMovementMethod.getInstance());
             linearLayout.addView(tVLine);
 
@@ -112,11 +110,11 @@ public class DictKey {
                         break;
                     default:
                         TextView tVLine = new TextView(mContext);
-                        tVLine.setTextSize((float) textSizeScript * 4 / 5);
+                        tVLine.setTextSize((float) BibleSize * 4 / 5);
                         tVLine.setTextColor(textColorFore);
                         tVLine.setGravity(Gravity.START);
-                        tVLine.setWidth(xPixels);
-                        tVLine.setLineSpacing(0.3f, 1.0f);
+//                        tVLine.setWidth(xPixels);
+                        tVLine.setLineSpacing(0.5f, 1.2f);
                         linearLayout.addView(tVLine);
                         tVLine.setText(line);
                         break;
@@ -142,11 +140,11 @@ public class DictKey {
                 }
                 SpannableString ss = new SpannableString(sb);
                 for (int i = 0; i < bcvs.size(); i++) {
-                    ss.setSpan(new referSpan(bcvs.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    ss.setSpan(new dictSpan(bcvs.get(i)), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     ss.setSpan(new ForegroundColorSpan(dicColorFore), sFrm[i], sTo[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 TextView tVLine = new TextView(mContext);
-                tVLine.setTextSize((float) textSizeScript * 4 / 5);
+                tVLine.setTextSize((float) BibleSize * 4 / 5);
                 tVLine.setTextColor(textColorFore);
                 tVLine.setText(ss);
                 tVLine.setLineSpacing(0.2f, 1.2f);
@@ -161,7 +159,7 @@ public class DictKey {
 
     private void addHeader(String text, boolean bigger) {
         TextView tVLine = new TextView(mContext);
-        tVLine.setTextSize((bigger) ? (textSizeDic*5f/8):textSizeDic*2f/8);
+        tVLine.setTextSize((bigger) ? (DictShowSize *5f/8): DictShowSize *2f/8);
         tVLine.setTextColor(dicColorFore);
         tVLine.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tVLine.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -186,7 +184,7 @@ public class DictKey {
     void addReferHeader() {
         String text = "\n[이 단어가 나오는 구절들]\n";
         TextView tVLine = new TextView(mContext);
-        tVLine.setTextSize((float) textSizeScript*4/5);
+        tVLine.setTextSize((float) BibleSize *4/5);
         tVLine.setTextColor(textColorFore);
         tVLine.setGravity(Gravity.START);
         tVLine.setWidth(xPixels);
@@ -195,10 +193,10 @@ public class DictKey {
         tVLine.setText(text);
     }
 
-    static class referSpan extends ClickableSpan {
+    static class dictSpan extends ClickableSpan {
 
         int b, c, v;
-        referSpan(Vars.bcv bcv) { this.b = bcv.b; this.c = bcv.c; this.v = bcv.v;}
+        dictSpan(Vars.bcv bcv) { this.b = bcv.b; this.c = bcv.c; this.v = bcv.v;}
         @Override
         public void updateDrawState(TextPaint ds) {
             ds.setUnderlineText(false);    // this remove the underline
@@ -211,7 +209,7 @@ public class DictKey {
             nowChapter = c;
             nowVerse = v;
             topTab =  (nowBible < 40) ? TAB_OLD : TAB_NEW;
-            bibleMake.showBibleBody();
+            tabBible.showBibleBody();
         }
     }
 

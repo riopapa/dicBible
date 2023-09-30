@@ -8,7 +8,7 @@ import static com.riopapa.dicbible.Vars.SHEET_THEN_LYRIC;
 import static com.riopapa.dicbible.Vars.darkMode;
 import static com.riopapa.dicbible.Vars.fBody;
 import static com.riopapa.dicbible.Vars.fileRead;
-import static com.riopapa.dicbible.Vars.history;
+import static com.riopapa.dicbible.Vars.goBackProcs;
 import static com.riopapa.dicbible.Vars.hymnAccompany;
 import static com.riopapa.dicbible.Vars.hymnColorImage;
 import static com.riopapa.dicbible.Vars.hymnShowWhat;
@@ -27,7 +27,7 @@ import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.sortedNumbers;
 import static com.riopapa.dicbible.Vars.speaking;
 import static com.riopapa.dicbible.Vars.textColorFore;
-import static com.riopapa.dicbible.Vars.textSizeHymn;
+import static com.riopapa.dicbible.Vars.HymnSize;
 import static com.riopapa.dicbible.Vars.textSizeHymnKeypad;
 import static com.riopapa.dicbible.Vars.textView;
 import static com.riopapa.dicbible.Vars.xPixels;
@@ -50,7 +50,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.File;
 
-class HymnMake {
+class TabHymn {
 
     private String hymnTitle = "";
     final static int BTN_CLEAR = 100, BTN_GO = 200;
@@ -147,7 +147,7 @@ class HymnMake {
                 columnLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 b = new Button(mContext);
                 b.setBackgroundResource(drawable);
-                b.setTextSize((float)textSizeHymn *9/10);
+                b.setTextSize((float) HymnSize *9/10);
                 b.setTypeface(Typeface.DEFAULT, Typeface.NORMAL);
                 b.setWidth(xPixels/2 - 16);
                 b.setText(text);
@@ -173,7 +173,7 @@ class HymnMake {
 
         screenMenu.build();
         new FrameScrollView();
-        history.push();
+        goBackProcs.push();
 
         String txt = "Hymn/" + nowHymn + ".txt";
         String [] hymnTexts = fileRead.readBibleFile(txt, true);
@@ -183,7 +183,7 @@ class HymnMake {
         TextView tVBody = new TextView(mContext);
         txt = nowHymn+" : "+hymnTitles[nowHymn];
         tVBody.setText(txt);
-        tVBody.setTextSize(textSizeHymn + (float)textSizeHymn /8);
+        tVBody.setTextSize(HymnSize + (float) HymnSize /8);
         tVBody.setPadding(0,20,0,20);
         tVBody.setGravity(Gravity.CENTER_HORIZONTAL);
         tVBody.setWidth(xPixels);
@@ -213,7 +213,7 @@ class HymnMake {
 
     private void showHymnText(String[] hymnTexts, LinearLayout linearlayout) {
         textView = new TextView(mContext);
-        textView.setTextSize(textSizeHymn);
+        textView.setTextSize(HymnSize);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         textView.setWidth(xPixels);
         textView.setTextColor(textColorFore);
@@ -269,7 +269,7 @@ class HymnMake {
             textView.setText(hymnTitles[sortedNumbers[start]]);
             textView.setId(sortedNumbers[start]);
             textView.setTextColor(textColorFore);
-            textView.setTextSize(textSizeHymn);
+            textView.setTextSize(HymnSize);
             textView.setLineSpacing(1.2f, 1.2f);
             columnLayout.addView(textView);
             textView.setOnClickListener(v -> {
@@ -281,7 +281,7 @@ class HymnMake {
             textView.setText(text);
             textView.setId(sortedNumbers[start]);
             textView.setTextColor(paraColorFore);
-            textView.setTextSize(textSizeHymn);
+            textView.setTextSize(HymnSize);
             textView.setLineSpacing(1.2f, 1.2f);
             textView.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
             columnLayout.addView(textView);

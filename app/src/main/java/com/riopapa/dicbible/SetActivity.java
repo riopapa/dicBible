@@ -2,15 +2,15 @@ package com.riopapa.dicbible;
 
 
 import static com.riopapa.dicbible.Vars.TAB_HYMN;
-import static com.riopapa.dicbible.Vars.TAB_MODE_KEY;
+import static com.riopapa.dicbible.Vars.SHOW_DICT;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.alwaysOn;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.bookMarkAdapter;
 import static com.riopapa.dicbible.Vars.bookMarkView;
 import static com.riopapa.dicbible.Vars.darkMode;
-import static com.riopapa.dicbible.Vars.hymnMake;
+import static com.riopapa.dicbible.Vars.tabHymn;
 import static com.riopapa.dicbible.Vars.mActivity;
 import static com.riopapa.dicbible.Vars.menuColorBack;
 import static com.riopapa.dicbible.Vars.menuColorFore;
@@ -44,29 +44,29 @@ public class SetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         setActivity = this;
-        ScrollView setScrollView = findViewById(R.id.setScrollView);
-        setScrollView.setBackgroundColor(menuColorBack);
-        utils.setFullScreen();
         scrollView = findViewById(R.id.setScrollView);
+//        ScrollView setScrollView = findViewById(R.id.setScrollView);
+        scrollView.setBackgroundColor(menuColorBack);
+        utils.setFullScreen();
         tv = findViewById(R.id.goBack);
         tv.setOnClickListener(v -> {
             finish();
             if (topTab == TAB_OLD || topTab == TAB_NEW) {
                 if (nowBible != 0)
-                    bibleMake.showBibleBody();
+                    tabBible.showBibleBody();
                 else
-                    bibleMake.showBibleList();
+                    tabBible.showBibleList();
             }
             else if (topTab == TAB_HYMN) {
-                if (hymnMake == null)
-                    hymnMake = new HymnMake();
+                if (tabHymn == null)
+                    tabHymn = new TabHymn();
                 if (nowHymn <= 0)
-                    hymnMake.showNumberKey();
+                    tabHymn.showNumberKey();
                 else
-                    hymnMake.showHymnBody();
+                    tabHymn.showHymnBody();
             }
-            else if (topTab == TAB_MODE_KEY) {
-                new DictKey().show();
+            else if (topTab == SHOW_DICT) {
+                new DictShow().show();
             }
         });
 
@@ -125,10 +125,7 @@ public class SetActivity extends Activity {
         switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
             alwaysOn = isChecked;
             sharedEdit.putBoolean("alwaysOn", alwaysOn).apply();
-            if (alwaysOn)
-                mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            else
-                mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            utils.setKeepScreen();
         });
     }
 
@@ -163,19 +160,19 @@ public class SetActivity extends Activity {
         overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         if (topTab == TAB_NEW || topTab == TAB_OLD) {
             if (nowBible != 0)
-                bibleMake.showBibleBody();
+                tabBible.showBibleBody();
             else
-                bibleMake.showBibleList();
+                tabBible.showBibleList();
         }
         else if (topTab == TAB_HYMN) {
-            if (hymnMake == null)
-                hymnMake = new HymnMake();
+            if (tabHymn == null)
+                tabHymn = new TabHymn();
             if (nowHymn <= 0)
-                hymnMake.showNumberKey();
+                tabHymn.showNumberKey();
             else
-                hymnMake.showHymnBody();
-        } else if (topTab == TAB_MODE_KEY) {
-            new DictKey().show();
+                tabHymn.showHymnBody();
+        } else if (topTab == SHOW_DICT) {
+            new DictShow().show();
         }
     }
 

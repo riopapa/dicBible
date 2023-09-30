@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.riopapa.dicbible.model.BookMark;
 import com.riopapa.dicbible.model.GoBack;
-import com.riopapa.dicbible.model.RecentDict;
 import com.riopapa.dicbible.model.Searched;
 
 import java.io.File;
@@ -35,16 +34,16 @@ public class Vars {
     @SuppressLint("StaticFieldLeak")
     static SearchActivity searchActivity = null;
     @SuppressLint("StaticFieldLeak")
-    static BibleMake bibleMake = null;
+    static TabBible tabBible = null;
     @SuppressLint("StaticFieldLeak")
-    static HymnMake hymnMake = null;
+    static TabHymn tabHymn = null;
     @SuppressLint("StaticFieldLeak")
-    static DictMake dictMake = null;
+    static TabDict tabDict = null;
     @SuppressLint("StaticFieldLeak")
     static ScreenMenu screenMenu = null;
     @SuppressLint("StaticFieldLeak")
     static Speaking speaking = null;
-    static History history = null;
+    static GoBackStacks goBackProcs = null;
     static Utils utils = null;
     static FileRead fileRead = null;
 
@@ -63,8 +62,8 @@ public class Vars {
     final static int TAB_OLD = 1;
     final static int TAB_NEW = 2;
     final static int TAB_HYMN = 3;
-    final static int TAB_MODE_KEY = 4;
-    final static int TAB_MODE_DICT = 5;
+    final static int SHOW_DICT = 4;
+    final static int TAB_DICT = 5;
 
     static int topTab = TAB_NEW;    // if (topTab == TAB_MODE_OLD || topTab == TAB_MODE_NEW) then it means OLD or NEW
     static boolean agpShow = false;
@@ -84,23 +83,23 @@ public class Vars {
     static TextView vAgpBible, vCevBible, vOldBible, vNewBible, vHymn, vDict;
     static TextView vLeftAction, vCenterAction, vRightAction, vBackAction;
     static int textSizeHymnKeypad = 20;
-    static Drawable tabDrawable;
+    static Drawable tabDrawable, agpDrawable;
 
     // followings are from shared preference
     static SharedPreferences sharedPref;
     static SharedPreferences.Editor sharedEdit;
     static HandlePrefs handlePrefs;
-    static int textSizeBible66 = 24;
-    static int textSizeRefer = 40;
-    static int textSizeHymn = 20;
-    static int textSizeScript = 20;
-    static int textSizeDic = 20;
+    static int BibleNameSize = 24;
+    static int DictSize = 40;
+    static int HymnSize = 20;
+    static int BibleSize = 20;
+    static int DictShowSize = 20;
     static int searchDepth = 20;
+    static int BibleLineSize = 10;
     static String keyText = "";
 
     static int hymnShowWhat = 0;
     static boolean alwaysOn = true;
-    static int textSizeSpace = 10;
     static final int SHEET_THEN_LYRIC = 0;
     static final int LYRIC_THEN_SHEET = 1;
     static final int SHEET_ONLY = 2;
@@ -137,10 +136,9 @@ public class Vars {
     static String [] bibleTexts;
     static List<String> dicts = null;
 
-    public static ArrayList<GoBack> goBacks = new ArrayList<>();
+    public static ArrayList<GoBack> goBacksStacks = new ArrayList<>();
     static ArrayList<BookMark> bookMarks = new ArrayList<>();
     static ArrayList<Searched> searcheds = new ArrayList<>();
-    static ArrayList<RecentDict> recentDicts = new ArrayList<>();
 
     static int [] nbrOfChapters = {0,50,40,27,36,34,24,21,4,31,24,22,25,29,36,10,13,10,42,150,31,12,8,66,52,5,48,12,14,3,9,1,4,7,3,3,3,2,14,4,28,16,24,21,28,16,16,13,6,6,4,4,5,3,6,4,3,1,13,5,5,3,5,1,1,1,22, 0 };
 

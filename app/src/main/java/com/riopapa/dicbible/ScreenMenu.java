@@ -1,11 +1,12 @@
 package com.riopapa.dicbible;
 
 import static com.riopapa.dicbible.Vars.TAB_HYMN;
-import static com.riopapa.dicbible.Vars.TAB_MODE_DICT;
-import static com.riopapa.dicbible.Vars.TAB_MODE_KEY;
+import static com.riopapa.dicbible.Vars.TAB_DICT;
+import static com.riopapa.dicbible.Vars.SHOW_DICT;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.agpColorFore;
+import static com.riopapa.dicbible.Vars.agpDrawable;
 import static com.riopapa.dicbible.Vars.agpShow;
 import static com.riopapa.dicbible.Vars.blank;
 import static com.riopapa.dicbible.Vars.btmLayout;
@@ -59,6 +60,8 @@ public class ScreenMenu {
         vNewBible.setBackgroundColor(menuColorBack);
         vHymn.setBackgroundColor(menuColorBack);
         vDict.setBackgroundColor(menuColorBack);
+        vAgpBible.setBackgroundColor(menuColorBack);
+        vCevBible.setBackgroundColor(menuColorBack);
 
         switch (topTab) {
             case TAB_OLD:
@@ -70,15 +73,16 @@ public class ScreenMenu {
             case TAB_HYMN:
                 buildHymn();
                 break;
-            case TAB_MODE_DICT:
+            case TAB_DICT:
                 buildDict();
                 break;
-            case TAB_MODE_KEY:
+            case SHOW_DICT:
                 buildKey();
                 break;
             default:
                 Toast.makeText(mContext, "topTab Case Error "+topTab, Toast.LENGTH_SHORT).show();
         }
+
         if ((topTab == TAB_NEW || topTab == TAB_OLD) && (nowBible > 0 && nowChapter > 0))
             buildSearch( menuColorFore);
         else
@@ -170,14 +174,16 @@ public class ScreenMenu {
     }
 
     private void buildAgpCev() {
-        vAgpBible.setBackgroundColor(menuColorBack);
-        vCevBible.setBackgroundColor(menuColorBack);
         if (nowBible > 0 && nowChapter > 0 &&
                 (topTab == TAB_NEW || topTab == TAB_OLD)) {
             vAgpBible.setText((agpShow)? R.string.AGP:R.string.agp);
             vAgpBible.setTextColor(agpColorFore);
+            if (agpShow)
+                vAgpBible.setBackground(agpDrawable);
             vCevBible.setText((cevShow)? R.string.CEV:R.string.cev);
             vCevBible.setTextColor(cevColorFore);
+            if (cevShow)
+                vCevBible.setBackground(agpDrawable);
         } else {
             vAgpBible.setText(blank);
             vCevBible.setText(blank);
@@ -229,6 +235,7 @@ public class ScreenMenu {
     }
 
     private void buildKey() {
+        buildAgpCev();
         buildSearch(menuColorBack);
         vLeftAction.setText(blank);
         vCenterAction.setText(nowDic);

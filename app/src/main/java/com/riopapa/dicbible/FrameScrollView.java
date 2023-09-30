@@ -6,7 +6,6 @@ import static com.riopapa.dicbible.Vars.menuColorBack;
 import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.textView;
 
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ public class FrameScrollView {
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lParams.setMargins(20, 0, 30, 0);
         scrollView.addView(linearLayout, lParams);
-
 
     }
 }

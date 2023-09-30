@@ -5,7 +5,7 @@ import static com.riopapa.dicbible.Vars.mContext;
 import static com.riopapa.dicbible.Vars.menuColorBack;
 import static com.riopapa.dicbible.Vars.menuColorFore;
 import static com.riopapa.dicbible.Vars.setActivity;
-import static com.riopapa.dicbible.Vars.textSizeScript;
+import static com.riopapa.dicbible.Vars.BibleSize;
 
 import android.app.Activity;
 import android.content.Context;
@@ -51,7 +51,7 @@ public class SetHistory {
         LinearLayout tableLayout = setActivity.findViewById(R.id.table);
         TextView tvDate, tvDesc;
         LinearLayout oneLine;
-        int textSize = textSizeScript * 3 / 4;
+        int textSize = BibleSize * 3 / 4;
 
         LayoutInflater faceInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -64,7 +64,7 @@ public class SetHistory {
         myFaceParams.setMargins(20,20,20,20);
         tableLayout.addView(myFaceLayout, myFaceParams);
 
-        // history lines
+        // goBackProcs lines
         LayoutInflater tLInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ArrayList<String> histories = fileRead.readRawTextFile(mContext, R.raw.history);
 
@@ -91,7 +91,7 @@ public class SetHistory {
         }
         ScrollView scrollView = setActivity.findViewById(R.id.setScrollView);
         scrollView.post(() ->
-                scrollView.scrollTo(0, scrollView.getHeight() - 300));
+                scrollView.scrollTo(0, scrollView.getHeight() + 200));
 
     }
 }

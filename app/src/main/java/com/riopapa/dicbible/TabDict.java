@@ -1,8 +1,10 @@
 package com.riopapa.dicbible;
 
+import static com.riopapa.dicbible.Vars.TAB_DICT;
+import static com.riopapa.dicbible.Vars.agpDrawable;
 import static com.riopapa.dicbible.Vars.dicts;
 import static com.riopapa.dicbible.Vars.fBody;
-import static com.riopapa.dicbible.Vars.history;
+import static com.riopapa.dicbible.Vars.goBackProcs;
 import static com.riopapa.dicbible.Vars.linearLayout;
 import static com.riopapa.dicbible.Vars.mContext;
 import static com.riopapa.dicbible.Vars.menuColorBack;
@@ -12,6 +14,7 @@ import static com.riopapa.dicbible.Vars.packageFolder;
 import static com.riopapa.dicbible.Vars.screenMenu;
 import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.textView;
+import static com.riopapa.dicbible.Vars.topTab;
 
 import android.content.Context;
 import android.text.Editable;
@@ -26,17 +29,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 
-class DictMake {
+class TabDict {
 
     void showDictMenu() {
 
         DictAdapter adapter;
+        topTab = TAB_DICT;
         File dicFile = new File(packageFolder,"dict");
         screenMenu.build();
         new FrameScrollView();
         if (dicts == null)
             dicts = new DictLoad().get(dicFile);
-        history.push();
+        goBackProcs.push();
 
         linearLayout.addView(textView);
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -56,6 +60,7 @@ class DictMake {
         EditText tvDicKey = layout_inp.findViewById(R.id.dict_key);
         tvDicKey.setBackgroundColor(menuColorBack);
         tvDicKey.setTextColor(menuColorFore);
+        tvDicKey.setBackground(agpDrawable);
         tvDicKey.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {}
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}

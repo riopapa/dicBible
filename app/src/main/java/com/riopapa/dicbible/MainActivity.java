@@ -1,17 +1,18 @@
 package com.riopapa.dicbible;
 
 import static com.riopapa.dicbible.Buttons.goBackward;
+import static com.riopapa.dicbible.Vars.TAB_DICT;
 import static com.riopapa.dicbible.Vars.TAB_HYMN;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.bookMarks;
-import static com.riopapa.dicbible.Vars.dictMake;
+import static com.riopapa.dicbible.Vars.tabDict;
 import static com.riopapa.dicbible.Vars.fileRead;
-import static com.riopapa.dicbible.Vars.goBacks;
+import static com.riopapa.dicbible.Vars.goBacksStacks;
 import static com.riopapa.dicbible.Vars.handlePrefs;
-import static com.riopapa.dicbible.Vars.history;
-import static com.riopapa.dicbible.Vars.hymnMake;
+import static com.riopapa.dicbible.Vars.goBackProcs;
+import static com.riopapa.dicbible.Vars.tabHymn;
 import static com.riopapa.dicbible.Vars.isReadingNow;
 import static com.riopapa.dicbible.Vars.keyRefs;
 import static com.riopapa.dicbible.Vars.dictTable;
@@ -38,7 +39,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -78,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
 
         utils = new Utils();
         utils.setXPixels(mContext);
-        goBacks = GoBack.read(sharedPref);
+        goBacksStacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
-        history = new History();
-        if (goBacks.size() > 0) {
-            history.pop();
-            history.push();
+        goBackProcs = new GoBackStacks();
+        if (goBacksStacks.size() > 0) {
+            goBackProcs.pop();
+            goBackProcs.push();
         }
         packageFolder = new File(Environment.getExternalStorageDirectory(), "dicBible");
         fileRead = new FileRead(packageFolder);
@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
         Buttons.assign();
 
         utils.setKeepScreen();
-        bibleMake = new BibleMake();
-        hymnMake = new HymnMake();
-        dictMake = new DictMake();
+        tabBible = new TabBible();
+        tabHymn = new TabHymn();
+        tabDict = new TabDict();
         screenMenu = new ScreenMenu();
 
         isReadingNow = false;
@@ -106,22 +106,24 @@ public class MainActivity extends AppCompatActivity {
 
         if (topTab == TAB_NEW || topTab == TAB_OLD) {
             if (nowBible > 0)
-                bibleMake.showBibleBody();
+                tabBible.showBibleBody();
             else
-                bibleMake.showBibleList();
+                tabBible.showBibleList();
         } else if (topTab == TAB_HYMN) {
             if (nowHymn > 0)
-                hymnMake.showHymnBody();
+                tabHymn.showHymnBody();
             else
-                hymnMake.showNumberKey();
+                tabHymn.showNumberKey();
         } else
-            bibleMake.showBibleList();
+            tabBible.showBibleList();
 
         dictTable = new DictTable();
         keyRefs = dictTable.read(packageFolder);
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
-
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+        while (topTab == TAB_DICT) {
+            goBackProcs.pop();
+        }
     }
 
     @Override
@@ -129,14 +131,18 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         utils.setFullScreen();
     }
+    long backPressedTime;
     @Override
     public void onBackPressed() {
 
         if (isReadingNow)
             text2Speech.stopPlay();
-        if (goBacks.size() > 0)
-            goBackward();
-
+        if (backPressedTime + 1000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finish();
+        } else if (goBacksStacks.size() > 1)
+                goBackward();
+        backPressedTime = System.currentTimeMillis();
     }
 
     // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓

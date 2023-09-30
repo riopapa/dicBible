@@ -3,7 +3,7 @@ package com.riopapa.dicbible;
 import static com.riopapa.dicbible.Vars.fileRead;
 import static com.riopapa.dicbible.Vars.menuColorFore;
 import static com.riopapa.dicbible.Vars.nowDic;
-import static com.riopapa.dicbible.Vars.textSizeScript;
+import static com.riopapa.dicbible.Vars.BibleSize;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -49,11 +49,11 @@ public class DictAdapter extends  RecyclerView.Adapter<DictAdapter.MyViewHolder>
         if (shortList.size() < position)
             return;
         holder.textView.setTextColor(menuColorFore);
-        holder.textView.setTextSize(textSizeScript);
+        holder.textView.setTextSize(BibleSize);
         holder.textView.setTag(shortList.get(position));
         holder.textView.setOnClickListener(v -> {
             nowDic = v.getTag().toString();
-            new DictKey().show();
+            new DictShow().show();
         });
         String key = shortList.get(position);
         String s;

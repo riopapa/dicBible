@@ -1,20 +1,20 @@
 package com.riopapa.dicbible;
 
 import static com.riopapa.dicbible.Vars.TAB_HYMN;
-import static com.riopapa.dicbible.Vars.TAB_MODE_DICT;
-import static com.riopapa.dicbible.Vars.TAB_MODE_KEY;
+import static com.riopapa.dicbible.Vars.TAB_DICT;
+import static com.riopapa.dicbible.Vars.SHOW_DICT;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.agpShow;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.blank;
 import static com.riopapa.dicbible.Vars.btmLayout;
 import static com.riopapa.dicbible.Vars.cevShow;
-import static com.riopapa.dicbible.Vars.dictMake;
+import static com.riopapa.dicbible.Vars.tabDict;
 import static com.riopapa.dicbible.Vars.fBody;
-import static com.riopapa.dicbible.Vars.goBacks;
-import static com.riopapa.dicbible.Vars.history;
-import static com.riopapa.dicbible.Vars.hymnMake;
+import static com.riopapa.dicbible.Vars.goBacksStacks;
+import static com.riopapa.dicbible.Vars.goBackProcs;
+import static com.riopapa.dicbible.Vars.tabHymn;
 import static com.riopapa.dicbible.Vars.isReadingNow;
 import static com.riopapa.dicbible.Vars.mActivity;
 import static com.riopapa.dicbible.Vars.mContext;
@@ -23,6 +23,7 @@ import static com.riopapa.dicbible.Vars.nowChapter;
 import static com.riopapa.dicbible.Vars.nowDic;
 import static com.riopapa.dicbible.Vars.nowHymn;
 import static com.riopapa.dicbible.Vars.nowVerse;
+import static com.riopapa.dicbible.Vars.screenMenu;
 import static com.riopapa.dicbible.Vars.sharedEdit;
 import static com.riopapa.dicbible.Vars.text2Speech;
 import static com.riopapa.dicbible.Vars.topLayout;
@@ -73,14 +74,14 @@ public class Buttons {
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
-            bibleMake.showBibleList();
+            tabBible.showBibleList();
         });
         vNewBible.setOnClickListener(v -> {
             topTab = TAB_NEW;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
-            bibleMake.showBibleList();
+            tabBible.showBibleList();
         });
         vHymn.setOnClickListener(v -> {
             topTab = TAB_HYMN;
@@ -88,15 +89,15 @@ public class Buttons {
             nowChapter = 0;
             nowVerse = 0;
             nowHymn = 0;
-            hymnMake.showNumberKey();
+            tabHymn.showNumberKey();
         });
         vDict.setOnClickListener(v -> {
-            topTab = TAB_MODE_DICT;
+            topTab = TAB_DICT;
             nowBible = 0;
             nowChapter = 0;
             nowVerse = 0;
             nowHymn = 0;
-            dictMake.showDictMenu();
+            tabDict.showDictMenu();
         });
 
         vAgpBible.setOnClickListener(v -> {
@@ -104,7 +105,7 @@ public class Buttons {
                 return;
             agpShow = !agpShow;
             sharedEdit.putBoolean("agpShow", agpShow).apply();
-            bibleMake.showBibleBody();
+            tabBible.showBibleBody();
         });
 
         vCevBible.setOnClickListener(v -> {
@@ -112,7 +113,7 @@ public class Buttons {
                 return;
             cevShow = !cevShow;
             sharedEdit.putBoolean("cevShow", cevShow).apply();
-            bibleMake.showBibleBody();
+            tabBible.showBibleBody();
         });
 
         vSearch.setOnClickListener(v -> {
@@ -136,9 +137,9 @@ public class Buttons {
             if (vLeftAction.getText().toString().equals(blank))
                 return;
             if ((topTab == TAB_OLD || topTab == TAB_NEW))
-                bibleMake.goBibleLeft();
+                tabBible.goBibleLeft();
             else if (topTab == TAB_HYMN)
-                hymnMake.goHymnLeft();
+                tabHymn.goHymnLeft();
         });
 
         vTalk.setOnClickListener(v -> {
@@ -148,13 +149,13 @@ public class Buttons {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
-                    bibleMake.confirmSpeak();
+                    tabBible.confirmSpeak();
             }
             else if (topTab == TAB_HYMN) {
                 if (isReadingNow)
                     text2Speech.stopPlay();
                 else
-                    hymnMake.confirmSpeak();
+                    tabHymn.confirmSpeak();
             }
         });
 
@@ -164,15 +165,15 @@ public class Buttons {
             if (vRightAction.getText().toString().equals(blank))
                 return;
             if ((topTab == TAB_OLD || topTab == TAB_NEW))
-                bibleMake.goBibleRight();
+                tabBible.goBibleRight();
             else if (topTab == TAB_HYMN)
-                hymnMake.goHymnRight();
+                tabHymn.goHymnRight();
         });
 
         vBackAction.setOnClickListener(v -> {
             if (isReadingNow)
                 text2Speech.stopPlay();
-            if (goBacks.size() > 0) {
+            if (goBacksStacks.size() > 0) {
                 goBackward();
             }
         });
@@ -184,25 +185,27 @@ public class Buttons {
     }
 
     static void goBackward() {
-            history.pop();
-            if (goBacks.size() > 1) {
-                history.pop();
+            goBackProcs.pop();
+            if (goBacksStacks.size() > 1) {
+                goBackProcs.pop();
+                screenMenu.build();
+                new FrameScrollView();
                 if (topTab == TAB_NEW || topTab == TAB_OLD) {
                     if (nowBible == 0)
-                        bibleMake.showBibleList();
+                        tabBible.showBibleList();
                     else if (nowChapter > 0)
-                        bibleMake.showBibleBody();
+                        tabBible.showBibleBody();
                     else
-                        bibleMake.showChapterList();
+                        tabBible.showChapterList();
                 } else if (topTab == TAB_HYMN) {
-                    hymnMake.showHymnBody();
-                } else if (topTab == TAB_MODE_DICT) {
+                    tabHymn.showHymnBody();
+                } else if (topTab == TAB_DICT) {
                     if (nowDic.equals(""))
-                        dictMake.showDictMenu();
+                        tabDict.showDictMenu();
                     else
-                        new DictKey().show();
-                } else if (topTab == TAB_MODE_KEY) {
-                    new DictKey().show();
+                        new DictShow().show();
+                } else if (topTab == SHOW_DICT) {
+                    new DictShow().show();
                 } else {
                     Toast.makeText(mContext, "돌아갈 곳이 제대로 없어요", Toast.LENGTH_LONG).show();
                 }

@@ -2,7 +2,7 @@ package com.riopapa.dicbible;
 
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.bookMarkAdapter;
 import static com.riopapa.dicbible.Vars.bookMarks;
 import static com.riopapa.dicbible.Vars.fullBibleNames;
@@ -79,9 +79,9 @@ public class BookMarkAdapter extends RecyclerView.Adapter<BookMarkAdapter.ViewHo
                 nowVerse = bookMark.verse;
                 nowHymn = 0;
                 topTab = (nowBible < 40) ? TAB_OLD : TAB_NEW;
-                if (bibleMake == null)
-                    bibleMake = new BibleMake();
-                bibleMake.showBibleBody();
+                if (tabBible == null)
+                    tabBible = new TabBible();
+                tabBible.showBibleBody();
                 setActivity.finish();
                 setActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 });

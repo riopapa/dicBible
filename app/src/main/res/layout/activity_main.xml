@@ -31,6 +31,7 @@
         <TextView
             android:id="@+id/agpBible"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent"
@@ -41,6 +42,7 @@
         <TextView
             android:id="@+id/cevBible"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent"
@@ -51,6 +53,7 @@
         <TextView
             android:id="@+id/oldBible"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
@@ -61,6 +64,7 @@
         <TextView
             android:id="@+id/newBible"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
@@ -71,6 +75,7 @@
         <TextView
             android:id="@+id/hymn"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
@@ -81,8 +86,9 @@
         <TextView
             android:id="@+id/dict"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:layout_height="match_parent"
             android:text="@string/dict"
             android:textSize="@dimen/menu_font_size"
@@ -90,6 +96,7 @@
         <ImageView
             android:id="@+id/search"
             style="@style/MenuStyle"
+            android:layout_margin="1dp"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"

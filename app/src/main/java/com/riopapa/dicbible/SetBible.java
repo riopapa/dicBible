@@ -9,11 +9,11 @@ import static com.riopapa.dicbible.Vars.bibleTTS;
 import static com.riopapa.dicbible.Vars.searchDepth;
 import static com.riopapa.dicbible.Vars.setActivity;
 import static com.riopapa.dicbible.Vars.sharedEdit;
-import static com.riopapa.dicbible.Vars.textSizeBible66;
-import static com.riopapa.dicbible.Vars.textSizeDic;
-import static com.riopapa.dicbible.Vars.textSizeRefer;
-import static com.riopapa.dicbible.Vars.textSizeScript;
-import static com.riopapa.dicbible.Vars.textSizeSpace;
+import static com.riopapa.dicbible.Vars.BibleNameSize;
+import static com.riopapa.dicbible.Vars.DictShowSize;
+import static com.riopapa.dicbible.Vars.DictSize;
+import static com.riopapa.dicbible.Vars.BibleSize;
+import static com.riopapa.dicbible.Vars.BibleLineSize;
 
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,22 +41,22 @@ public class SetBible {
         dNBible = setActivity.findViewById(R.id.bibleName_size_down);
         sZBible = setActivity.findViewById(R.id.bibleName_size);
         uPBible = setActivity.findViewById(R.id.bibleName_size_up);
-        setTexts(tVBible, dNBible, sZBible, uPBible, textSizeBible66);
-        txt = "" + textSizeBible66;
+        setTexts(tVBible, dNBible, sZBible, uPBible, BibleNameSize);
+        txt = "" + BibleNameSize;
         sZBible.setText(txt);
         dNBible.setOnClickListener(v -> {
-            textSizeBible66--;
-            String t = "" + textSizeBible66;
+            BibleNameSize--;
+            String t = "" + BibleNameSize;
             sZBible.setText(t);
-            setTexts(tVBible, dNBible, sZBible, uPBible, textSizeBible66);
-            sharedEdit.putInt("textSizeBible66", textSizeBible66).apply();
+            setTexts(tVBible, dNBible, sZBible, uPBible, BibleNameSize);
+            sharedEdit.putInt("BibleNameSize", BibleNameSize).apply();
         });
         uPBible.setOnClickListener(v -> {
-            textSizeBible66++;
-            String t = "" + textSizeBible66;
+            BibleNameSize++;
+            String t = "" + BibleNameSize;
             sZBible.setText(t);
-            setTexts(tVBible, dNBible, sZBible, uPBible, textSizeBible66);
-            sharedEdit.putInt("textSizeBible66", textSizeBible66).apply();
+            setTexts(tVBible, dNBible, sZBible, uPBible, BibleNameSize);
+            sharedEdit.putInt("BibleNameSize", BibleNameSize).apply();
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lBibleScript));
@@ -64,22 +64,22 @@ public class SetBible {
         dNScript = setActivity.findViewById(R.id.script_size_down);
         sZScript = setActivity.findViewById(R.id.script_size);
         uPScript = setActivity.findViewById(R.id.script_size_up);
-        setTexts(tVScript, dNScript, sZScript, uPScript, textSizeScript);
-        txt = "" + textSizeScript;
+        setTexts(tVScript, dNScript, sZScript, uPScript, BibleSize);
+        txt = "" + BibleSize;
         sZScript.setText(txt);
         dNScript.setOnClickListener(v -> {
-            textSizeScript--;
-            String t = "" + textSizeScript;
+            BibleSize--;
+            String t = "" + BibleSize;
             sZScript.setText(t);
-            setTexts(tVScript, dNScript, sZScript, uPScript, textSizeScript);
-            sharedEdit.putInt("textSizeScript", textSizeScript).apply();
+            setTexts(tVScript, dNScript, sZScript, uPScript, BibleSize);
+            sharedEdit.putInt("BibleSize", BibleSize).apply();
         });
         uPScript.setOnClickListener(v -> {
-            textSizeScript++;
-            String t = "" + textSizeScript;
+            BibleSize++;
+            String t = "" + BibleSize;
             sZScript.setText(t);
-            setTexts(tVScript, dNScript, sZScript, uPScript, textSizeScript);
-            sharedEdit.putInt("textSizeScript", textSizeScript).apply();
+            setTexts(tVScript, dNScript, sZScript, uPScript, BibleSize);
+            sharedEdit.putInt("BibleSize", BibleSize).apply();
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lBibileDic));
@@ -87,22 +87,22 @@ public class SetBible {
         dNDic = setActivity.findViewById(R.id.dic_size_down);
         sZDic = setActivity.findViewById(R.id.dic_size);
         uPDic = setActivity.findViewById(R.id.dic_size_up);
-        setTexts(tVDic, dNDic, sZDic, uPDic, textSizeDic);
-        txt = "" + textSizeDic;
+        setTexts(tVDic, dNDic, sZDic, uPDic, DictShowSize);
+        txt = "" + DictShowSize;
         sZDic.setText(txt);
         dNDic.setOnClickListener(v -> {
-            textSizeDic--;
-            String t = "" + textSizeDic;
+            DictShowSize--;
+            String t = "" + DictShowSize;
             sZDic.setText(t);
-            setTexts(tVDic, dNDic, sZDic, uPDic, textSizeDic);
-            sharedEdit.putInt("textSizeDic", textSizeDic).apply();
+            setTexts(tVDic, dNDic, sZDic, uPDic, DictShowSize);
+            sharedEdit.putInt("DictShowSize", DictShowSize).apply();
         });
         uPDic.setOnClickListener(v -> {
-            textSizeDic++;
-            String t = "" + textSizeDic;
+            DictShowSize++;
+            String t = "" + DictShowSize;
             sZDic.setText(t);
-            setTexts(tVDic, dNDic, sZDic, uPDic, textSizeDic);
-            sharedEdit.putInt("textSizeDic", textSizeDic).apply();
+            setTexts(tVDic, dNDic, sZDic, uPDic, DictShowSize);
+            sharedEdit.putInt("DictShowSize", DictShowSize).apply();
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lBibleRefer));
@@ -110,22 +110,22 @@ public class SetBible {
         dNRefer = setActivity.findViewById(R.id.ref_size_down);
         sZRefer = setActivity.findViewById(R.id.ref_size);
         uPRefer = setActivity.findViewById(R.id.ref_size_up);
-        setTexts(tVRefer, dNRefer, sZRefer, uPRefer, textSizeRefer);
-        txt = "" + textSizeRefer;
+        setTexts(tVRefer, dNRefer, sZRefer, uPRefer, DictSize);
+        txt = "" + DictSize;
         sZRefer.setText(txt);
         dNRefer.setOnClickListener(v -> {
-            textSizeRefer--;
-            String t = "" + textSizeRefer;
+            DictSize--;
+            String t = "" + DictSize;
             sZRefer.setText(t);
-            setTexts(tVRefer, dNRefer, sZRefer, uPRefer, textSizeRefer);
-            sharedEdit.putInt("textSizeRefer", textSizeRefer).apply();
+            setTexts(tVRefer, dNRefer, sZRefer, uPRefer, DictSize);
+            sharedEdit.putInt("DictSize", DictSize).apply();
         });
         uPRefer.setOnClickListener(v -> {
-            textSizeRefer++;
-            String t = "" + textSizeRefer;
+            DictSize++;
+            String t = "" + DictSize;
             sZRefer.setText(t);
-            setTexts(tVRefer, dNRefer, sZRefer, uPRefer, textSizeRefer);
-            sharedEdit.putInt("textSizeRefer", textSizeRefer).apply();
+            setTexts(tVRefer, dNRefer, sZRefer, uPRefer, DictSize);
+            sharedEdit.putInt("DictSize", DictSize).apply();
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lBibleSpace));
@@ -133,22 +133,22 @@ public class SetBible {
         dNSpace = setActivity.findViewById(R.id.space_size_down);
         sZSpace = setActivity.findViewById(R.id.space_size);
         uPSpace = setActivity.findViewById(R.id.space_size_up);
-        setTexts(tVSpace, dNSpace, sZSpace, uPSpace, textSizeSpace);
-        txt = "" + textSizeSpace;
+        setTexts(tVSpace, dNSpace, sZSpace, uPSpace, BibleLineSize);
+        txt = "" + BibleLineSize;
         sZSpace.setText(txt);
         dNSpace.setOnClickListener(v -> {
-            textSizeSpace--;
-            String t = "" + textSizeSpace;
+            BibleLineSize--;
+            String t = "" + BibleLineSize;
             sZSpace.setText(t);
-            setTexts(tVSpace, dNSpace, sZSpace, uPSpace, textSizeSpace);
-            sharedEdit.putInt("textSizeSpace", textSizeSpace).apply();
+            setTexts(tVSpace, dNSpace, sZSpace, uPSpace, BibleLineSize);
+            sharedEdit.putInt("BibleLineSize", BibleLineSize).apply();
         });
         uPSpace.setOnClickListener(v -> {
-            textSizeSpace++;
-            String t = "" + textSizeSpace;
+            BibleLineSize++;
+            String t = "" + BibleLineSize;
             sZSpace.setText(t);
-            setTexts(tVSpace, dNSpace, sZSpace, uPSpace, textSizeSpace);
-            sharedEdit.putInt("textSizeSpace", textSizeSpace).apply();
+            setTexts(tVSpace, dNSpace, sZSpace, uPSpace, BibleLineSize);
+            sharedEdit.putInt("BibleLineSize", BibleLineSize).apply();
         });
 
         setTextBackGround(setActivity.findViewById(R.id.tBibleRead));
@@ -221,21 +221,21 @@ public class SetBible {
         dNDepth = setActivity.findViewById(R.id.depth_down);
         sZDepth = setActivity.findViewById(R.id.depth_size);
         uPDepth = setActivity.findViewById(R.id.depth_up);
-        setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
+        setTexts(tVDepth, dNDepth, sZDepth, uPDepth, BibleSize);
         txt = "" + searchDepth;
         sZDepth.setText(txt);
         dNDepth.setOnClickListener(v -> {
             searchDepth--;
             String t = "" + searchDepth;
             sZDepth.setText(t);
-            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
+            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, BibleSize);
             sharedEdit.putInt("searchDepth", searchDepth).apply();
         });
         uPDepth.setOnClickListener(v -> {
             searchDepth++;
             String t = "" + searchDepth;
             sZDepth.setText(t);
-            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, textSizeScript);
+            setTexts(tVDepth, dNDepth, sZDepth, uPDepth, BibleSize);
             sharedEdit.putInt("searchDepth", searchDepth).apply();
         });
     }

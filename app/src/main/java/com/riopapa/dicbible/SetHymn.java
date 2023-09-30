@@ -13,7 +13,7 @@ import static com.riopapa.dicbible.Vars.hymnShowWhat;
 import static com.riopapa.dicbible.Vars.hymnSpeed;
 import static com.riopapa.dicbible.Vars.setActivity;
 import static com.riopapa.dicbible.Vars.sharedEdit;
-import static com.riopapa.dicbible.Vars.textSizeHymn;
+import static com.riopapa.dicbible.Vars.HymnSize;
 
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -65,22 +65,22 @@ public class SetHymn {
         dNSize = setActivity.findViewById(R.id.hymn_size_down);
         sZSize = setActivity.findViewById(R.id.hymn_size);
         uPSize = setActivity.findViewById(R.id.hymn_size_up);
-        setTexts(tVSize, dNSize, sZSize, uPSize, textSizeHymn);
-        txt = "" + textSizeHymn;
+        setTexts(tVSize, dNSize, sZSize, uPSize, HymnSize);
+        txt = "" + HymnSize;
         sZSize.setText(txt);
         dNSize.setOnClickListener(v -> {
-            textSizeHymn--;
-            String t = "" + textSizeHymn;
+            HymnSize--;
+            String t = "" + HymnSize;
             sZSize.setText(t);
-            setTexts(tVSize, dNSize, sZSize, uPSize, textSizeHymn);
-            sharedEdit.putInt("textSizeHymn", textSizeHymn).apply();
+            setTexts(tVSize, dNSize, sZSize, uPSize, HymnSize);
+            sharedEdit.putInt("HymnSize", HymnSize).apply();
         });
         uPSize.setOnClickListener(v -> {
-            textSizeHymn++;
-            String t = "" + textSizeHymn;
+            HymnSize++;
+            String t = "" + HymnSize;
             sZSize.setText(t);
-            setTexts(tVSize, dNSize, sZSize, uPSize, textSizeHymn);
-            sharedEdit.putInt("textSizeHymn", textSizeHymn).apply();
+            setTexts(tVSize, dNSize, sZSize, uPSize, HymnSize);
+            sharedEdit.putInt("HymnSize", HymnSize).apply();
         });
 
         setLayoutBackGround(setActivity.findViewById(R.id.lHymnSpeed));

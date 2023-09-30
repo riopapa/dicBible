@@ -4,7 +4,7 @@ import static com.riopapa.dicbible.SetActivity.setLayoutBackGround;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.agpColorFore;
-import static com.riopapa.dicbible.Vars.bibleMake;
+import static com.riopapa.dicbible.Vars.tabBible;
 import static com.riopapa.dicbible.Vars.cevColorFore;
 import static com.riopapa.dicbible.Vars.keyText;
 import static com.riopapa.dicbible.Vars.menuColorFore;
@@ -14,7 +14,7 @@ import static com.riopapa.dicbible.Vars.nowVerse;
 import static com.riopapa.dicbible.Vars.searchActivity;
 import static com.riopapa.dicbible.Vars.searcheds;
 import static com.riopapa.dicbible.Vars.shortBibleNames;
-import static com.riopapa.dicbible.Vars.textSizeScript;
+import static com.riopapa.dicbible.Vars.BibleSize;
 import static com.riopapa.dicbible.Vars.topTab;
 
 import android.text.SpannableString;
@@ -53,12 +53,12 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             setLayoutBackGround(itemView.findViewById(R.id.search_item));
             tvVerse = itemView.findViewById(R.id.result_Verse);
             tvText = itemView.findViewById(R.id.result_Text);
-            tvVerse.setTextSize(textSizeScript);
+            tvVerse.setTextSize(BibleSize);
             tvVerse.setTextColor(menuColorFore);
-            tvText.setTextSize((float)textSizeScript*9/10);
+            tvText.setTextSize((float) BibleSize *9/10);
             tvText.setTextColor(menuColorFore);
 
-            //            tvText.setTextSize(textSizeScript *2/7);
+            //            tvText.setTextSize(BibleSize *2/7);
 
             View view = itemView.findViewById(R.id.search_item);
             view.setOnClickListener(view1 -> jump2Searched(getAbsoluteAdapterPosition()));
@@ -73,7 +73,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             topTab = (nowBible < 40) ? TAB_OLD : TAB_NEW;
             searchActivity.finish();
             searchActivity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-            bibleMake.showBibleBody();
+            tabBible.showBibleBody();
         }
     }
 
