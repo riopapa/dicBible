@@ -29,6 +29,7 @@
     <string name="CEV">CEV</string>
     <string name="dicbible_by_me">dicBible by 하원철</string>
     <string name="press_here_to_exit">종료하시려면 여기를 눌러주세요</string>
+    <string name="go_back">◁</string>
 
 
     <!-- Strings used for fragments for navigation -->

@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
     void showExitDialog() {
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.exit_app, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
         builder.setView(dialogView);
         dialogView.findViewById(R.id.iv_icon).setOnClickListener(v -> utils.exitApp());
@@ -159,14 +158,6 @@ public class MainActivity extends AppCompatActivity {
         dialogView.findViewById(R.id.exit_title).setOnClickListener(v -> utils.exitApp());
 
         AlertDialog alertDialog = builder.create();
-//        Window window = alertDialog.getWindow();
-//        assert window != null;
-//        WindowManager.LayoutParams wlp = window.getAttributes();
-//        wlp.gravity = Gravity.BOTTOM;
-//        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-//        window.setAttributes(wlp);
-        // give some bottom space on level dialog
-//        alertDialog.getWindow().getAttributes().height = (int) (screenY * 0.7);
         alertDialog.show();
 
     }

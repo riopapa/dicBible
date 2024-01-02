@@ -8,7 +8,6 @@
         android:id="@+id/appTop"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_gravity="top"
     >
         <LinearLayout
             android:id="@+id/lTop"
@@ -28,7 +27,7 @@
                 android:layout_marginStart="0sp"
                 android:contentDescription="@string/setting"
                 android:src="@drawable/ic_settings"
-                />
+            />
 
             <TextView
                 android:id="@+id/agpBible"
@@ -37,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="match_parent"
-                android:text="agp"
+                android:text="@string/agp"
                 android:textSize="@dimen/menu_font_size_small"
                 />
 
@@ -48,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="match_parent"
-                android:text="cev"
+                android:text="@string/cev"
                 android:textSize="@dimen/menu_font_size_small"
                 />
 
@@ -179,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent"
-            android:text="◁"
+            android:text="@string/go_back"
             android:textSize="@dimen/menu_font_size"
             />
         </LinearLayout>
