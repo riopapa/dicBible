@@ -35,7 +35,6 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     private TextView titleTextView;
     private TextView messageTextView;
     private ImageView iconImageView;
-    private TextView actionButton;
     private int layoutGravity = Gravity.BOTTOM;
     private float initialDragX;
     private float dismissOffsetThreshold;
@@ -47,7 +46,6 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     private int animationOutBottom;
     private boolean isSwipeable;
     private CookieBarDismissListener dismissListener;
-    private boolean actionClickDismiss;
     private boolean timeOutDismiss;
     private boolean isCookieRemovalInProgress;
     private final Handler handler = new Handler();
@@ -77,7 +75,7 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
 //                viewInitializer.initView(getChildAt(0));
 //            }
 //        } else {
-            inflate(getContext(), R.layout.layout_cookie, this);
+            inflate(getContext(), R.layout.exit_app, this);
 //        }
 
         if (getChildAt(0).getLayoutParams() instanceof LayoutParams) {
@@ -86,10 +84,9 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
         }
 
         layoutCookie = findViewById(R.id.cookie);
-        titleTextView = findViewById(R.id.tv_title);
-        messageTextView = findViewById(R.id.tv_message);
+        titleTextView = findViewById(R.id.exit_title);
+        messageTextView = findViewById(R.id.exit_message);
         iconImageView = findViewById(R.id.iv_icon);
-        actionButton = findViewById(R.id.btn_action);
 
         if(rootView == 0) {
             validateLayoutIntegrity();
@@ -100,7 +97,7 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
 
     private void validateLayoutIntegrity() {
         if (layoutCookie == null || titleTextView == null || messageTextView == null ||
-                iconImageView == null || actionButton == null) {
+                iconImageView == null) {
 
             throw new RuntimeException("Your custom cookie view is missing one of the default required views");
         }
@@ -129,12 +126,10 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
 
         int titleColor = ContextCompat.getColor(context,R.color.cookie_title_color);
         int messageColor = ContextCompat.getColor(context,R.color.cookie_message_color);
-        int actionColor = ContextCompat.getColor(context,R.color.cookie_action_color);
         int backgroundColor = ContextCompat.getColor(context,R.color.cookie_back_color);
 
         titleTextView.setTextColor(titleColor);
         messageTextView.setTextColor(messageColor);
-        actionButton.setTextColor(actionColor);
         layoutCookie.setBackgroundColor(backgroundColor);
     }
 
@@ -150,7 +145,6 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
         isSwipeable = params.enableSwipeToDismiss;
         boolean isAutoDismissEnabled = params.enableAutoDismiss;
         dismissListener = params.dismissListener;
-        final OnActionClickListener actionClickListener = params.onActionClickListener;
 
         if (params.iconResId != 0 && iconImageView != null) {
             iconImageView.setVisibility(VISIBLE);
@@ -177,25 +171,6 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
                 messageTextView.setTextColor(ContextCompat.getColor(getContext(), params.messageColor));
             }
             setDefaultTextSize(messageTextView, R.attr.cookieMessageSize);
-        }
-
-        if (actionButton != null && !TextUtils.isEmpty(params.action) && actionClickListener != null) {
-            actionButton.setVisibility(VISIBLE);
-            actionButton.setText(params.action);
-            actionButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    actionClickListener.onClick();
-                    actionClickDismiss = true;
-                    dismiss();
-                }
-            });
-
-            if (params.actionColor != 0) {
-                actionButton.setTextColor(ContextCompat.getColor(getContext(), params.actionColor));
-            }
-
-            setDefaultTextSize(actionButton, R.attr.cookieActionSize);
         }
 
         if (params.backgroundColor != 0) {
@@ -310,10 +285,7 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
 
     private int getDismissType() {
         int dismissType = CookieBarDismissListener.DismissType.PROGRAMMATIC_DISMISS;
-        if(actionClickDismiss) {
-            dismissType = CookieBarDismissListener.DismissType.USER_ACTION_CLICK;
-        }
-        else if(timeOutDismiss) {
+        if(timeOutDismiss) {
             dismissType = CookieBarDismissListener.DismissType.DURATION_COMPLETE;
         }
         return dismissType;
@@ -326,14 +298,11 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     }
 
     private void removeFromParent() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ViewParent parent = getParent();
-                if (parent != null) {
-                    Cookie.this.clearAnimation();
-                    ((ViewGroup) parent).removeView(Cookie.this);
-                }
+        handler.postDelayed(() -> {
+            ViewParent parent = getParent();
+            if (parent != null) {
+                Cookie.this.clearAnimation();
+                ((ViewGroup) parent).removeView(Cookie.this);
             }
         }, 200);
     }
@@ -391,17 +360,17 @@ final class Cookie extends LinearLayout implements View.OnTouchListener {
     private Animator.AnimatorListener getDestroyListener() {
         return new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 // no implementation
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 dismiss();
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) {
+            public void onAnimationCancel(@NonNull Animator animation) {
                 // no implementation
             }
 

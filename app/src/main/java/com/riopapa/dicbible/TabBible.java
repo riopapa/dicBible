@@ -93,7 +93,7 @@ class TabBible {
         int buttonWidth = xPixels / nbrColumn;
 
         textView.setText(newLine);
-        textView.setTextSize(10);
+        textView.setTextSize(30);
         textView.setWidth(xPixels);
         textView.setTextColor(0);
         textView.setGravity(Gravity.CENTER);
@@ -126,8 +126,9 @@ class TabBible {
                 if (count > loop)
                     break;
             }
-            if (count > loop)
+            if (count > loop) {
                 break;
+            }
         }
         fBody.removeAllViewsInLayout();
         fBody.addView(scrollView);
@@ -430,6 +431,7 @@ class TabBible {
                 idxSpace++;
             }
         }
+        bodyText.append(newLine);
     }
 
     private int checkDicWords(String workLine, int verse) {

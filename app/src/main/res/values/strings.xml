@@ -27,6 +27,8 @@
     <string name="cev">cev</string>
     <string name="AGP">AGP</string>
     <string name="CEV">CEV</string>
+    <string name="dicbible_by_me">dicBible by 하원철</string>
+    <string name="press_here_to_exit">종료하시려면 여기를 눌러주세요</string>
 
 
     <!-- Strings used for fragments for navigation -->

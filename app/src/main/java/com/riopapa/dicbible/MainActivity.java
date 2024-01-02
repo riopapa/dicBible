@@ -39,11 +39,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.riopapa.dicbible.model.BookMark;
 import com.riopapa.dicbible.model.GoBack;
 
@@ -52,13 +57,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
         mActivity = this;
-
         askPermission();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+        bottomNav = findViewById(R.id.bottom_nav);
 
         sharedPref = getApplicationContext().getSharedPreferences("bible", MODE_PRIVATE);
         sharedEdit = sharedPref.edit();
@@ -124,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         while (topTab == TAB_DICT) {
             goBackProcs.pop();
         }
+
     }
 
     @Override
@@ -131,20 +139,37 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         utils.setFullScreen();
     }
-    long backPressedTime;
+
     @Override
     public void onBackPressed() {
 
         if (isReadingNow)
             text2Speech.stopPlay();
-        if (backPressedTime + 1000 > System.currentTimeMillis()) {
-            super.onBackPressed();
-            finish();
-        } else if (goBacksStacks.size() > 1)
-                goBackward();
-        backPressedTime = System.currentTimeMillis();
+        showExitDialog();
     }
 
+    void showExitDialog() {
+
+        View dialogView = this.getLayoutInflater().inflate(R.layout.exit_app, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(dialogView.getContext());
+        builder.setView(dialogView);
+        dialogView.findViewById(R.id.iv_icon).setOnClickListener(v -> utils.exitApp());
+        dialogView.findViewById(R.id.exit_message).setOnClickListener(v -> utils.exitApp());
+        dialogView.findViewById(R.id.exit_title).setOnClickListener(v -> utils.exitApp());
+
+        AlertDialog alertDialog = builder.create();
+//        Window window = alertDialog.getWindow();
+//        assert window != null;
+//        WindowManager.LayoutParams wlp = window.getAttributes();
+//        wlp.gravity = Gravity.BOTTOM;
+//        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+//        window.setAttributes(wlp);
+        // give some bottom space on level dialog
+//        alertDialog.getWindow().getAttributes().height = (int) (screenY * 0.7);
+        alertDialog.show();
+
+    }
     // ↓ ↓ ↓ P E R M I S S I O N    RELATED /////// ↓ ↓ ↓ ↓
     ArrayList<String> permissions = new ArrayList<>();
     private final static int ALL_PERMISSIONS_RESULT = 101;

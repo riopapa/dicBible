@@ -25,38 +25,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/exit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/cookie_title_color"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:text="@string/dicbible_by_me"
+            />
 
         <TextView
-            android:id="@+id/tv_message"
+            android:id="@+id/exit_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:textColor="@color/cookie_message_color"
             android:textSize="18sp"
-            android:visibility="gone" />
+            android:text="@string/press_here_to_exit"
+            />
 
     </LinearLayout>
 
-    <TextView
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_marginTop="6dp"
-        android:id="@+id/btn_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="action"
-        android:textColor="@color/menuColorForeN"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
 </LinearLayout>
+

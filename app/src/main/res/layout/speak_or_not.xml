@@ -25,6 +25,7 @@
             android:background="@drawable/speak_or_not"
             android:gravity="center"
             android:textSize="16sp"
+            android:text="aaa"
             android:textColor="#1C3DB3"
             android:textStyle="bold" />
 

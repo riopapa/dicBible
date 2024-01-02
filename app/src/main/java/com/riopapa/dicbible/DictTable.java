@@ -1,5 +1,9 @@
 package com.riopapa.dicbible;
 
+import static com.riopapa.dicbible.Vars.keyText;
+import static com.riopapa.dicbible.Vars.searchDepth;
+import static com.riopapa.dicbible.Vars.utils;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,6 +26,7 @@ public class DictTable {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), EUC_KR), BUFFER_SIZE);
         } catch (Exception e) {
+            utils.showSnackBar("파일 없음", jsonFile + " 을 찾지 못 해요");
             e.printStackTrace();
         }
 
@@ -30,6 +35,7 @@ public class DictTable {
             json = bufferedReader.readLine();
             bufferedReader.close();
         } catch (IOException e) {   // no json file
+            utils.showSnackBar("파일 없음", jsonFile + " 파일 내용이 없어요");
             e.printStackTrace();
         }
         Gson gson = new Gson();

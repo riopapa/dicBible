@@ -100,6 +100,7 @@ class Text2Speech {
                 mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setPitch((float)biblePitch/100));
                 mediaPlayer.prepare();
             } catch (Exception e) {
+                utils.showSnackBar("파일 없음", fileName + " 을 찾지 못 해요");
                 e.printStackTrace();
             }
             mediaPlayer.setOnCompletionListener(mp -> {
@@ -166,6 +167,7 @@ class Text2Speech {
                         .setSpeed((float) hymnSpeed / 100));
                 mediaPlayer.prepare();
             } catch (Exception e) {
+                utils.showSnackBar("파일 없음", fileName + " 을 찾지 못 해요");
                 e.printStackTrace();
             }
             mediaPlayer.setOnCompletionListener(mp -> {

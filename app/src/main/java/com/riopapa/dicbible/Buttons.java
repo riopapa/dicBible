@@ -51,7 +51,7 @@ public class Buttons {
     public static void assign() {
 
         topLayout = mActivity.findViewById(R.id.lTop);
-        btmLayout = mActivity.findViewById(R.id.lBtm);
+        btmLayout = mActivity.findViewById(R.id.bottom_nav);
 
         vSetting = mActivity.findViewById(R.id.setting);
         vAgpBible = mActivity.findViewById(R.id.agpBible);
@@ -176,11 +176,6 @@ public class Buttons {
             if (goBacksStacks.size() > 0) {
                 goBackward();
             }
-        });
-
-        vBackAction.setOnLongClickListener(view -> {
-            utils.exitApp();
-            return false;
         });
     }
 

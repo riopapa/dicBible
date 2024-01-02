@@ -1,5 +1,7 @@
 package com.riopapa.dicbible;
 
+import static com.riopapa.dicbible.Vars.utils;
+
 import android.content.Context;
 
 import java.io.BufferedReader;
@@ -28,12 +30,7 @@ public class FileRead {
             lines = readLines(file2read, kr);
             return lines;
         } catch(IOException e) {
-//
-//            String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
-//            new AlertDialog.Builder(mActivity)
-//                    .setMessage(message)
-//                    .setPositiveButton("OK", null)
-//                    .create().show();
+            utils.showSnackBar("파일 없음", file2read + " 을 찾지 못 해요");
         }
         return null;
     }
@@ -46,12 +43,7 @@ public class FileRead {
             lines = readLines(file2read, kr);
             return lines;
         } catch(IOException e) {
-//
-//            String message = filename+" 이 없거나, 파일읽기가 거부되어 있습니다.";
-//            new AlertDialog.Builder(mActivity)
-//                    .setMessage(message)
-//                    .setPositiveButton("OK", null)
-//                    .create().show();
+            utils.showSnackBar("파일 없음", filename+" 이 없거나, 파일읽기가 거부되어 있습니다.");
         }
         return null;
     }
