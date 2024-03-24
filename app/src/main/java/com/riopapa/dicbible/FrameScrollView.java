@@ -22,7 +22,7 @@ public class FrameScrollView {
         linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
         LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lParams.setMargins(20, 0, 30, 0);
+        lParams.setMargins(20, 60, 30, 0);
         scrollView.addView(linearLayout, lParams);
 
     }

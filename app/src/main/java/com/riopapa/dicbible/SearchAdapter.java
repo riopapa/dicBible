@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.riopapa.dicbible.model.Searched;
@@ -38,6 +39,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
         return  (searcheds == null)? 0:searcheds.size();
     }
 
+    @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
         return new ViewHolder(view);

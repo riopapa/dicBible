@@ -99,11 +99,13 @@ public class ScreenMenu {
     void buildButtonColor() {
 
         topLayout.setBackgroundColor(menuColorBack);
+        btmLayout.setBackground(tabDrawable);
         btmLayout.setBackgroundColor(menuColorBack);
         fBody.setBackgroundColor(menuColorBack);
 
         vSetting.setBackgroundColor(menuColorBack);
         drawableSet = VectorDrawableCompat.create(mContext.getResources(), R.drawable.ic_settings, null);
+        assert drawableSet != null;
         wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, menuColorFore);
         vSetting.setImageDrawable(wrappedDrawable);
@@ -212,9 +214,9 @@ public class ScreenMenu {
         vCevBible.setText(blank);   vCevBible.setBackgroundColor(menuColorBack);
 
         if (nowHymn != 0) {     // show Hymn List
-            vLeftAction.setText((nowHymn > 1) ? "" + (nowHymn - 1):blank);
+            vLeftAction.setText((nowHymn > 1) ? String.valueOf(nowHymn - 1) :blank);
             vCenterAction.setText(hymnTitles[nowHymn]);
-            vRightAction.setText((nowHymn < 645) ? "" + (nowHymn + 1):blank);
+            vRightAction.setText((nowHymn < 645) ? String.valueOf(nowHymn + 1) :blank);
         } else {
             vLeftAction.setText(blank);
             vRightAction.setText(blank);
@@ -247,6 +249,7 @@ public class ScreenMenu {
         vSearch.setBackgroundColor(menuColorBack);
         drawableSet = VectorDrawableCompat.create(
                 mContext.getResources(), R.drawable.ic_search, null);
+        assert drawableSet != null;
         wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, color);
         vSearch.setImageDrawable(wrappedDrawable);
@@ -257,6 +260,7 @@ public class ScreenMenu {
         vTalk.setBackgroundColor(menuColorBack);
         drawableSet = VectorDrawableCompat.create(
                 mContext.getResources(), R.drawable.talk, null);
+        assert drawableSet != null;
         wrappedDrawable = DrawableCompat.wrap(drawableSet);
         DrawableCompat.setTint(wrappedDrawable, color);
         vTalk.setImageDrawable(wrappedDrawable);

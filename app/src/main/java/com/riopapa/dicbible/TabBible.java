@@ -1,6 +1,11 @@
 package com.riopapa.dicbible;
 
 import static android.graphics.Typeface.BOLD;
+import static com.riopapa.dicbible.Vars.BibleLineSize;
+import static com.riopapa.dicbible.Vars.BibleNameSize;
+import static com.riopapa.dicbible.Vars.BibleSize;
+import static com.riopapa.dicbible.Vars.DictShowSize;
+import static com.riopapa.dicbible.Vars.DictSize;
 import static com.riopapa.dicbible.Vars.TAB_NEW;
 import static com.riopapa.dicbible.Vars.TAB_OLD;
 import static com.riopapa.dicbible.Vars.agpColorFore;
@@ -34,11 +39,6 @@ import static com.riopapa.dicbible.Vars.scrollView;
 import static com.riopapa.dicbible.Vars.shortBibleNames;
 import static com.riopapa.dicbible.Vars.speaking;
 import static com.riopapa.dicbible.Vars.textColorFore;
-import static com.riopapa.dicbible.Vars.BibleNameSize;
-import static com.riopapa.dicbible.Vars.DictShowSize;
-import static com.riopapa.dicbible.Vars.DictSize;
-import static com.riopapa.dicbible.Vars.BibleSize;
-import static com.riopapa.dicbible.Vars.BibleLineSize;
 import static com.riopapa.dicbible.Vars.textView;
 import static com.riopapa.dicbible.Vars.topTab;
 import static com.riopapa.dicbible.Vars.utils;
@@ -47,7 +47,6 @@ import static com.riopapa.dicbible.Vars.xPixels;
 import static java.lang.Integer.parseInt;
 
 import android.app.AlertDialog;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -58,7 +57,6 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.LineHeightSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
@@ -76,7 +74,7 @@ import java.util.TimerTask;
 class TabBible {
 
     private final String newLine = "\n";
-    final String spacing = "\u00A0"; // to prevent word wrap
+    static final String spacing = "\u00A0"; // to prevent word wrap
 
     void showBibleList() {
 
@@ -93,7 +91,7 @@ class TabBible {
         int buttonWidth = xPixels / nbrColumn;
 
         textView.setText(newLine);
-        textView.setTextSize(30);
+        textView.setTextSize(10);
         textView.setWidth(xPixels);
         textView.setTextColor(0);
         textView.setGravity(Gravity.CENTER);
@@ -143,7 +141,7 @@ class TabBible {
         textView.setTextSize(BibleSize);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
         textView.setOnClickListener(view -> {
-            nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(""+(100+nowBible)).substring(1,3);
+            nowDic = "[ "+fullBibleNames[nowBible]+" ]#"+(String.valueOf(100 + nowBible)).substring(1,3);
             nowChapter = 0;
             nowVerse = 0;
             new DictShow().show();
@@ -164,7 +162,7 @@ class TabBible {
             for(int j = 0; j < nbrColumn; j++) {
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 tVNbr = new TextView(mContext);
-                String text = ""+chapNbr;
+                String text = String.valueOf(chapNbr);
                 tVNbr.setText(text);
                 tVNbr.setTextColor(menuColorFore);
                 tVNbr.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
@@ -282,10 +280,10 @@ class TabBible {
         }, 30));
     }
 
-    private SpannableString settleSpannableString(StringBuilder bodyText) {
+    private SpannableString settleSpannableString(StringBuilder sbText) {
 
         paraSize = BibleSize * 11 / 10;
-        SpannableString ss = new SpannableString(bodyText);
+        SpannableString ss = new SpannableString(sbText.toString().replace(" ", spacing));
         for (int i = 0; i < idxText; i++) {
             ss.setSpan(new AbsoluteSizeSpan(BibleSize, true), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ss.setSpan(new ForegroundColorSpan(textColorFore), textF[i], textT[i], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -341,9 +339,9 @@ class TabBible {
             String cevText = workLine.substring(idx2nd + 2, lenWorkLine);
             if (cevText.length() == 0)
                 cevText = " ";
-            workLine = workLine.substring(0, idx).replace(" ", spacing);
+            workLine = workLine.substring(0, idx); // .replace(" ", spacing);
             // to prevent word wrap
-            String verseString = (line+1)+(marked[line+1] ? bookMarkChar :spacing);
+            String verseString = (line+1)+(marked[line+1] ? bookMarkChar : " "); // spacing
             if (line < verMax -1) {
                 String nextLine = bibleTexts[line+1].substring(0, bibleTexts[line+1].indexOf("`a")).trim();
                 if (nextLine.length() == 0)
@@ -376,7 +374,8 @@ class TabBible {
                 }
                 if (nowVerse > 0 && line == (nowVerse-1))
                     highLightF = ptrBody;
-                str = spacing + spacing + verseString + spacing;
+//                str = spacing + spacing + verseString + spacing;
+                str = "  " + verseString + " ";
                 textF[idxText] = ptrBody;
                 verseF[idxVerse] = ptrBody;
                 verseT[idxVerse] = ptrBody + str.length();
@@ -405,7 +404,7 @@ class TabBible {
                     }
                 }
                 if (agpShow) {
-                    agpText = newLine + agpText.replace(" ", spacing);  // no word wrap
+                    agpText = newLine + agpText; // .replace(" ", spacing);  // no word wrap
                     bodyText.append(agpText);
                     agpFrm[idxAgp] = ptrBody;
                     agpTo[idxAgp] = ptrBody + agpText.length();
@@ -441,7 +440,7 @@ class TabBible {
         String keyword = workLine.substring(2, ptr);
         if (keyword.charAt(0) == '$') {   // reference
             String bibShort = shortBibleNames[parseInt(keyword.substring(1, 3))];
-            String showWord = " (" + bibShort + keyword.substring(4) + ") ";
+            String showWord = " ⟨" + bibShort + keyword.substring(4) + "⟩ ";
                             // $01#12:34 -> (창12:34) 로 표시
             bodyText.append(showWord);
             refFrm[idxRefer] = ptrBody;
@@ -471,21 +470,21 @@ class TabBible {
         }
         return ptr;
     }
-
-    class LineSpan implements LineHeightSpan {
-        private final int height;
-
-        LineSpan(int height) {
-            this.height = height;
-        }
-
-        @Override
-        public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v,
-                                 Paint.FontMetricsInt fm) {
-            fm.bottom += height;
-            fm.descent += height;
-        }
-    }
+//
+//    class LineSpan implements LineHeightSpan {
+//        private final int height;
+//
+//        LineSpan(int height) {
+//            this.height = height;
+//        }
+//
+//        @Override
+//        public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v,
+//                                 Paint.FontMetricsInt fm) {
+//            fm.bottom += height;
+//            fm.descent += height;
+//        }
+//    }
 
     public class verseSpan extends ClickableSpan {
 
@@ -520,7 +519,7 @@ class TabBible {
         }
     }
 
-    public class keywordClick extends ClickableSpan {
+    public static class keywordClick extends ClickableSpan {
 
         String key;
         int verse;
