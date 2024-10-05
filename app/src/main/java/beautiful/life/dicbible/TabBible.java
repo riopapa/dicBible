@@ -90,24 +90,27 @@ class TabBible {
         final int nbrColumn = 3;
         int buttonWidth = xPixels / nbrColumn;
 
-        textView.setText(newLine);
-        textView.setTextSize(10);
-        textView.setWidth(xPixels);
-        textView.setTextColor(0);
-        textView.setGravity(Gravity.CENTER);
-        linearLayout.addView(textView);
-
         for(int i = 0; i< 15 ; i++) {
             Button b;
             LinearLayout rowLayout = new LinearLayout(mContext);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+            int longColor = (darkMode)? 0xFFFFFFFF:0xFF000000;
+            int shortColor = (darkMode)? 0xFF00FFFF:0xFFAA0000;
             linearLayout.addView(rowLayout);
             for(int j = 0; j < nbrColumn; j++) {
                 LinearLayout columnLayout = new LinearLayout(mContext);
                 columnLayout.setOrientation(LinearLayout.VERTICAL);
                 b = new Button(mContext);
                 b.setBackgroundResource((darkMode)? R.drawable.button_bible_dark:R.drawable.button_bible);
-                b.setText(fullBibleNames[bibNbr]);
+                String s = fullBibleNames[bibNbr] + "\n" + shortBibleNames[bibNbr];
+                SpannableString ss = new SpannableString(s);
+                ss.setSpan(new ForegroundColorSpan(longColor),
+                        0, fullBibleNames[bibNbr].length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new ForegroundColorSpan(shortColor),
+                        fullBibleNames[bibNbr].length()+1 ,
+                        fullBibleNames[bibNbr].length()+1 + shortBibleNames[bibNbr].length(),
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                b.setText(ss);
                 b.setId(bibNbr);
                 b.setWidth(buttonWidth);
                 b.setTextSize(BibleNameSize);
@@ -121,8 +124,21 @@ class TabBible {
                 rowLayout.addView(columnLayout);
                 bibNbr++;
                 count++;
-                if (count > loop)
+                if (count > loop) {
+                    rowLayout = new LinearLayout(mContext);
+                    rowLayout.setOrientation(LinearLayout.VERTICAL);
+                    linearLayout.addView(rowLayout);
+                    columnLayout = new LinearLayout(mContext);
+                    columnLayout.setOrientation(LinearLayout.VERTICAL);
+                    rowLayout.addView(columnLayout);
+                    textView = new TextView(mContext);
+                    textView.setText(newLine);
+                    textView.setTextSize(30);
+                    textView.setWidth(xPixels);
+                    textView.setTextColor(0);
+                    columnLayout.addView(textView);
                     break;
+                }
             }
             if (count > loop) {
                 break;
@@ -179,8 +195,9 @@ class TabBible {
                 });
                 rowLayout.addView(columnLayout);
                 chapNbr++;
-                if (chapNbr > chapMax)
+                if (chapNbr > chapMax) {
                     break;
+                }
             }
             if (chapNbr > chapMax)
                 break;
