@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace 'com.riopapa.dicbible'
-    compileSdk 33
+    namespace 'beautiful.life.dicbible'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.riopapa.dicbible"
-        minSdk 29
-        targetSdk 29
+        applicationId "beautiful.life.dicbible"
+        minSdk 30
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
