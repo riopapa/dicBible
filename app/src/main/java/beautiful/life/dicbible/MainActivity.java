@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         goBacksStacks = GoBack.read(sharedPref);
         bookMarks = BookMark.read(sharedPref);
         goBackProcs = new GoBackStacks();
-        if (goBacksStacks.size() > 0) {
+        if (!goBacksStacks.isEmpty()) {
             goBackProcs.pop();
             goBackProcs.push();
         }

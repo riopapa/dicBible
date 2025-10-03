@@ -2,7 +2,7 @@
 <resources>
 
     <color name="switchOn">#3333FF</color>
-    <color name="switchOff">#C3C0C0</color>
+    <color name="switchOff">#A29A9A</color>
 
 <!--  Day Color  darkMode Off -->
     <color name="menuColorBack">#C5CAE9</color>
