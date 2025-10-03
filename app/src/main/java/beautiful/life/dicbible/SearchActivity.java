@@ -131,12 +131,18 @@ public class SearchActivity extends Activity {
 
     }
     String[] bibleVerses;
-    void search_Bible(String text) {
+    void search_Bible(String searchKey) {
         int bible = nowBible;
         int chapter = nowChapter;
         int depth = searchDepth;
+        boolean startWith = false;
+
         searcheds = new ArrayList<>();
-        String [] kwd = text.trim().split("\\^");
+        if (searchKey.charAt(0) == '#') {
+            startWith = true;
+            searchKey = searchKey.substring(1);
+        }
+        String [] kwd = searchKey.trim().split("\\^");
         if (kwd.length> 1) {
             kwd[0] = kwd[0].trim();
             kwd[1] = kwd[1].trim();
@@ -146,12 +152,12 @@ public class SearchActivity extends Activity {
             bibleVerses = fileRead.readBibleFile(file2read, false);
             for (int i = 0; i < bibleVerses.length; i++) {
                 String s = extractVerse(bibleVerses[i]);
-                if (s.contains(kwd[0])) {
+                if ((startWith && s.startsWith(kwd[0])) || (!startWith && s.contains(kwd[0]))) {
                     if (kwd.length == 1 || s.contains(kwd[1])) {
                         String result = "";
                         if (i > 0)
                             result = extractVerse(bibleVerses[i - 1]);
-                        result += (result.equals("") ? "":"\n") + "["+(i+1)+"] "+s;
+                        result += (result.equals("") ? "" : "\n") + "[" + (i + 1) + "] " + s;
                         if (i < bibleVerses.length - 1)
                             result += "\n" + extractVerse(bibleVerses[i + 1]);
                         Searched searchResult = new Searched(bible, chapter, i + 1, result);
@@ -180,7 +186,7 @@ public class SearchActivity extends Activity {
         if (s.indexOf('}') > 0)
             s = s.substring(s.indexOf('}') + 1);
         s = s.replaceAll(match, "");
-        return s;
+        return s.trim();
     }
 
     void search_BibleNext() {

@@ -55,13 +55,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>  {
             setLayoutBackGround(itemView.findViewById(R.id.search_item));
             tvVerse = itemView.findViewById(R.id.result_Verse);
             tvText = itemView.findViewById(R.id.result_Text);
-            tvVerse.setTextSize(BibleSize);
+            tvVerse.setTextSize((float) BibleSize*7/10);
             tvVerse.setTextColor(menuColorFore);
             tvText.setTextSize((float) BibleSize *9/10);
             tvText.setTextColor(menuColorFore);
-
-            //            tvText.setTextSize(BibleSize *2/7);
-
             View view = itemView.findViewById(R.id.search_item);
             view.setOnClickListener(view1 -> jump2Searched(getAbsoluteAdapterPosition()));
         }
