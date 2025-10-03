@@ -176,7 +176,7 @@ public class SearchActivity extends Activity {
                 }
             }
         }
-        if (searcheds.size() == 0)
+        if (searcheds.isEmpty())
             utils.showSnackBar(keyText +" 없음."," ⟫ 을 누르거나 검색장수("+searchDepth+")를 늘려보세요.");
     }
 
